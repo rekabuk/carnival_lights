@@ -414,8 +414,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;user.c: 126:         {
 {
 "127
-[; ;user.c: 127:             RA0 = 1;
-[e = _RA0 -> -> 1 `i `b ]
+[; ;user.c: 127:             RA0 = 0;
+[e = _RA0 -> -> 0 `i `b ]
 "128
 [; ;user.c: 128:             TxMode = 5;
 [e = _TxMode -> -> 5 `i `uc ]

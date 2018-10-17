@@ -21,16 +21,14 @@ void Configure(void)
     
     // TIMER 1 - Used for bit timing
     // Transmit mode = 20us, Rx Mode = 30us
-    T1CONbits.TMR1CS = 0;              // Sys clock (Fosc/4))
-    T1CONbits.T1CKPS = 0;              // Pre-scaler = 0
-    T1CONbits.T1SYNC = 1;
-    TMR1H = 0xfe;
-    TMR1L = 0x70;                       // 20E6/4/100=50KHz = 20us
-    T1CONbits.TMR1ON = 1;
+    T2CONbits.T2CKPS = 0;              // Sys clock (Fosc/4))
+    T2CONbits.TOUTPS = 0;              // Output pos-scalar = 1:1
+    PR2 = 100;                       // 20E6/4/100=50KHz = 20us
+    T2CONbits.TMR2ON = 1;
     
     // Enable TMR1 interrupt and Peripheral interrupts
     INTCONbits.PEIE = 1;
-    PIE1 = 0x01;
+    PIE1bits.TMR2IE = 1;
           
     // Configure Port A as Digital IO
     ADCON1bits.PCFG = 0x6;

@@ -32,38 +32,35 @@ Version 4.0 HI-TECH Software Intermediate Code
 "383
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f876.h: 383: extern volatile INTCONbits_t INTCONbits __attribute__((address(0x00B)));
 [v _INTCONbits `VS13 ~T0 @X0 0 e@11 ]
-"554
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f876.h: 554:     struct {
-[s S21 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :2 `uc 1 ]
-[n S21 . TMR1ON TMR1CS nT1SYNC T1OSCEN T1CKPS ]
-"561
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f876.h: 561:     struct {
-[s S22 :4 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S22 . . T1CKPS0 T1CKPS1 ]
-"566
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f876.h: 566:     struct {
-[s S23 :2 `uc 1 :1 `uc 1 ]
-[n S23 . . T1INSYNC ]
-"570
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f876.h: 570:     struct {
-[s S24 :2 `uc 1 :1 `uc 1 ]
-[n S24 . . T1SYNC ]
-"553
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f876.h: 553: typedef union {
-[u S20 `S21 1 `S22 1 `S23 1 `S24 1 ]
-[n S20 . . . . . ]
-"575
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f876.h: 575: extern volatile T1CONbits_t T1CONbits __attribute__((address(0x010)));
-[v _T1CONbits `VS20 ~T0 @X0 0 e@16 ]
-"541
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f876.h: 541: extern volatile unsigned char TMR1H __attribute__((address(0x00F)));
-[v _TMR1H `Vuc ~T0 @X0 0 e@15 ]
-"534
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f876.h: 534: extern volatile unsigned char TMR1L __attribute__((address(0x00E)));
-[v _TMR1L `Vuc ~T0 @X0 0 e@14 ]
-"1394
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f876.h: 1394: extern volatile unsigned char PIE1 __attribute__((address(0x08C)));
-[v _PIE1 `Vuc ~T0 @X0 0 e@140 ]
+"638
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f876.h: 638:     struct {
+[s S26 :2 `uc 1 :1 `uc 1 :4 `uc 1 ]
+[n S26 . T2CKPS TMR2ON TOUTPS ]
+"643
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f876.h: 643:     struct {
+[s S27 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S27 . T2CKPS0 T2CKPS1 . TOUTPS0 TOUTPS1 TOUTPS2 TOUTPS3 ]
+"637
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f876.h: 637: typedef union {
+[u S25 `S26 1 `S27 1 ]
+[n S25 . . . ]
+"653
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f876.h: 653: extern volatile T2CONbits_t T2CONbits __attribute__((address(0x012)));
+[v _T2CONbits `VS25 ~T0 @X0 0 e@18 ]
+"1579
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f876.h: 1579: extern volatile unsigned char PR2 __attribute__((address(0x092)));
+[v _PR2 `Vuc ~T0 @X0 0 e@146 ]
+"1400
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f876.h: 1400:     struct {
+[s S57 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S57 . TMR1IE TMR2IE CCP1IE SSPIE TXIE RCIE ADIE ]
+"1399
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f876.h: 1399: typedef union {
+[u S56 `S57 1 ]
+[n S56 . . ]
+"1410
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f876.h: 1410: extern volatile PIE1bits_t PIE1bits __attribute__((address(0x08C)));
+[v _PIE1bits `VS56 ~T0 @X0 0 e@140 ]
 "1863
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f876.h: 1863:     struct {
 [s S78 :4 `uc 1 :3 `uc 1 :1 `uc 1 ]
@@ -287,39 +284,33 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;system.c: 20:     INTCONbits.T0IE = 1;
 [e = . . _INTCONbits 0 5 -> -> 1 `i `uc ]
 "24
-[; ;system.c: 24:     T1CONbits.TMR1CS = 0;
-[e = . . _T1CONbits 0 1 -> -> 0 `i `uc ]
+[; ;system.c: 24:     T2CONbits.T2CKPS = 0;
+[e = . . _T2CONbits 0 0 -> -> 0 `i `uc ]
 "25
-[; ;system.c: 25:     T1CONbits.T1CKPS = 0;
-[e = . . _T1CONbits 0 4 -> -> 0 `i `uc ]
+[; ;system.c: 25:     T2CONbits.TOUTPS = 0;
+[e = . . _T2CONbits 0 2 -> -> 0 `i `uc ]
 "26
-[; ;system.c: 26:     T1CONbits.T1SYNC = 1;
-[e = . . _T1CONbits 3 1 -> -> 1 `i `uc ]
+[; ;system.c: 26:     PR2 = 100;
+[e = _PR2 -> -> 100 `i `uc ]
 "27
-[; ;system.c: 27:     TMR1H = 0xfe;
-[e = _TMR1H -> -> 254 `i `uc ]
-"28
-[; ;system.c: 28:     TMR1L = 0x70;
-[e = _TMR1L -> -> 112 `i `uc ]
-"29
-[; ;system.c: 29:     T1CONbits.TMR1ON = 1;
-[e = . . _T1CONbits 0 0 -> -> 1 `i `uc ]
-"32
-[; ;system.c: 32:     INTCONbits.PEIE = 1;
+[; ;system.c: 27:     T2CONbits.TMR2ON = 1;
+[e = . . _T2CONbits 0 1 -> -> 1 `i `uc ]
+"30
+[; ;system.c: 30:     INTCONbits.PEIE = 1;
 [e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
-"33
-[; ;system.c: 33:     PIE1 = 0x01;
-[e = _PIE1 -> -> 1 `i `uc ]
-"36
-[; ;system.c: 36:     ADCON1bits.PCFG = 0x6;
+"31
+[; ;system.c: 31:     PIE1bits.TMR2IE = 1;
+[e = . . _PIE1bits 0 1 -> -> 1 `i `uc ]
+"34
+[; ;system.c: 34:     ADCON1bits.PCFG = 0x6;
 [e = . . _ADCON1bits 0 0 -> -> 6 `i `uc ]
-"39
-[; ;system.c: 39:     PORTAbits.RA0 = 0;
+"37
+[; ;system.c: 37:     PORTAbits.RA0 = 0;
 [e = . . _PORTAbits 0 0 -> -> 0 `i `uc ]
-"40
-[; ;system.c: 40:     TRISAbits.TRISA0 = 0;
+"38
+[; ;system.c: 38:     TRISAbits.TRISA0 = 0;
 [e = . . _TRISAbits 0 0 -> -> 0 `i `uc ]
-"41
-[; ;system.c: 41: }
+"39
+[; ;system.c: 39: }
 [e :UE 82 ]
 }

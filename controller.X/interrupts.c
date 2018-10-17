@@ -22,10 +22,10 @@ void __interrupt() isr(void)
         INTCONbits.T0IF=0;        
     }
 
-    if (PIR1bits.TMR1IF==1)
+    if (PIR1bits.TMR2IF==1)
     {
         BitUpdate();
-        PIR1bits.TMR1IF=0;        
+        PIR1bits.TMR2IF=0;        
     }
 
 }

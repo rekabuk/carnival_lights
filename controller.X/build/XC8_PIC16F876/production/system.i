@@ -1622,16 +1622,14 @@ void Configure(void)
 
 
 
-    T1CONbits.TMR1CS = 0;
-    T1CONbits.T1CKPS = 0;
-    T1CONbits.T1SYNC = 1;
-    TMR1H = 0xfe;
-    TMR1L = 0x70;
-    T1CONbits.TMR1ON = 1;
+    T2CONbits.T2CKPS = 0;
+    T2CONbits.TOUTPS = 0;
+    PR2 = 100;
+    T2CONbits.TMR2ON = 1;
 
 
     INTCONbits.PEIE = 1;
-    PIE1 = 0x01;
+    PIE1bits.TMR2IE = 1;
 
 
     ADCON1bits.PCFG = 0x6;

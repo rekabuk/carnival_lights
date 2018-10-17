@@ -1736,7 +1736,7 @@ void BitUpdate(void)
         }
         else
         {
-            RA0 = 1;
+            RA0 = 0;
             TxMode = 5;
         }
 

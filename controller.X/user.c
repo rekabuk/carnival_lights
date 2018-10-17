@@ -124,7 +124,7 @@ void BitUpdate(void)
         }
         else
         {
-            TX_PIN = 1;
+            TX_PIN = 0;
             TxMode = TX_FINISH;
         }
         
