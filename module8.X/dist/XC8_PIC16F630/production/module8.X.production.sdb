@@ -1,0 +1,149 @@
+[p LITE_MODE AUTOSTATIC IEEE_DBL IEEE_FLT PIC14 PICREGULAR PICMID ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 16F630 ]
+[d frameptr 6 ]
+"10 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c90\common\sprcadd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+"4 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c90\common\Umul8_16.c
+[v __Umul8_16 _Umul8_16 `(ui  1 e 2 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\sources\c90\pic\__eeprom.c
+[v ___eecpymem __eecpymem `(v  1 e 1 0 ]
+"39
+[v ___memcpyee __memcpyee `(v  1 e 1 0 ]
+"12 C:\Users\abaker\Documents\carnival\lights\module8.X\interrupts.c
+[v _isr isr `II(v  1 e 1 0 ]
+"23 C:\Users\abaker\Documents\carnival\lights\module8.X\main.c
+[v _main main `(v  1 e 1 0 ]
+"16 C:\Users\abaker\Documents\carnival\lights\module8.X\system.c
+[v _ConfigureOscillator ConfigureOscillator `(v  1 e 1 0 ]
+"18 C:\Users\abaker\Documents\carnival\lights\module8.X\user.c
+[v _InitApp InitApp `(v  1 e 1 0 ]
+"44
+[v _SetLamps SetLamps `(v  1 e 1 0 ]
+"88
+[v _SequenceUpdate SequenceUpdate `(v  1 e 1 0 ]
+"59 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h
+[v _TMR0 TMR0 `VEuc  1 e 1 @1 ]
+[s S22 . 1 `uc 1 RAIF 1 0 :1:0 
+`uc 1 INTF 1 0 :1:1 
+`uc 1 T0IF 1 0 :1:2 
+`uc 1 RAIE 1 0 :1:3 
+`uc 1 INTE 1 0 :1:4 
+`uc 1 T0IE 1 0 :1:5 
+`uc 1 PEIE 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+"309
+[s S31 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 TMR0IF 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 TMR0IE 1 0 :1:5 
+]
+[u S36 . 1 `S22 1 . 1 0 `S31 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES36  1 e 1 @11 ]
+[s S163 . 1 `uc 1 CM 1 0 :3:0 
+`uc 1 CIS 1 0 :1:3 
+`uc 1 CINV 1 0 :1:4 
+`uc 1 . 1 0 :1:5 
+`uc 1 COUT 1 0 :1:6 
+]
+"511
+[s S169 . 1 `uc 1 CM0 1 0 :1:0 
+`uc 1 CM1 1 0 :1:1 
+`uc 1 CM2 1 0 :1:2 
+]
+[u S173 . 1 `S163 1 . 1 0 `S169 1 . 1 0 ]
+[v _CMCONbits CMCONbits `VES173  1 e 1 @25 ]
+[s S107 . 1 `uc 1 PS 1 0 :3:0 
+`uc 1 PSA 1 0 :1:3 
+`uc 1 T0SE 1 0 :1:4 
+`uc 1 T0CS 1 0 :1:5 
+`uc 1 INTEDG 1 0 :1:6 
+`uc 1 nRAPU 1 0 :1:7 
+]
+"573
+[s S114 . 1 `uc 1 PS0 1 0 :1:0 
+`uc 1 PS1 1 0 :1:1 
+`uc 1 PS2 1 0 :1:2 
+`uc 1 . 1 0 :4:3 
+`uc 1 nGPPU 1 0 :1:7 
+]
+[u S120 . 1 `S107 1 . 1 0 `S114 1 . 1 0 ]
+[v _OPTION_REGbits OPTION_REGbits `VES120  1 e 1 @129 ]
+[s S187 . 1 `uc 1 TRISA0 1 0 :1:0 
+`uc 1 TRISA1 1 0 :1:1 
+`uc 1 TRISA2 1 0 :1:2 
+`uc 1 TRISA3 1 0 :1:3 
+`uc 1 TRISA4 1 0 :1:4 
+`uc 1 TRISA5 1 0 :1:5 
+]
+"643
+[u S194 . 1 `S187 1 . 1 0 ]
+[v _TRISAbits TRISAbits `VES194  1 e 1 @133 ]
+[s S204 . 1 `uc 1 TRISC0 1 0 :1:0 
+`uc 1 TRISC1 1 0 :1:1 
+`uc 1 TRISC2 1 0 :1:2 
+`uc 1 TRISC3 1 0 :1:3 
+`uc 1 TRISC4 1 0 :1:4 
+`uc 1 TRISC5 1 0 :1:5 
+]
+"693
+[u S211 . 1 `S204 1 . 1 0 ]
+[v _TRISCbits TRISCbits `VES211  1 e 1 @135 ]
+"1311
+[v _RA1 RA1 `VEb  1 e 0 @41 ]
+"1314
+[v _RA2 RA2 `VEb  1 e 0 @42 ]
+"1332
+[v _RC0 RC0 `VEb  1 e 0 @56 ]
+"1335
+[v _RC1 RC1 `VEb  1 e 0 @57 ]
+"1338
+[v _RC2 RC2 `VEb  1 e 0 @58 ]
+"1341
+[v _RC3 RC3 `VEb  1 e 0 @59 ]
+"1344
+[v _RC4 RC4 `VEb  1 e 0 @60 ]
+"1347
+[v _RC5 RC5 `VEb  1 e 0 @61 ]
+"23 C:\Users\abaker\Documents\carnival\lights\module8.X\main.c
+[v _main main `(v  1 e 1 0 ]
+{
+"41
+} 0
+"18 C:\Users\abaker\Documents\carnival\lights\module8.X\user.c
+[v _InitApp InitApp `(v  1 e 1 0 ]
+{
+"41
+} 0
+"16 C:\Users\abaker\Documents\carnival\lights\module8.X\system.c
+[v _ConfigureOscillator ConfigureOscillator `(v  1 e 1 0 ]
+{
+"23
+} 0
+"12 C:\Users\abaker\Documents\carnival\lights\module8.X\interrupts.c
+[v _isr isr `II(v  1 e 1 0 ]
+{
+"19
+} 0
+"88 C:\Users\abaker\Documents\carnival\lights\module8.X\user.c
+[v _SequenceUpdate SequenceUpdate `(v  1 e 1 0 ]
+{
+"90
+[v SequenceUpdate@TimeCount TimeCount `uc  1 s 1 TimeCount ]
+"91
+[v SequenceUpdate@SequenceIndex SequenceIndex `uc  1 s 1 SequenceIndex ]
+"92
+[v SequenceUpdate@Sequence Sequence `DC[4]uc  1 s 4 Sequence ]
+"105
+} 0
+"44
+[v _SetLamps SetLamps `(v  1 e 1 0 ]
+{
+[v SetLamps@Lamps Lamps `uc  1 a 1 wreg ]
+[v SetLamps@Lamps Lamps `uc  1 a 1 wreg ]
+"46
+[v SetLamps@Lamps Lamps `uc  1 a 1 0 ]
+"86
+} 0
