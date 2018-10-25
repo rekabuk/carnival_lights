@@ -1,0 +1,15 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"10 configuration.c
+[p x FOSC = EC ]
+"11
+[p x WDTE = OFF ]
+"12
+[p x PWRTE = OFF ]
+"13
+[p x MCLRE = ON ]
+"14
+[p x BOREN = OFF ]
+"15
+[p x CP = OFF ]
+"16
+[p x CPD = OFF ]

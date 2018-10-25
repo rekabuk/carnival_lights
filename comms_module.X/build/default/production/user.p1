@@ -1,0 +1,417 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"30 user.c
+[; ;user.c: 30: DATA_MC_STATE_T DataState;
+[c E471 0 1 2 3 .. ]
+[n E471 . DATA_SYNC DATA_ADDRESS DATA_SIZE DATA_LAMPS  ]
+"292 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 292:     struct {
+[s S12 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S12 . RAIF INTF T0IF RAIE INTE T0IE PEIE GIE ]
+"302
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 302:     struct {
+[s S13 :2 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 ]
+[n S13 . . TMR0IF . TMR0IE ]
+"291
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 291: typedef union {
+[u S11 `S12 1 `S13 1 ]
+[n S11 . . . ]
+"309
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 309: extern volatile INTCONbits_t INTCONbits __attribute__((address(0x00B)));
+[v _INTCONbits `VS11 ~T0 @X0 0 e@11 ]
+"433
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 433:     struct {
+[s S18 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 ]
+[n S18 . TMR1ON TMR1CS nT1SYNC T1OSCEN T1CKPS TMR1GE ]
+"441
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 441:     struct {
+[s S19 :4 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S19 . . T1CKPS0 T1CKPS1 ]
+"432
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 432: typedef union {
+[u S17 `S18 1 `S19 1 ]
+[n S17 . . . ]
+"447
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 447: extern volatile T1CONbits_t T1CONbits __attribute__((address(0x010)));
+[v _T1CONbits `VS17 ~T0 @X0 0 e@16 ]
+"420
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 420: extern volatile unsigned char TMR1H __attribute__((address(0x00F)));
+[v _TMR1H `Vuc ~T0 @X0 0 e@15 ]
+"413
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 413: extern volatile unsigned char TMR1L __attribute__((address(0x00E)));
+[v _TMR1L `Vuc ~T0 @X0 0 e@14 ]
+"1308
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 1308: extern volatile __bit RA0 __attribute__((address(0x28)));
+[v _RA0 `Vb ~T0 @X0 0 e@40 ]
+"11 ./interrupts.h
+[; ;./interrupts.h: 11: extern uint8_t TickCount;
+[v _TickCount `uc ~T0 @X0 0 e ]
+"54 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 54: __asm("INDF equ 00h");
+[; <" INDF equ 00h ;# ">
+"61
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 61: __asm("TMR0 equ 01h");
+[; <" TMR0 equ 01h ;# ">
+"68
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 68: __asm("PCL equ 02h");
+[; <" PCL equ 02h ;# ">
+"75
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 75: __asm("STATUS equ 03h");
+[; <" STATUS equ 03h ;# ">
+"161
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 161: __asm("FSR equ 04h");
+[; <" FSR equ 04h ;# ">
+"168
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 168: __asm("PORTA equ 05h");
+[; <" PORTA equ 05h ;# ">
+"218
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 218: __asm("PORTC equ 07h");
+[; <" PORTC equ 07h ;# ">
+"268
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 268: __asm("PCLATH equ 0Ah");
+[; <" PCLATH equ 0Ah ;# ">
+"288
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 288: __asm("INTCON equ 0Bh");
+[; <" INTCON equ 0Bh ;# ">
+"366
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 366: __asm("PIR1 equ 0Ch");
+[; <" PIR1 equ 0Ch ;# ">
+"408
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 408: __asm("TMR1 equ 0Eh");
+[; <" TMR1 equ 0Eh ;# ">
+"415
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 415: __asm("TMR1L equ 0Eh");
+[; <" TMR1L equ 0Eh ;# ">
+"422
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 422: __asm("TMR1H equ 0Fh");
+[; <" TMR1H equ 0Fh ;# ">
+"429
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 429: __asm("T1CON equ 010h");
+[; <" T1CON equ 010h ;# ">
+"494
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 494: __asm("CMCON equ 019h");
+[; <" CMCON equ 019h ;# ">
+"553
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 553: __asm("OPTION_REG equ 081h");
+[; <" OPTION_REG equ 081h ;# ">
+"630
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 630: __asm("TRISA equ 085h");
+[; <" TRISA equ 085h ;# ">
+"680
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 680: __asm("TRISC equ 087h");
+[; <" TRISC equ 087h ;# ">
+"730
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 730: __asm("PIE1 equ 08Ch");
+[; <" PIE1 equ 08Ch ;# ">
+"772
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 772: __asm("PCON equ 08Eh");
+[; <" PCON equ 08Eh ;# ">
+"806
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 806: __asm("OSCCAL equ 090h");
+[; <" OSCCAL equ 090h ;# ">
+"866
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 866: __asm("WPUA equ 095h");
+[; <" WPUA equ 095h ;# ">
+"871
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 871: __asm("WPU equ 095h");
+[; <" WPU equ 095h ;# ">
+"954
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 954: __asm("IOCA equ 096h");
+[; <" IOCA equ 096h ;# ">
+"959
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 959: __asm("IOC equ 096h");
+[; <" IOC equ 096h ;# ">
+"1052
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 1052: __asm("VRCON equ 099h");
+[; <" VRCON equ 099h ;# ">
+"1112
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 1112: __asm("EEDAT equ 09Ah");
+[; <" EEDAT equ 09Ah ;# ">
+"1117
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 1117: __asm("EEDATA equ 09Ah");
+[; <" EEDATA equ 09Ah ;# ">
+"1150
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 1150: __asm("EEADR equ 09Bh");
+[; <" EEADR equ 09Bh ;# ">
+"1157
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 1157: __asm("EECON1 equ 09Ch");
+[; <" EECON1 equ 09Ch ;# ">
+"1195
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 1195: __asm("EECON2 equ 09Dh");
+[; <" EECON2 equ 09Dh ;# ">
+"14 user.c
+[; ;user.c: 14: const uint8_t BOX_ADDRESS = 0;
+[v _BOX_ADDRESS `Cuc ~T0 @X0 1 e ]
+[i _BOX_ADDRESS
+-> -> 0 `i `uc
+]
+"16
+[; ;user.c: 16: uint8_t BitCount;
+[v _BitCount `uc ~T0 @X0 1 e ]
+"17
+[; ;user.c: 17: uint8_t Sync;
+[v _Sync `uc ~T0 @X0 1 e ]
+"18
+[; ;user.c: 18: uint8_t Address;
+[v _Address `uc ~T0 @X0 1 e ]
+"19
+[; ;user.c: 19: uint8_t BoxSize;
+[v _BoxSize `uc ~T0 @X0 1 e ]
+"20
+[; ;user.c: 20: uint8_t Lamps;
+[v _Lamps `uc ~T0 @X0 1 e ]
+"29
+[; ;user.c: 29: uint8_t Data;
+[v _Data `uc ~T0 @X0 1 e ]
+"30
+[; ;user.c: 30: DATA_MC_STATE_T DataState;
+[v _DataState `E471 ~T0 @X0 1 e ]
+"31
+[; ;user.c: 31: uint8_t Addressed;
+[v _Addressed `uc ~T0 @X0 1 e ]
+"33
+[; ;user.c: 33: void BitDataInit( void)
+[v _BitDataInit `(v ~T0 @X0 1 ef ]
+"34
+[; ;user.c: 34: {
+{
+[e :U _BitDataInit ]
+[f ]
+"35
+[; ;user.c: 35:     DataState = DATA_SYNC;
+[e = _DataState . `E471 0 ]
+"36
+[; ;user.c: 36:     Data = 0;
+[e = _Data -> -> 0 `i `uc ]
+"37
+[; ;user.c: 37:  Addressed = 0;
+[e = _Addressed -> -> 0 `i `uc ]
+"38
+[; ;user.c: 38: }
+[e :UE 56 ]
+}
+"41
+[; ;user.c: 41: void StartTickTimer( void)
+[v _StartTickTimer `(v ~T0 @X0 1 ef ]
+"42
+[; ;user.c: 42: {
+{
+[e :U _StartTickTimer ]
+[f ]
+"43
+[; ;user.c: 43:     uint8_t IntEnable;
+[v _IntEnable `uc ~T0 @X0 1 a ]
+"46
+[; ;user.c: 46:     IntEnable = INTCONbits.GIE;
+[e = _IntEnable . . _INTCONbits 0 7 ]
+"49
+[; ;user.c: 49:     INTCONbits.GIE = 0;
+[e = . . _INTCONbits 0 7 -> -> 0 `i `uc ]
+"51
+[; ;user.c: 51:     T1CONbits.TMR1ON = 0;
+[e = . . _T1CONbits 0 0 -> -> 0 `i `uc ]
+"53
+[; ;user.c: 53:     INTCONbits.T0IF = 0;
+[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
+"55
+[; ;user.c: 55:     TMR1H = 0xC3;
+[e = _TMR1H -> -> 195 `i `uc ]
+"56
+[; ;user.c: 56:     TMR1L = 0x50;
+[e = _TMR1L -> -> 80 `i `uc ]
+"57
+[; ;user.c: 57:     T1CONbits.TMR1ON = 1;
+[e = . . _T1CONbits 0 0 -> -> 1 `i `uc ]
+"60
+[; ;user.c: 60:     INTCONbits.GIE = IntEnable;
+[e = . . _INTCONbits 0 7 _IntEnable ]
+"61
+[; ;user.c: 61: }
+[e :UE 57 ]
+}
+"63
+[; ;user.c: 63: void EdgeIntr( void)
+[v _EdgeIntr `(v ~T0 @X0 1 ef ]
+"64
+[; ;user.c: 64: {
+{
+[e :U _EdgeIntr ]
+[f ]
+"66
+[; ;user.c: 66:     TMR1H = 2;
+[e = _TMR1H -> -> 2 `i `uc ]
+"67
+[; ;user.c: 67:     TMR1L = 0;
+[e = _TMR1L -> -> 0 `i `uc ]
+"69
+[; ;user.c: 69:     T1CONbits.TMR1ON = 1;
+[e = . . _T1CONbits 0 0 -> -> 1 `i `uc ]
+"70
+[; ;user.c: 70: }
+[e :UE 58 ]
+}
+"73
+[; ;user.c: 73: void BitIntr( void)
+[v _BitIntr `(v ~T0 @X0 1 ef ]
+"74
+[; ;user.c: 74: {
+{
+[e :U _BitIntr ]
+[f ]
+"76
+[; ;user.c: 76:     Data = (Data<<1) | RA0;
+[e = _Data -> | << -> _Data `i -> 1 `i -> _RA0 `i `uc ]
+"79
+[; ;user.c: 79:     T1CONbits.TMR1ON = 0;
+[e = . . _T1CONbits 0 0 -> -> 0 `i `uc ]
+"81
+[; ;user.c: 81:     if (DataState==DATA_SYNC)
+[e $ ! == -> _DataState `ui -> . `E471 0 `ui 60  ]
+"82
+[; ;user.c: 82:     {
+{
+"84
+[; ;user.c: 84:         TickCount = 0;
+[e = _TickCount -> -> 0 `i `uc ]
+"88
+[; ;user.c: 88:         if (++BitCount==4)
+[e $ ! == -> =+ _BitCount -> -> 1 `i `uc `i -> 4 `i 61  ]
+"89
+[; ;user.c: 89:         {
+{
+"90
+[; ;user.c: 90:              if (Data==0x9)
+[e $ ! == -> _Data `i -> 9 `i 62  ]
+"91
+[; ;user.c: 91:              {
+{
+"92
+[; ;user.c: 92:                 Data = 0;
+[e = _Data -> -> 0 `i `uc ]
+"93
+[; ;user.c: 93:                 DataState = DATA_ADDRESS;
+[e = _DataState . `E471 1 ]
+"94
+[; ;user.c: 94:              }
+}
+[e :U 62 ]
+"95
+[; ;user.c: 95:         }
+}
+[e :U 61 ]
+"96
+[; ;user.c: 96:     }
+}
+[e $U 63  ]
+"97
+[; ;user.c: 97:     else if (DataState==DATA_ADDRESS)
+[e :U 60 ]
+[e $ ! == -> _DataState `ui -> . `E471 1 `ui 64  ]
+"98
+[; ;user.c: 98:     {
+{
+"100
+[; ;user.c: 100:         if (++BitCount==5)
+[e $ ! == -> =+ _BitCount -> -> 1 `i `uc `i -> 5 `i 65  ]
+"101
+[; ;user.c: 101:         {
+{
+"102
+[; ;user.c: 102:             if (Data==BOX_ADDRESS)
+[e $ ! == -> _Data `i -> _BOX_ADDRESS `i 66  ]
+"103
+[; ;user.c: 103:                 Addressed = 1;
+[e = _Addressed -> -> 1 `i `uc ]
+[e $U 67  ]
+"104
+[; ;user.c: 104:             else
+[e :U 66 ]
+"105
+[; ;user.c: 105:                 Addressed = 0;
+[e = _Addressed -> -> 0 `i `uc ]
+[e :U 67 ]
+"107
+[; ;user.c: 107:             DataState = DATA_SIZE;
+[e = _DataState . `E471 2 ]
+"108
+[; ;user.c: 108:         }
+}
+[e :U 65 ]
+"109
+[; ;user.c: 109:     }
+}
+[e $U 68  ]
+"110
+[; ;user.c: 110:     else if (DataState==DATA_SIZE)
+[e :U 64 ]
+[e $ ! == -> _DataState `ui -> . `E471 2 `ui 69  ]
+"111
+[; ;user.c: 111:     {
+{
+"113
+[; ;user.c: 113:         if (++BitCount==5)
+[e $ ! == -> =+ _BitCount -> -> 1 `i `uc `i -> 5 `i 70  ]
+"114
+[; ;user.c: 114:         {
+{
+"115
+[; ;user.c: 115:             if (Data < 31)
+[e $ ! < -> _Data `i -> 31 `i 71  ]
+"116
+[; ;user.c: 116:                 BoxSize = Data;
+[e = _BoxSize _Data ]
+[e :U 71 ]
+"118
+[; ;user.c: 118:             DataState = DATA_LAMPS;
+[e = _DataState . `E471 3 ]
+"119
+[; ;user.c: 119:         }
+}
+[e :U 70 ]
+"120
+[; ;user.c: 120:     }
+}
+[e $U 72  ]
+"121
+[; ;user.c: 121:     else if (DataState==DATA_LAMPS)
+[e :U 69 ]
+[e $ ! == -> _DataState `ui -> . `E471 3 `ui 73  ]
+"122
+[; ;user.c: 122:     {
+{
+"125
+[; ;user.c: 125:         if (Addressed==1)
+[e $ ! == -> _Addressed `i -> 1 `i 74  ]
+"126
+[; ;user.c: 126:             Lamps = Data;
+[e = _Lamps _Data ]
+[e :U 74 ]
+"128
+[; ;user.c: 128:         if (++BitCount==BoxSize)
+[e $ ! == -> =+ _BitCount -> -> 1 `i `uc `i -> _BoxSize `i 75  ]
+"129
+[; ;user.c: 129:             DataState = DATA_ADDRESS;
+[e = _DataState . `E471 1 ]
+[e :U 75 ]
+"131
+[; ;user.c: 131:     }
+}
+[e :U 73 ]
+[e :U 72 ]
+[e :U 68 ]
+[e :U 63 ]
+"133
+[; ;user.c: 133: }
+[e :UE 59 ]
+}
+"137
+[; ;user.c: 137: void SendModule( void)
+[v _SendModule `(v ~T0 @X0 1 ef ]
+"138
+[; ;user.c: 138: {
+{
+[e :U _SendModule ]
+[f ]
+"140
+[; ;user.c: 140: }
+[e :UE 76 ]
+}
