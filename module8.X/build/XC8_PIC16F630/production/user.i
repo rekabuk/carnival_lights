@@ -1091,7 +1091,7 @@ void SequenceUpdate( void)
 {
     static uint8_t TimeCount = 0;
     static uint8_t SequenceIndex = 0;
-    const uint8_t Sequence[4] = {0x77, 0xBB, 0xDD, 0xEE};
+    const uint8_t Sequence[4] = {0x88, 0x44, 0x22, 0x11};
 
 
     if (++TimeCount==4)

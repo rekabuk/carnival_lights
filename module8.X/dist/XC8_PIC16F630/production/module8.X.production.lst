@@ -1,7 +1,7 @@
 
 
 Microchip Technology PIC LITE Macro Assembler V2.00 build -1524193055 
-                                                                                               Mon Oct 15 19:38:51 2018
+                                                                                               Thu Oct 25 12:07:31 2018
 
 Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 20180527130849
      1  0000                     
@@ -551,11 +551,11 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
    488  009A                     	file	"user.c"
    489                           	line	92
    490                           SequenceUpdate@Sequence:
-   491  009A                     	retlw	077h
-   492  009A  3477               	retlw	0BBh
-   493  009B  34BB               	retlw	0DDh
-   494  009C  34DD               	retlw	0EEh
-   495  009D  34EE               	global __end_ofSequenceUpdate@Sequence
+   491  009A                     	retlw	088h
+   492  009A  3488               	retlw	044h
+   493  009B  3444               	retlw	022h
+   494  009C  3422               	retlw	011h
+   495  009D  3411               	global __end_ofSequenceUpdate@Sequence
    496                           __end_ofSequenceUpdate@Sequence:
    497  009E                     	global	SequenceUpdate@Sequence
    498                           	global	SequenceUpdate@SequenceIndex
@@ -603,7 +603,7 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
    540                           __CFG_CP$OFF equ 0x0
    541  0000                     global __CFG_CPD$OFF
    542                           __CFG_CPD$OFF equ 0x0
-   543  0000                     	file	"C:\Users\abaker\AppData\Local\Temp\s1qc."
+   543  0000                     	file	"C:\Users\abaker\AppData\Local\Temp\s55o."
    544                           	line	#
    545                           psect cinit,class=CODE,delta=2
    546                           global start_initialization
@@ -620,7 +620,7 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
    557                           SequenceUpdate@TimeCount:
    558  0027                            ds      1
    559  0027                     
-   560                           	file	"C:\Users\abaker\AppData\Local\Temp\s1qc."
+   560                           	file	"C:\Users\abaker\AppData\Local\Temp\s55o."
    561                           	line	#
    562                           ; Clear objects allocated to BANK0
    563                           psect cinit,class=CODE,delta=2,merge=1
@@ -1311,7 +1311,7 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   1247  001F                     	line	47
   1248                           	
   1249                           i1l729:	
-  1250  001F                     ;user.c: 47:     const uint8_t Sequence[4] = {0x77, 0xBB, 0xDD, 0xEE};
+  1250  001F                     ;user.c: 47:     const uint8_t Sequence[4] = {0x88, 0x44, 0x22, 0x11};
   1251                           	bsf	(41/8),(41)&7	;volatile
   1252  001F  1485               	goto	i1l64
   1253  0020  2822               	line	48
@@ -1580,7 +1580,7 @@ DATA                 0      0       8       6        0.0%
 
 
 Microchip Technology PIC Macro Assembler V2.00 build -1524193055 
-Symbol Table                                                                                   Mon Oct 15 19:38:51 2018
+Symbol Table                                                                                   Thu Oct 25 12:07:31 2018
 
                              pc 0002                     __CFG_CP$OFF 0000                              l23 00AD  
                             l24 00AD                              l25 00AE                              l26 00AE  
