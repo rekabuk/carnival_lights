@@ -1019,11 +1019,11 @@ void Initialise( void);
 # 11 "system.c" 2
 
 # 1 "./user.h" 1
-# 11 "./user.h"
-void BitDataInit( void);
+# 13 "./user.h"
+void BitDataInit( uint8_t ModeTx);
 void EdgeIntr( void);
 void BitIntr( void);
-void TickIntr(void);
+void TickIntr( void);
 void SendModule( void);
 void StartTickTimer( void);
 # 12 "system.c" 2
@@ -1032,9 +1032,28 @@ void StartTickTimer( void);
 void Initialise( void)
 {
 
+
+    CMCONbits.CM = 7;
+
+
+    TRISCbits.TRISC0 = 1;
+    TRISCbits.TRISC1 = 0;
+    TRISCbits.TRISC2 = 0;
+    TRISCbits.TRISC3 = 0;
+    TRISCbits.TRISC4 = 0;
+    TRISCbits.TRISC5 = 0;
+
+
+    T1CONbits.TMR1CS = 0;
+    T1CONbits.T1CKPS = 0;
+    T1CONbits.nT1SYNC = 1;
+    T1CONbits.TMR1GE = 0;
+
+
     StartTickTimer();
 
-    BitDataInit();
+
+    BitDataInit( 0);
 
 
     INTCONbits.PEIE = 1;

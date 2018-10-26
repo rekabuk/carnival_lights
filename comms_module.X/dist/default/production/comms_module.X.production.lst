@@ -1,7 +1,7 @@
 
 
 Microchip Technology PIC LITE Macro Assembler V2.00 build -1524193055 
-                                                                                               Sun Oct 21 17:45:15 2018
+                                                                                               Fri Oct 26 14:25:27 2018
 
 Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 20180527130849
      1  0000                     
@@ -456,1396 +456,1605 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
    394                           EECON1 equ 09Ch ;# 
    395  009C                     # 1195 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
    396                           EECON2 equ 09Dh ;# 
-   397  009D                     	FNCALL	_main,_Initialise
-   398                           	FNCALL	_Initialise,_BitDataInit
-   399                           	FNCALL	_Initialise,_StartTickTimer
-   400                           	FNROOT	_main
-   401                           	FNCALL	_ISR,_BitIntr
-   402                           	FNCALL	_ISR,_EdgeIntr
-   403                           	FNCALL	_ISR,_SendModule
-   404                           	FNCALL	_ISR,i1_StartTickTimer
-   405                           	FNCALL	intlevel1,_ISR
-   406                           	global	intlevel1
-   407                           	FNROOT	intlevel1
-   408                           	global	_BOX_ADDRESS
-   409                           psect	strings,class=STRING,delta=2,noexec
-   410                           global __pstrings
-   411                           __pstrings:
-   412  00F8                     stringtab:
-   413  00F8                     	global    __stringtab
-   414                           __stringtab:
-   415  00F8                     ;	String table - string pointers are 1 byte each
-   416                           stringcode:stringdir:
-   417  00F8                     movlw high(stringdir)
-      + 00F8                     stringdir:	
-   418  00F8  3000               movwf pclath
-   419  00F9  008A               movf fsr,w
-   420  00FA  0804               incf fsr
-   421  00FB  0A84               	addwf pc
-   422  00FC  0782               	global __stringbase
-   423                           __stringbase:
-   424  00FD                     	retlw	0
-   425  00FD  3400               psect	strings
-   426                           	global    __end_of__stringtab
-   427                           __end_of__stringtab:
-   428  00FE                     	file	"user.c"
-   429                           	line	14
-   430                           _BOX_ADDRESS:
-   431  00FE                     	retlw	low(0)
-   432  00FE  3400               	global __end_of_BOX_ADDRESS
-   433                           __end_of_BOX_ADDRESS:
-   434  00FF                     	global	_BOX_ADDRESS
-   435                           	global	_Addressed
-   436                           	global	_DataState
-   437                           	global	_Data
-   438                           	global	_Lamps
-   439                           	global	_BoxSize
-   440                           	global	_BitCount
-   441                           	global	_TickCount
-   442                           	global	_TMR1L
-   443                           _TMR1L	set	0xE
-   444  000E                     	global	_TMR1H
-   445                           _TMR1H	set	0xF
-   446  000F                     	global	_T1CONbits
-   447                           _T1CONbits	set	0x10
-   448  0010                     	global	_INTCONbits
-   449                           _INTCONbits	set	0xB
-   450  000B                     	global	_RA0
-   451                           _RA0	set	0x28
-   452  0028                     ; #config settings
-   453                           global __CFG_FOSC$EC
-   454                           __CFG_FOSC$EC equ 0x0
-   455  0000                     global __CFG_WDTE$OFF
-   456                           __CFG_WDTE$OFF equ 0x0
-   457  0000                     global __CFG_PWRTE$OFF
-   458                           __CFG_PWRTE$OFF equ 0x0
-   459  0000                     global __CFG_MCLRE$ON
-   460                           __CFG_MCLRE$ON equ 0x0
-   461  0000                     global __CFG_BOREN$OFF
-   462                           __CFG_BOREN$OFF equ 0x0
-   463  0000                     global __CFG_CP$OFF
-   464                           __CFG_CP$OFF equ 0x0
-   465  0000                     global __CFG_CPD$OFF
-   466                           __CFG_CPD$OFF equ 0x0
-   467  0000                     	file	"C:\Users\andre\AppData\Local\Temp\s8ro."
-   468                           	line	#
-   469                           psect cinit,class=CODE,delta=2
-   470                           global start_initialization
-   471                           start_initialization:
-   472  0010                     
-   473                           global __initialization
-   474                           __initialization:
-   475  0010                     psect	bssBANK0,class=BANK0,space=1,noexec
-   476                           global __pbssBANK0
-   477                           __pbssBANK0:
-   478  0020                     _Addressed:
-   479  0020                            ds      1
-   480  0020                     
-   481                           _DataState:
-   482  0021                            ds      1
-   483  0021                     
-   484                           _Data:
-   485  0022                            ds      1
-   486  0022                     
-   487                           _Lamps:
-   488  0023                            ds      1
-   489  0023                     
-   490                           _BoxSize:
-   491  0024                            ds      1
-   492  0024                     
-   493                           _Address:
-   494  0025                            ds      1
-   495  0025                     
-   496                           _Sync:
-   497  0026                            ds      1
-   498  0026                     
-   499                           _BitCount:
-   500  0027                            ds      1
-   501  0027                     
-   502                           _TickCount:
-   503  0028                            ds      1
-   504  0028                     
-   505                           	file	"C:\Users\andre\AppData\Local\Temp\s8ro."
-   506                           	line	#
-   507                           ; Clear objects allocated to BANK0
-   508                           psect cinit,class=CODE,delta=2,merge=1
-   509                           	bcf	status, 5	;RP0=0, select bank0
-   510  0010  1283               	clrf	((__pbssBANK0)+0)&07Fh
-   511  0011  01A0               	clrf	((__pbssBANK0)+1)&07Fh
-   512  0012  01A1               	clrf	((__pbssBANK0)+2)&07Fh
-   513  0013  01A2               	clrf	((__pbssBANK0)+3)&07Fh
-   514  0014  01A3               	clrf	((__pbssBANK0)+4)&07Fh
-   515  0015  01A4               	clrf	((__pbssBANK0)+5)&07Fh
-   516  0016  01A5               	clrf	((__pbssBANK0)+6)&07Fh
-   517  0017  01A6               	clrf	((__pbssBANK0)+7)&07Fh
-   518  0018  01A7               	clrf	((__pbssBANK0)+8)&07Fh
-   519  0019  01A8               psect cinit,class=CODE,delta=2,merge=1
-   520                           global end_of_initialization,__end_of__initialization
-   521                           
-   522                           ;End of C runtime variable initialization code
-   523                           
-   524                           end_of_initialization:
-   525  001A                     __end_of__initialization:
-   526  001A                     clrf status
-   527  001A  0183               ljmp _main	;jump to C main() function
-   528  001B  2905               psect	cstackCOMMON,class=COMMON,space=1,noexec
-   529                           global __pcstackCOMMON
-   530                           __pcstackCOMMON:
-   531  0000                     ??_Initialise:	; 1 bytes @ 0x0
-   532  0000                     ??_StartTickTimer:	; 1 bytes @ 0x0
-   533  0000                     ??_BitDataInit:	; 1 bytes @ 0x0
-   534  0000                     ??_main:	; 1 bytes @ 0x0
-   535  0000                     ??_EdgeIntr:	; 1 bytes @ 0x0
-   536  0000                     ??_SendModule:	; 1 bytes @ 0x0
-   537  0000                     ??i1_StartTickTimer:	; 1 bytes @ 0x0
-   538  0000                     psect	cstackBANK0,class=BANK0,space=1,noexec
-   539                           global __pcstackBANK0
-   540                           __pcstackBANK0:
-   541  0029                     ?_Initialise:	; 1 bytes @ 0x0
-   542  0029                     ?_StartTickTimer:	; 1 bytes @ 0x0
-   543  0029                     ?_BitDataInit:	; 1 bytes @ 0x0
-   544  0029                     ?_main:	; 1 bytes @ 0x0
-   545  0029                     ?_EdgeIntr:	; 1 bytes @ 0x0
-   546  0029                     ?_BitIntr:	; 1 bytes @ 0x0
-   547  0029                     ??_BitIntr:	; 1 bytes @ 0x0
-   548  0029                     ?_SendModule:	; 1 bytes @ 0x0
-   549  0029                     ?_ISR:	; 1 bytes @ 0x0
-   550  0029                     ?i1_StartTickTimer:	; 1 bytes @ 0x0
-   551  0029                     	global	i1StartTickTimer@IntEnable
-   552                           i1StartTickTimer@IntEnable:	; 1 bytes @ 0x0
-   553  0029                     	ds	1
-   554  0029                     ??_ISR:	; 1 bytes @ 0x1
-   555  002A                     	ds	5
-   556  002A                     	global	StartTickTimer@IntEnable
-   557                           StartTickTimer@IntEnable:	; 1 bytes @ 0x6
-   558  002F                     	ds	1
-   559  002F                     ;!
-   560                           ;!Data Sizes:
-   561                           ;!    Strings     0
-   562                           ;!    Constant    1
-   563                           ;!    Data        0
-   564                           ;!    BSS         9
-   565                           ;!    Persistent  0
-   566                           ;!    Stack       0
-   567                           ;!
-   568                           ;!Auto Spaces:
-   569                           ;!    Space          Size  Autos    Used
-   570                           ;!    COMMON            0      0       0
-   571                           ;!    BANK0            62      7      16
-   572                           
-   573                           ;!
-   574                           ;!Pointer List with Targets:
-   575                           ;!
-   576                           ;!    None.
-   577                           
-   578                           
-   579                           ;!
-   580                           ;!Critical Paths under _main in COMMON
-   581                           ;!
-   582                           ;!    None.
-   583                           ;!
-   584                           ;!Critical Paths under _ISR in COMMON
-   585                           ;!
-   586                           ;!    None.
-   587                           ;!
-   588                           ;!Critical Paths under _main in BANK0
-   589                           ;!
-   590                           ;!    _Initialise->_StartTickTimer
-   591                           ;!
-   592                           ;!Critical Paths under _ISR in BANK0
-   593                           ;!
-   594                           ;!    _ISR->_BitIntr
-   595                           ;!    _ISR->i1_StartTickTimer
-   596                           
-   597 ;;
-   598 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
-   599 ;;
-   600                           
-   601                           ;!
-   602                           ;!Call Graph Tables:
-   603                           ;!
-   604                           ;! ---------------------------------------------------------------------------------
-   605                           ;! (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
-   606                           ;! ---------------------------------------------------------------------------------
-   607                           ;! (0) _main                                                 0     0      0      23
-   608                           ;!                         _Initialise
-   609                           ;! ---------------------------------------------------------------------------------
-   610                           ;! (1) _Initialise                                           0     0      0      23
-   611                           ;!                        _BitDataInit
-   612                           ;!                     _StartTickTimer
-   613                           ;! ---------------------------------------------------------------------------------
-   614                           ;! (2) _StartTickTimer                                       1     1      0      23
-   615                           ;!                                              6 BANK0      1     1      0
-   616                           ;! ---------------------------------------------------------------------------------
-   617                           ;! (2) _BitDataInit                                          0     0      0       0
-   618                           ;! ---------------------------------------------------------------------------------
-   619                           ;! Estimated maximum stack depth 2
-   620                           ;! ---------------------------------------------------------------------------------
-   621                           ;! (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
-   622                           ;! ---------------------------------------------------------------------------------
-   623                           ;! (3) _ISR                                                  5     5      0      23
-   624                           ;!                                              1 BANK0      5     5      0
-   625                           ;!                            _BitIntr
-   626                           ;!                           _EdgeIntr
-   627                           ;!                         _SendModule
-   628                           ;!                   i1_StartTickTimer
-   629                           ;! ---------------------------------------------------------------------------------
-   630                           ;! (4) i1_StartTickTimer                                     1     1      0      23
-   631                           ;!                                              0 BANK0      1     1      0
-   632                           ;! ---------------------------------------------------------------------------------
-   633                           ;! (4) _SendModule                                           0     0      0       0
-   634                           ;! ---------------------------------------------------------------------------------
-   635                           ;! (4) _EdgeIntr                                             0     0      0       0
-   636                           ;! ---------------------------------------------------------------------------------
-   637                           ;! (5) _BitIntr                                              1     1      0       0
-   638                           ;!                                              0 BANK0      1     1      0
-   639                           ;! ---------------------------------------------------------------------------------
-   640                           ;! Estimated maximum stack depth 5
-   641                           ;! ---------------------------------------------------------------------------------
-   642                           ;!
-   643                           ;! Call Graph Graphs:
-   644                           ;!
-   645                           ;! _main (ROOT)
-   646                           ;!   _Initialise
-   647                           ;!     _BitDataInit
-   648                           ;!     _StartTickTimer
-   649                           ;!
-   650                           ;! _ISR (ROOT)
-   651                           ;!   _BitIntr
-   652                           ;!   _EdgeIntr
-   653                           ;!   _SendModule
-   654                           ;!   i1_StartTickTimer
-   655                           ;!
-   656                           
-   657                           ;! Address spaces:
-   658                           
-   659                           ;!Name               Size   Autos  Total    Cost      Usage
-   660                           ;!BITCOMMON            0      0       0       0        0.0%
-   661                           ;!EEDATA              80      0       0       0        0.0%
-   662                           ;!NULL                 0      0       0       0        0.0%
-   663                           ;!CODE                 0      0       0       0        0.0%
-   664                           ;!BITSFR0              0      0       0       1        0.0%
-   665                           ;!SFR0                 0      0       0       1        0.0%
-   666                           ;!COMMON               0      0       0       1        0.0%
-   667                           ;!BITSFR1              0      0       0       2        0.0%
-   668                           ;!SFR1                 0      0       0       2        0.0%
-   669                           ;!STACK                0      0       0       2        0.0%
-   670                           ;!BITBANK0            3E      0       0       3        0.0%
-   671                           ;!BANK0               3E      7      10       4       25.8%
-   672                           ;!ABS                  0      0      10       5        0.0%
-   673                           ;!DATA                 0      0      10       6        0.0%
-   674                           
-   675                           	global	_main
-   676                           
-   677 ;; *************** function _main *****************
-   678 ;; Defined at:
-   679 ;;		line 7 in file "main.c"
-   680 ;; Parameters:    Size  Location     Type
-   681 ;;		None
-   682 ;; Auto vars:     Size  Location     Type
-   683 ;;		None
-   684 ;; Return value:  Size  Location     Type
-   685 ;;                  1    wreg      void 
-   686 ;; Registers used:
-   687 ;;		wreg, status,2, status,0, pclath, cstack
-   688 ;; Tracked objects:
-   689 ;;		On entry : B00/0
-   690 ;;		On exit  : 0/0
-   691 ;;		Unchanged: 0/0
-   692 ;; Data sizes:     COMMON   BANK0
-   693 ;;      Params:         0       0
-   694 ;;      Locals:         0       0
-   695 ;;      Temps:          0       0
-   696 ;;      Totals:         0       0
-   697 ;;Total ram usage:        0 bytes
-   698 ;; Hardware stack levels required when called:    5
-   699 ;; This function calls:
-   700 ;;		_Initialise
-   701 ;; This function is called by:
-   702 ;;		Startup code after reset
-   703 ;; This function uses a non-reentrant model
-   704 ;;
-   705                           psect	maintext,global,class=CODE,delta=2,split=1,group=0
-   706                           	file	"main.c"
-   707                           	line	7
-   708                           global __pmaintext
-   709                           __pmaintext:	;psect for function _main
-   710  0105                     psect	maintext
-   711                           	file	"main.c"
-   712                           	line	7
-   713                           	global	__size_of_main
-   714                           	__size_of_main	equ	__end_of_main-_main
-   715  0005                     	
-   716                           _main:	
-   717  0105                     ;incstack = 0
-   718                           	opt	stack 3
-   719                           ; Regs used in _main: [wreg+status,2+status,0+pclath+cstack]
-   720                           	line	9
-   721                           	
-   722                           l881:	
-   723  0105                     ;main.c: 9:     Initialise();
-   724                           	fcall	_Initialise
-   725  0105  210F               	line	12
-   726                           	
-   727                           l883:	
-   728  0106                     ;main.c: 12:     INTCONbits.GIE = 1;
-   729                           	bsf	(11),7	;volatile
-   730  0106  178B               	line	14
-   731                           ;main.c: 14:     while(1==1)
-   732                           	goto	l9
-   733  0107  2908               	
-   734                           l10:	
-   735  0108                     	line	17
-   736                           ;main.c: 15:     {;main.c: 17:     }
-   737                           	
-   738                           l9:	
-   739  0108                     	line	14
-   740                           ;main.c: 14:     while(1==1)
-   741                           	goto	l10
-   742  0108  2908               	
-   743                           l11:	
-   744  0109                     	line	20
-   745                           ;main.c: 19:     return;
-   746                           	
-   747                           l12:	
-   748  0109                     	global	start
-   749                           	ljmp	start
-   750  0109  280F               	opt stack 0
-   751                           GLOBAL	__end_of_main
-   752                           	__end_of_main:
-   753  010A                     	signat	_main,89
-   754                           	global	_Initialise
-   755                           
-   756 ;; *************** function _Initialise *****************
-   757 ;; Defined at:
-   758 ;;		line 14 in file "system.c"
-   759 ;; Parameters:    Size  Location     Type
-   760 ;;		None
-   761 ;; Auto vars:     Size  Location     Type
-   762 ;;		None
-   763 ;; Return value:  Size  Location     Type
-   764 ;;                  1    wreg      void 
-   765 ;; Registers used:
-   766 ;;		wreg, status,2, status,0, pclath, cstack
-   767 ;; Tracked objects:
-   768 ;;		On entry : 0/0
-   769 ;;		On exit  : 0/0
-   770 ;;		Unchanged: 0/0
-   771 ;; Data sizes:     COMMON   BANK0
-   772 ;;      Params:         0       0
-   773 ;;      Locals:         0       0
-   774 ;;      Temps:          0       0
-   775 ;;      Totals:         0       0
-   776 ;;Total ram usage:        0 bytes
-   777 ;; Hardware stack levels used:    1
-   778 ;; Hardware stack levels required when called:    4
-   779 ;; This function calls:
-   780 ;;		_BitDataInit
-   781 ;;		_StartTickTimer
-   782 ;; This function is called by:
-   783 ;;		_main
-   784 ;; This function uses a non-reentrant model
-   785 ;;
-   786                           psect	text1,local,class=CODE,delta=2,merge=1,group=0
-   787                           	file	"system.c"
-   788                           	line	14
-   789                           global __ptext1
-   790                           __ptext1:	;psect for function _Initialise
-   791  010F                     psect	text1
-   792                           	file	"system.c"
-   793                           	line	14
-   794                           	global	__size_of_Initialise
-   795                           	__size_of_Initialise	equ	__end_of_Initialise-_Initialise
-   796  0004                     	
-   797                           _Initialise:	
-   798  010F                     ;incstack = 0
-   799                           	opt	stack 3
-   800                           ; Regs used in _Initialise: [wreg+status,2+status,0+pclath+cstack]
-   801                           	line	17
-   802                           	
-   803                           l807:	
-   804  010F                     ;system.c: 17:     StartTickTimer();
-   805                           	fcall	_StartTickTimer
-   806  010F  20D2               	line	19
-   807                           	
-   808                           l809:	
-   809  0110                     ;system.c: 19:     BitDataInit();
-   810                           	fcall	_BitDataInit
-   811  0110  210A               	line	22
+   397  009D                     # 54 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   398                           INDF equ 00h ;# 
+   399  0000                     # 61 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   400                           TMR0 equ 01h ;# 
+   401  0001                     # 68 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   402                           PCL equ 02h ;# 
+   403  0002                     # 75 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   404                           STATUS equ 03h ;# 
+   405  0003                     # 161 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   406                           FSR equ 04h ;# 
+   407  0004                     # 168 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   408                           PORTA equ 05h ;# 
+   409  0005                     # 218 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   410                           PORTC equ 07h ;# 
+   411  0007                     # 268 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   412                           PCLATH equ 0Ah ;# 
+   413  000A                     # 288 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   414                           INTCON equ 0Bh ;# 
+   415  000B                     # 366 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   416                           PIR1 equ 0Ch ;# 
+   417  000C                     # 408 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   418                           TMR1 equ 0Eh ;# 
+   419  000E                     # 415 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   420                           TMR1L equ 0Eh ;# 
+   421  000E                     # 422 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   422                           TMR1H equ 0Fh ;# 
+   423  000F                     # 429 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   424                           T1CON equ 010h ;# 
+   425  0010                     # 494 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   426                           CMCON equ 019h ;# 
+   427  0019                     # 553 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   428                           OPTION_REG equ 081h ;# 
+   429  0081                     # 630 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   430                           TRISA equ 085h ;# 
+   431  0085                     # 680 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   432                           TRISC equ 087h ;# 
+   433  0087                     # 730 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   434                           PIE1 equ 08Ch ;# 
+   435  008C                     # 772 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   436                           PCON equ 08Eh ;# 
+   437  008E                     # 806 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   438                           OSCCAL equ 090h ;# 
+   439  0090                     # 866 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   440                           WPUA equ 095h ;# 
+   441  0095                     # 871 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   442                           WPU equ 095h ;# 
+   443  0095                     # 954 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   444                           IOCA equ 096h ;# 
+   445  0096                     # 959 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   446                           IOC equ 096h ;# 
+   447  0096                     # 1052 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   448                           VRCON equ 099h ;# 
+   449  0099                     # 1112 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   450                           EEDAT equ 09Ah ;# 
+   451  009A                     # 1117 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   452                           EEDATA equ 09Ah ;# 
+   453  009A                     # 1150 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   454                           EEADR equ 09Bh ;# 
+   455  009B                     # 1157 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   456                           EECON1 equ 09Ch ;# 
+   457  009C                     # 1195 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   458                           EECON2 equ 09Dh ;# 
+   459  009D                     	FNCALL	_main,_Initialise
+   460                           	FNCALL	_Initialise,_BitDataInit
+   461                           	FNCALL	_Initialise,_StartTickTimer
+   462                           	FNROOT	_main
+   463                           	FNCALL	_ISR,_BitIntr
+   464                           	FNCALL	_ISR,_EdgeIntr
+   465                           	FNCALL	_ISR,_SendModule
+   466                           	FNCALL	_ISR,_StartTickTimer
+   467                           	FNCALL	intlevel1,_ISR
+   468                           	global	intlevel1
+   469                           	FNROOT	intlevel1
+   470                           	global	_BOX_ADDRESS
+   471                           psect	strings,class=STRING,delta=2,noexec
+   472                           global __pstrings
+   473                           __pstrings:
+   474  0137                     stringtab:
+   475  0137                     	global    __stringtab
+   476                           __stringtab:
+   477  0137                     ;	String table - string pointers are 1 byte each
+   478                           stringcode:stringdir:
+   479  0137                     movlw high(stringdir)
+      + 0137                     stringdir:	
+   480  0137  3001               movwf pclath
+   481  0138  008A               movf fsr,w
+   482  0139  0804               incf fsr
+   483  013A  0A84               	addwf pc
+   484  013B  0782               	global __stringbase
+   485                           __stringbase:
+   486  013C                     	retlw	0
+   487  013C  3400               psect	strings
+   488                           	global    __end_of__stringtab
+   489                           __end_of__stringtab:
+   490  013D                     	file	"user.c"
+   491                           	line	14
+   492                           _BOX_ADDRESS:
+   493  013D                     	retlw	low(0)
+   494  013D  3400               	global __end_of_BOX_ADDRESS
+   495                           __end_of_BOX_ADDRESS:
+   496  013E                     	global	_BOX_ADDRESS
+   497                           	global	_Addressed
+   498                           	global	_DataState
+   499                           	global	_Data
+   500                           	global	_Lamps
+   501                           	global	_BoxSize
+   502                           	global	_BitCount
+   503                           	global	_BitData
+   504                           	global	_TickCount
+   505                           	global	_TMR0
+   506                           _TMR0	set	0x1
+   507  0001                     	global	_PORTA
+   508                           _PORTA	set	0x5
+   509  0005                     	global	_TMR1L
+   510                           _TMR1L	set	0xE
+   511  000E                     	global	_TMR1H
+   512                           _TMR1H	set	0xF
+   513  000F                     	global	_T1CONbits
+   514                           _T1CONbits	set	0x10
+   515  0010                     	global	_CMCONbits
+   516                           _CMCONbits	set	0x19
+   517  0019                     	global	_INTCONbits
+   518                           _INTCONbits	set	0xB
+   519  000B                     	global	_RC5
+   520                           _RC5	set	0x3D
+   521  003D                     	global	_RC3
+   522                           _RC3	set	0x3B
+   523  003B                     	global	_RC4
+   524                           _RC4	set	0x3C
+   525  003C                     	global	_RA2
+   526                           _RA2	set	0x2A
+   527  002A                     	global	_RC1
+   528                           _RC1	set	0x39
+   529  0039                     	global	_IOCAbits
+   530                           _IOCAbits	set	0x96
+   531  0096                     	global	_TRISCbits
+   532                           _TRISCbits	set	0x87
+   533  0087                     ; #config settings
+   534                           global __CFG_FOSC$EC
+   535                           __CFG_FOSC$EC equ 0x0
+   536  0000                     global __CFG_WDTE$OFF
+   537                           __CFG_WDTE$OFF equ 0x0
+   538  0000                     global __CFG_PWRTE$OFF
+   539                           __CFG_PWRTE$OFF equ 0x0
+   540  0000                     global __CFG_MCLRE$OFF
+   541                           __CFG_MCLRE$OFF equ 0x0
+   542  0000                     global __CFG_BOREN$OFF
+   543                           __CFG_BOREN$OFF equ 0x0
+   544  0000                     global __CFG_CP$OFF
+   545                           __CFG_CP$OFF equ 0x0
+   546  0000                     global __CFG_CPD$OFF
+   547                           __CFG_CPD$OFF equ 0x0
+   548  0000                     	file	"C:\Users\abaker\AppData\Local\Temp\sg5c."
+   549                           	line	#
+   550                           psect cinit,class=CODE,delta=2
+   551                           global start_initialization
+   552                           start_initialization:
+   553  0010                     
+   554                           global __initialization
+   555                           __initialization:
+   556  0010                     psect	bssBANK0,class=BANK0,space=1,noexec
+   557                           global __pbssBANK0
+   558                           __pbssBANK0:
+   559  002B                     _Addressed:
+   560  002B                            ds      1
+   561  002B                     
+   562                           _DataState:
+   563  002C                            ds      1
+   564  002C                     
+   565                           _Data:
+   566  002D                            ds      1
+   567  002D                     
+   568                           _Lamps:
+   569  002E                            ds      1
+   570  002E                     
+   571                           _BoxSize:
+   572  002F                            ds      1
+   573  002F                     
+   574                           _Address:
+   575  0030                            ds      1
+   576  0030                     
+   577                           _Sync:
+   578  0031                            ds      1
+   579  0031                     
+   580                           _BitCount:
+   581  0032                            ds      1
+   582  0032                     
+   583                           _BitData:
+   584  0033                            ds      1
+   585  0033                     
+   586                           _TickCount:
+   587  0034                            ds      1
+   588  0034                     
+   589                           	file	"C:\Users\abaker\AppData\Local\Temp\sg5c."
+   590                           	line	#
+   591                           ; Clear objects allocated to BANK0
+   592                           psect cinit,class=CODE,delta=2,merge=1
+   593                           	bcf	status, 5	;RP0=0, select bank0
+   594  0010  1283               	clrf	((__pbssBANK0)+0)&07Fh
+   595  0011  01AB               	clrf	((__pbssBANK0)+1)&07Fh
+   596  0012  01AC               	clrf	((__pbssBANK0)+2)&07Fh
+   597  0013  01AD               	clrf	((__pbssBANK0)+3)&07Fh
+   598  0014  01AE               	clrf	((__pbssBANK0)+4)&07Fh
+   599  0015  01AF               	clrf	((__pbssBANK0)+5)&07Fh
+   600  0016  01B0               	clrf	((__pbssBANK0)+6)&07Fh
+   601  0017  01B1               	clrf	((__pbssBANK0)+7)&07Fh
+   602  0018  01B2               	clrf	((__pbssBANK0)+8)&07Fh
+   603  0019  01B3               	clrf	((__pbssBANK0)+9)&07Fh
+   604  001A  01B4               psect cinit,class=CODE,delta=2,merge=1
+   605                           global end_of_initialization,__end_of__initialization
+   606                           
+   607                           ;End of C runtime variable initialization code
+   608                           
+   609                           end_of_initialization:
+   610  001B                     __end_of__initialization:
+   611  001B                     clrf status
+   612  001B  0183               ljmp _main	;jump to C main() function
+   613  001C  2945               psect	cstackCOMMON,class=COMMON,space=1,noexec
+   614                           global __pcstackCOMMON
+   615                           __pcstackCOMMON:
+   616  0000                     ??_Initialise:	; 1 bytes @ 0x0
+   617  0000                     ??_StartTickTimer:	; 1 bytes @ 0x0
+   618  0000                     ??_main:	; 1 bytes @ 0x0
+   619  0000                     ??_EdgeIntr:	; 1 bytes @ 0x0
+   620  0000                     ??_SendModule:	; 1 bytes @ 0x0
+   621  0000                     psect	cstackBANK0,class=BANK0,space=1,noexec
+   622                           global __pcstackBANK0
+   623                           __pcstackBANK0:
+   624  0020                     ?_Initialise:	; 1 bytes @ 0x0
+   625  0020                     ?_StartTickTimer:	; 1 bytes @ 0x0
+   626  0020                     ?_BitDataInit:	; 1 bytes @ 0x0
+   627  0020                     ?_main:	; 1 bytes @ 0x0
+   628  0020                     ?_EdgeIntr:	; 1 bytes @ 0x0
+   629  0020                     ?_BitIntr:	; 1 bytes @ 0x0
+   630  0020                     ??_BitIntr:	; 1 bytes @ 0x0
+   631  0020                     ?_SendModule:	; 1 bytes @ 0x0
+   632  0020                     ?_ISR:	; 1 bytes @ 0x0
+   633  0020                     	global	StartTickTimer@IntEnable
+   634                           StartTickTimer@IntEnable:	; 1 bytes @ 0x0
+   635  0020                     	ds	1
+   636  0020                     	global	BitIntr@Dummy
+   637                           BitIntr@Dummy:	; 1 bytes @ 0x1
+   638  0021                     	ds	1
+   639  0021                     ??_ISR:	; 1 bytes @ 0x2
+   640  0022                     	ds	5
+   641  0022                     ??_BitDataInit:	; 1 bytes @ 0x7
+   642  0027                     	ds	1
+   643  0027                     	global	BitDataInit@Dummy
+   644                           BitDataInit@Dummy:	; 1 bytes @ 0x8
+   645  0028                     	ds	1
+   646  0028                     	global	BitDataInit@ModeTx
+   647                           BitDataInit@ModeTx:	; 1 bytes @ 0x9
+   648  0029                     	ds	1
+   649  0029                     	global	BitDataInit@IntEnable
+   650                           BitDataInit@IntEnable:	; 1 bytes @ 0xA
+   651  002A                     	ds	1
+   652  002A                     ;!
+   653                           ;!Data Sizes:
+   654                           ;!    Strings     0
+   655                           ;!    Constant    1
+   656                           ;!    Data        0
+   657                           ;!    BSS         10
+   658                           ;!    Persistent  0
+   659                           ;!    Stack       0
+   660                           ;!
+   661                           ;!Auto Spaces:
+   662                           ;!    Space          Size  Autos    Used
+   663                           ;!    COMMON            0      0       0
+   664                           ;!    BANK0            62     11      21
+   665                           
+   666                           ;!
+   667                           ;!Pointer List with Targets:
+   668                           ;!
+   669                           ;!    None.
+   670                           
+   671                           
+   672                           ;!
+   673                           ;!Critical Paths under _main in COMMON
+   674                           ;!
+   675                           ;!    None.
+   676                           ;!
+   677                           ;!Critical Paths under _ISR in COMMON
+   678                           ;!
+   679                           ;!    None.
+   680                           ;!
+   681                           ;!Critical Paths under _main in BANK0
+   682                           ;!
+   683                           ;!    _Initialise->_BitDataInit
+   684                           ;!
+   685                           ;!Critical Paths under _ISR in BANK0
+   686                           ;!
+   687                           ;!    _ISR->_BitIntr
+   688                           
+   689 ;;
+   690 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   691 ;;
+   692                           
+   693                           ;!
+   694                           ;!Call Graph Tables:
+   695                           ;!
+   696                           ;! ---------------------------------------------------------------------------------
+   697                           ;! (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   698                           ;! ---------------------------------------------------------------------------------
+   699                           ;! (0) _main                                                 0     0      0      69
+   700                           ;!                         _Initialise
+   701                           ;! ---------------------------------------------------------------------------------
+   702                           ;! (1) _Initialise                                           0     0      0      69
+   703                           ;!                        _BitDataInit
+   704                           ;!                     _StartTickTimer
+   705                           ;! ---------------------------------------------------------------------------------
+   706                           ;! (4) _StartTickTimer                                       1     1      0      23
+   707                           ;! ---------------------------------------------------------------------------------
+   708                           ;! (2) _BitDataInit                                          4     4      0      46
+   709                           ;!                                              7 BANK0      4     4      0
+   710                           ;! ---------------------------------------------------------------------------------
+   711                           ;! Estimated maximum stack depth 4
+   712                           ;! ---------------------------------------------------------------------------------
+   713                           ;! (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   714                           ;! ---------------------------------------------------------------------------------
+   715                           ;! (3) _ISR                                                  5     5      0      24
+   716                           ;!                                              2 BANK0      5     5      0
+   717                           ;!                            _BitIntr
+   718                           ;!                           _EdgeIntr
+   719                           ;!                         _SendModule
+   720                           ;!                     _StartTickTimer
+   721                           ;! ---------------------------------------------------------------------------------
+   722                           ;! (4) _StartTickTimer                                       1     1      0      23
+   723                           ;! ---------------------------------------------------------------------------------
+   724                           ;! (4) _SendModule                                           0     0      0       0
+   725                           ;! ---------------------------------------------------------------------------------
+   726                           ;! (4) _EdgeIntr                                             0     0      0       0
+   727                           ;! ---------------------------------------------------------------------------------
+   728                           ;! (5) _BitIntr                                              2     2      0       1
+   729                           ;!                                              0 BANK0      2     2      0
+   730                           ;! ---------------------------------------------------------------------------------
+   731                           ;! Estimated maximum stack depth 5
+   732                           ;! ---------------------------------------------------------------------------------
+   733                           ;!
+   734                           ;! Call Graph Graphs:
+   735                           ;!
+   736                           ;! _main (ROOT)
+   737                           ;!   _Initialise
+   738                           ;!     _BitDataInit
+   739                           ;!     _StartTickTimer
+   740                           ;!
+   741                           ;! _ISR (ROOT)
+   742                           ;!   _BitIntr
+   743                           ;!   _EdgeIntr
+   744                           ;!   _SendModule
+   745                           ;!   _StartTickTimer
+   746                           ;!
+   747                           
+   748                           ;! Address spaces:
+   749                           
+   750                           ;!Name               Size   Autos  Total    Cost      Usage
+   751                           ;!BITCOMMON            0      0       0       0        0.0%
+   752                           ;!EEDATA              80      0       0       0        0.0%
+   753                           ;!NULL                 0      0       0       0        0.0%
+   754                           ;!CODE                 0      0       0       0        0.0%
+   755                           ;!BITSFR0              0      0       0       1        0.0%
+   756                           ;!SFR0                 0      0       0       1        0.0%
+   757                           ;!COMMON               0      0       0       1        0.0%
+   758                           ;!BITSFR1              0      0       0       2        0.0%
+   759                           ;!SFR1                 0      0       0       2        0.0%
+   760                           ;!STACK                0      0       0       2        0.0%
+   761                           ;!BITBANK0            3E      0       0       3        0.0%
+   762                           ;!BANK0               3E      B      15       4       33.9%
+   763                           ;!ABS                  0      0      15       5        0.0%
+   764                           ;!DATA                 0      0      15       6        0.0%
+   765                           
+   766                           	global	_main
+   767                           
+   768 ;; *************** function _main *****************
+   769 ;; Defined at:
+   770 ;;		line 7 in file "main.c"
+   771 ;; Parameters:    Size  Location     Type
+   772 ;;		None
+   773 ;; Auto vars:     Size  Location     Type
+   774 ;;		None
+   775 ;; Return value:  Size  Location     Type
+   776 ;;                  1    wreg      void 
+   777 ;; Registers used:
+   778 ;;		wreg, status,2, status,0, pclath, cstack
+   779 ;; Tracked objects:
+   780 ;;		On entry : B00/0
+   781 ;;		On exit  : 0/0
+   782 ;;		Unchanged: 0/0
+   783 ;; Data sizes:     COMMON   BANK0
+   784 ;;      Params:         0       0
+   785 ;;      Locals:         0       0
+   786 ;;      Temps:          0       0
+   787 ;;      Totals:         0       0
+   788 ;;Total ram usage:        0 bytes
+   789 ;; Hardware stack levels required when called:    5
+   790 ;; This function calls:
+   791 ;;		_Initialise
+   792 ;; This function is called by:
+   793 ;;		Startup code after reset
+   794 ;; This function uses a non-reentrant model
+   795 ;;
+   796                           psect	maintext,global,class=CODE,delta=2,split=1,group=0
+   797                           	file	"main.c"
+   798                           	line	7
+   799                           global __pmaintext
+   800                           __pmaintext:	;psect for function _main
+   801  0145                     psect	maintext
+   802                           	file	"main.c"
+   803                           	line	7
+   804                           	global	__size_of_main
+   805                           	__size_of_main	equ	__end_of_main-_main
+   806  0005                     	
+   807                           _main:	
+   808  0145                     ;incstack = 0
+   809                           	opt	stack 3
+   810                           ; Regs used in _main: [wreg+status,2+status,0+pclath+cstack]
+   811                           	line	9
    812                           	
-   813                           l811:	
-   814  0111                     ;system.c: 22:     INTCONbits.PEIE = 1;
-   815                           	bsf	(11),6	;volatile
-   816  0111  170B               	line	23
+   813                           l983:	
+   814  0145                     ;main.c: 9:     Initialise();
+   815                           	fcall	_Initialise
+   816  0145  210F               	line	12
    817                           	
-   818                           l21:	
-   819  0112                     	return
-   820  0112  0008               	opt stack 0
-   821                           GLOBAL	__end_of_Initialise
-   822                           	__end_of_Initialise:
-   823  0113                     	signat	_Initialise,89
-   824                           	global	_StartTickTimer
-   825                           
-   826 ;; *************** function _StartTickTimer *****************
-   827 ;; Defined at:
-   828 ;;		line 41 in file "user.c"
-   829 ;; Parameters:    Size  Location     Type
-   830 ;;		None
-   831 ;; Auto vars:     Size  Location     Type
-   832 ;;  IntEnable       1    6[BANK0 ] unsigned char 
-   833 ;; Return value:  Size  Location     Type
-   834 ;;                  1    wreg      void 
-   835 ;; Registers used:
-   836 ;;		wreg, status,2, status,0
-   837 ;; Tracked objects:
-   838 ;;		On entry : 0/0
-   839 ;;		On exit  : 0/0
-   840 ;;		Unchanged: 0/0
-   841 ;; Data sizes:     COMMON   BANK0
-   842 ;;      Params:         0       0
-   843 ;;      Locals:         0       1
-   844 ;;      Temps:          0       0
-   845 ;;      Totals:         0       1
-   846 ;;Total ram usage:        1 bytes
-   847 ;; Hardware stack levels used:    1
-   848 ;; Hardware stack levels required when called:    3
-   849 ;; This function calls:
-   850 ;;		Nothing
-   851 ;; This function is called by:
-   852 ;;		_Initialise
-   853 ;; This function uses a non-reentrant model
-   854 ;;
-   855                           psect	text2,local,class=CODE,delta=2,merge=1,group=0
-   856                           	file	"user.c"
-   857                           	line	41
-   858                           global __ptext2
-   859                           __ptext2:	;psect for function _StartTickTimer
-   860  00D2                     psect	text2
-   861                           	file	"user.c"
-   862                           	line	41
-   863                           	global	__size_of_StartTickTimer
-   864                           	__size_of_StartTickTimer	equ	__end_of_StartTickTimer-_StartTickTimer
-   865  0013                     	
-   866                           _StartTickTimer:	
-   867  00D2                     ;incstack = 0
-   868                           	opt	stack 3
-   869                           ; Regs used in _StartTickTimer: [wreg+status,2+status,0]
-   870                           	line	46
-   871                           	
-   872                           l789:	
-   873  00D2                     ;user.c: 43:     uint8_t IntEnable;;user.c: 46:     IntEnable = INTCONbits.GIE;
-   874                           	movlw	0
-   875  00D2  3000               	btfsc	(11),7	;volatile
-   876  00D3  1B8B               	movlw	1
-   877  00D4  3001               	bcf	status, 5	;RP0=0, select bank0
-   878  00D5  1283               	movwf	(StartTickTimer@IntEnable)
-   879  00D6  00AF               	line	49
-   880                           	
-   881                           l791:	
-   882  00D7                     ;user.c: 49:     INTCONbits.GIE = 0;
-   883                           	bcf	(11),7	;volatile
-   884  00D7  138B               	line	51
-   885                           	
-   886                           l793:	
-   887  00D8                     ;user.c: 51:     T1CONbits.TMR1ON = 0;
-   888                           	bcf	(16),0	;volatile
-   889  00D8  1010               	line	53
-   890                           	
-   891                           l795:	
-   892  00D9                     ;user.c: 53:     INTCONbits.T0IF = 0;
-   893                           	bcf	(11),2	;volatile
-   894  00D9  110B               	line	55
-   895                           	
-   896                           l797:	
-   897  00DA                     ;user.c: 55:     TMR1H = 0xC3;
-   898                           	movlw	low(0C3h)
-   899  00DA  30C3               	movwf	(15)	;volatile
-   900  00DB  008F               	line	56
-   901                           	
-   902                           l799:	
-   903  00DC                     ;user.c: 56:     TMR1L = 0x50;
-   904                           	movlw	low(050h)
-   905  00DC  3050               	movwf	(14)	;volatile
-   906  00DD  008E               	line	57
-   907                           	
-   908                           l801:	
-   909  00DE                     ;user.c: 57:     T1CONbits.TMR1ON = 1;
-   910                           	bsf	(16),0	;volatile
-   911  00DE  1410               	line	60
-   912                           	
-   913                           l803:	
-   914  00DF                     ;user.c: 60:     INTCONbits.GIE = IntEnable;
-   915                           	rrf	(StartTickTimer@IntEnable),w
-   916  00DF  0C2F               	skipc
-   917  00E0  1C03               	bcf	(11),7	;volatile
-   918  00E1  138B               	skipnc
-   919  00E2  1803               	bsf	(11),7	;volatile
-   920  00E3  178B               	line	61
+   818                           l985:	
+   819  0146                     ;main.c: 12:     INTCONbits.GIE = 1;
+   820                           	bsf	(11),7	;volatile
+   821  0146  178B               	line	14
+   822                           ;main.c: 14:     while(1==1)
+   823                           	goto	l9
+   824  0147  2948               	
+   825                           l10:	
+   826  0148                     	line	17
+   827                           ;main.c: 15:     {;main.c: 17:     }
+   828                           	
+   829                           l9:	
+   830  0148                     	line	14
+   831                           ;main.c: 14:     while(1==1)
+   832                           	goto	l10
+   833  0148  2948               	
+   834                           l11:	
+   835  0149                     	line	20
+   836                           ;main.c: 19:     return;
+   837                           	
+   838                           l12:	
+   839  0149                     	global	start
+   840                           	ljmp	start
+   841  0149  280F               	opt stack 0
+   842                           GLOBAL	__end_of_main
+   843                           	__end_of_main:
+   844  014A                     	signat	_main,89
+   845                           	global	_Initialise
+   846                           
+   847 ;; *************** function _Initialise *****************
+   848 ;; Defined at:
+   849 ;;		line 14 in file "system.c"
+   850 ;; Parameters:    Size  Location     Type
+   851 ;;		None
+   852 ;; Auto vars:     Size  Location     Type
+   853 ;;		None
+   854 ;; Return value:  Size  Location     Type
+   855 ;;                  1    wreg      void 
+   856 ;; Registers used:
+   857 ;;		wreg, status,2, status,0, pclath, cstack
+   858 ;; Tracked objects:
+   859 ;;		On entry : 0/0
+   860 ;;		On exit  : 0/0
+   861 ;;		Unchanged: 0/0
+   862 ;; Data sizes:     COMMON   BANK0
+   863 ;;      Params:         0       0
+   864 ;;      Locals:         0       0
+   865 ;;      Temps:          0       0
+   866 ;;      Totals:         0       0
+   867 ;;Total ram usage:        0 bytes
+   868 ;; Hardware stack levels used:    1
+   869 ;; Hardware stack levels required when called:    4
+   870 ;; This function calls:
+   871 ;;		_BitDataInit
+   872 ;;		_StartTickTimer
+   873 ;; This function is called by:
+   874 ;;		_main
+   875 ;; This function uses a non-reentrant model
+   876 ;;
+   877                           psect	text1,local,class=CODE,delta=2,merge=1,group=0
+   878                           	file	"system.c"
+   879                           	line	14
+   880                           global __ptext1
+   881                           __ptext1:	;psect for function _Initialise
+   882  010F                     psect	text1
+   883                           	file	"system.c"
+   884                           	line	14
+   885                           	global	__size_of_Initialise
+   886                           	__size_of_Initialise	equ	__end_of_Initialise-_Initialise
+   887  0015                     	
+   888                           _Initialise:	
+   889  010F                     ;incstack = 0
+   890                           	opt	stack 3
+   891                           ; Regs used in _Initialise: [wreg+status,2+status,0+pclath+cstack]
+   892                           	line	18
+   893                           	
+   894                           l869:	
+   895  010F                     ;system.c: 18:     CMCONbits.CM = 7;
+   896                           	movlw	(07h & ((1<<3)-1))<<0
+   897  010F  3007               	bcf	status, 5	;RP0=0, select bank0
+   898  0110  1283               	iorwf	(25),f	;volatile
+   899  0111  0499               	line	21
+   900                           	
+   901                           l871:	
+   902  0112                     ;system.c: 21:     TRISCbits.TRISC0 = 1;
+   903                           	bsf	status, 5	;RP0=1, select bank1
+   904  0112  1683               	bsf	(135)^080h,0	;volatile
+   905  0113  1407               	line	22
+   906                           	
+   907                           l873:	
+   908  0114                     ;system.c: 22:     TRISCbits.TRISC1 = 0;
+   909                           	bcf	(135)^080h,1	;volatile
+   910  0114  1087               	line	23
+   911                           	
+   912                           l875:	
+   913  0115                     ;system.c: 23:     TRISCbits.TRISC2 = 0;
+   914                           	bcf	(135)^080h,2	;volatile
+   915  0115  1107               	line	24
+   916                           	
+   917                           l877:	
+   918  0116                     ;system.c: 24:     TRISCbits.TRISC3 = 0;
+   919                           	bcf	(135)^080h,3	;volatile
+   920  0116  1187               	line	25
    921                           	
-   922                           l57:	
-   923  00E4                     	return
-   924  00E4  0008               	opt stack 0
-   925                           GLOBAL	__end_of_StartTickTimer
-   926                           	__end_of_StartTickTimer:
-   927  00E5                     	signat	_StartTickTimer,89
-   928                           	global	_BitDataInit
-   929                           
-   930 ;; *************** function _BitDataInit *****************
-   931 ;; Defined at:
-   932 ;;		line 33 in file "user.c"
-   933 ;; Parameters:    Size  Location     Type
-   934 ;;		None
-   935 ;; Auto vars:     Size  Location     Type
-   936 ;;		None
-   937 ;; Return value:  Size  Location     Type
-   938 ;;                  1    wreg      void 
-   939 ;; Registers used:
-   940 ;;		status,2
-   941 ;; Tracked objects:
-   942 ;;		On entry : 0/0
-   943 ;;		On exit  : 0/0
-   944 ;;		Unchanged: 0/0
-   945 ;; Data sizes:     COMMON   BANK0
-   946 ;;      Params:         0       0
-   947 ;;      Locals:         0       0
-   948 ;;      Temps:          0       0
-   949 ;;      Totals:         0       0
-   950 ;;Total ram usage:        0 bytes
-   951 ;; Hardware stack levels used:    1
-   952 ;; Hardware stack levels required when called:    3
-   953 ;; This function calls:
-   954 ;;		Nothing
-   955 ;; This function is called by:
-   956 ;;		_Initialise
-   957 ;; This function uses a non-reentrant model
-   958 ;;
-   959                           psect	text3,local,class=CODE,delta=2,merge=1,group=0
-   960                           	line	33
-   961                           global __ptext3
-   962                           __ptext3:	;psect for function _BitDataInit
-   963  010A                     psect	text3
-   964                           	file	"user.c"
-   965                           	line	33
-   966                           	global	__size_of_BitDataInit
-   967                           	__size_of_BitDataInit	equ	__end_of_BitDataInit-_BitDataInit
-   968  0005                     	
-   969                           _BitDataInit:	
-   970  010A                     ;incstack = 0
-   971                           	opt	stack 3
-   972                           ; Regs used in _BitDataInit: [status,2]
-   973                           	line	35
-   974                           	
-   975                           l805:	
-   976  010A                     ;user.c: 35:     DataState = DATA_SYNC;
-   977                           	bcf	status, 5	;RP0=0, select bank0
-   978  010A  1283               	clrf	(_DataState)
-   979  010B  01A1               	line	36
-   980                           ;user.c: 36:     Data = 0;
-   981                           	clrf	(_Data)
-   982  010C  01A2               	line	37
-   983                           ;user.c: 37:  Addressed = 0;
-   984                           	clrf	(_Addressed)
-   985  010D  01A0               	line	38
-   986                           	
-   987                           l54:	
-   988  010E                     	return
-   989  010E  0008               	opt stack 0
-   990                           GLOBAL	__end_of_BitDataInit
-   991                           	__end_of_BitDataInit:
-   992  010F                     	signat	_BitDataInit,89
-   993                           	global	_ISR
-   994                           
-   995 ;; *************** function _ISR *****************
-   996 ;; Defined at:
-   997 ;;		line 16 in file "interrupts.c"
-   998 ;; Parameters:    Size  Location     Type
-   999 ;;		None
-  1000 ;; Auto vars:     Size  Location     Type
-  1001 ;;		None
-  1002 ;; Return value:  Size  Location     Type
-  1003 ;;                  1    wreg      void 
-  1004 ;; Registers used:
-  1005 ;;		wreg, fsr0l, fsr0h, status,2, status,0, pclath, cstack
-  1006 ;; Tracked objects:
-  1007 ;;		On entry : 0/0
-  1008 ;;		On exit  : 0/0
-  1009 ;;		Unchanged: 0/0
-  1010 ;; Data sizes:     COMMON   BANK0
-  1011 ;;      Params:         0       0
-  1012 ;;      Locals:         0       0
-  1013 ;;      Temps:          0       5
-  1014 ;;      Totals:         0       5
-  1015 ;;Total ram usage:        5 bytes
-  1016 ;; Hardware stack levels used:    1
-  1017 ;; Hardware stack levels required when called:    2
-  1018 ;; This function calls:
-  1019 ;;		_BitIntr
-  1020 ;;		_EdgeIntr
-  1021 ;;		_SendModule
-  1022 ;;		i1_StartTickTimer
-  1023 ;; This function is called by:
-  1024 ;;		Interrupt level 1
-  1025 ;; This function uses a non-reentrant model
-  1026 ;;
-  1027                           psect	text4,local,class=CODE,delta=2,merge=1,group=0
-  1028                           	file	"interrupts.c"
-  1029                           	line	16
-  1030                           global __ptext4
-  1031                           __ptext4:	;psect for function _ISR
-  1032  00A4                     psect	text4
-  1033                           	file	"interrupts.c"
-  1034                           	line	16
-  1035                           	global	__size_of_ISR
-  1036                           	__size_of_ISR	equ	__end_of_ISR-_ISR
-  1037  002E                     	
-  1038                           _ISR:	
-  1039  00A4                     ;incstack = 0
-  1040                           	opt	stack 3
-  1041                           ; Regs used in _ISR: [wreg-fsr0h+status,2+status,0+pclath+cstack]
-  1042                           psect	intentry,class=CODE,delta=2
-  1043                           global __pintentry
-  1044                           __pintentry:
-  1045  0004                     global interrupt_function
-  1046                           interrupt_function:
-  1047  0004                     	global saved_w
-  1048                           	saved_w	set	btemp+0
-  1049  005E                     	movwf	saved_w
-  1050  0004  00DE               	swapf	status,w
-  1051  0005  0E03               	bcf	status, 5	;RP0=0, select bank0
-  1052  0006  1283               	movwf	(??_ISR+1)
-  1053  0007  00AB               	movf	fsr0,w
-  1054  0008  0804               	movwf	(??_ISR+2)
-  1055  0009  00AC               	movf	pclath,w
-  1056  000A  080A               	movwf	(??_ISR+3)
-  1057  000B  00AD               	movf	btemp+1,w
-  1058  000C  085F               	movwf	(??_ISR+4)
-  1059  000D  00AE               	ljmp	_ISR
-  1060  000E  28A4               psect	text4
-  1061                           	line	18
+   922                           l879:	
+   923  0117                     ;system.c: 25:     TRISCbits.TRISC4 = 0;
+   924                           	bcf	(135)^080h,4	;volatile
+   925  0117  1207               	line	26
+   926                           	
+   927                           l881:	
+   928  0118                     ;system.c: 26:     TRISCbits.TRISC5 = 0;
+   929                           	bcf	(135)^080h,5	;volatile
+   930  0118  1287               	line	29
+   931                           	
+   932                           l883:	
+   933  0119                     ;system.c: 29:     T1CONbits.TMR1CS = 0;
+   934                           	bcf	status, 5	;RP0=0, select bank0
+   935  0119  1283               	bcf	(16),1	;volatile
+   936  011A  1090               	line	30
+   937                           ;system.c: 30:     T1CONbits.T1CKPS = 0;
+   938                           	movlw	((0 & ((1<<2)-1))<<4)|not (((1<<2)-1)<<4)
+   939  011B  30CF               	andwf	(16),f	;volatile
+   940  011C  0590               	line	31
+   941                           	
+   942                           l885:	
+   943  011D                     ;system.c: 31:     T1CONbits.nT1SYNC = 1;
+   944                           	bsf	(16),2	;volatile
+   945  011D  1510               	line	32
+   946                           	
+   947                           l887:	
+   948  011E                     ;system.c: 32:     T1CONbits.TMR1GE = 0;
+   949                           	bcf	(16),6	;volatile
+   950  011E  1310               	line	35
+   951                           	
+   952                           l889:	
+   953  011F                     ;system.c: 35:     StartTickTimer();
+   954                           	fcall	_StartTickTimer
+   955  011F  2124               	line	38
+   956                           	
+   957                           l891:	
+   958  0120                     ;system.c: 38:     BitDataInit( 0);
+   959                           	movlw	low(0)
+   960  0120  3000               	fcall	_BitDataInit
+   961  0121  20EB               	line	41
+   962                           	
+   963                           l893:	
+   964  0122                     ;system.c: 41:     INTCONbits.PEIE = 1;
+   965                           	bsf	(11),6	;volatile
+   966  0122  170B               	line	42
+   967                           	
+   968                           l27:	
+   969  0123                     	return
+   970  0123  0008               	opt stack 0
+   971                           GLOBAL	__end_of_Initialise
+   972                           	__end_of_Initialise:
+   973  0124                     	signat	_Initialise,89
+   974                           	global	_BitDataInit
+   975                           
+   976 ;; *************** function _BitDataInit *****************
+   977 ;; Defined at:
+   978 ;;		line 58 in file "user.c"
+   979 ;; Parameters:    Size  Location     Type
+   980 ;;  ModeTx          1    wreg     unsigned char 
+   981 ;; Auto vars:     Size  Location     Type
+   982 ;;  ModeTx          1    9[BANK0 ] unsigned char 
+   983 ;;  IntEnable       1   10[BANK0 ] unsigned char 
+   984 ;;  Dummy           1    8[BANK0 ] unsigned char 
+   985 ;; Return value:  Size  Location     Type
+   986 ;;                  1    wreg      void 
+   987 ;; Registers used:
+   988 ;;		wreg, status,2, status,0
+   989 ;; Tracked objects:
+   990 ;;		On entry : 0/0
+   991 ;;		On exit  : 0/0
+   992 ;;		Unchanged: 0/0
+   993 ;; Data sizes:     COMMON   BANK0
+   994 ;;      Params:         0       0
+   995 ;;      Locals:         0       3
+   996 ;;      Temps:          0       1
+   997 ;;      Totals:         0       4
+   998 ;;Total ram usage:        4 bytes
+   999 ;; Hardware stack levels used:    1
+  1000 ;; Hardware stack levels required when called:    3
+  1001 ;; This function calls:
+  1002 ;;		Nothing
+  1003 ;; This function is called by:
+  1004 ;;		_Initialise
+  1005 ;; This function uses a non-reentrant model
+  1006 ;;
+  1007                           psect	text2,local,class=CODE,delta=2,merge=1,group=0
+  1008                           	file	"user.c"
+  1009                           	line	58
+  1010                           global __ptext2
+  1011                           __ptext2:	;psect for function _BitDataInit
+  1012  00EB                     psect	text2
+  1013                           	file	"user.c"
+  1014                           	line	58
+  1015                           	global	__size_of_BitDataInit
+  1016                           	__size_of_BitDataInit	equ	__end_of_BitDataInit-_BitDataInit
+  1017  0024                     	
+  1018                           _BitDataInit:	
+  1019  00EB                     ;incstack = 0
+  1020                           	opt	stack 3
+  1021                           ; Regs used in _BitDataInit: [wreg+status,2+status,0]
+  1022                           ;BitDataInit@ModeTx stored from wreg
+  1023                           	bcf	status, 5	;RP0=0, select bank0
+  1024  00EB  1283               	movwf	(BitDataInit@ModeTx)
+  1025  00EC  00A9               	line	64
+  1026                           	
+  1027                           l851:	
+  1028  00ED                     ;user.c: 58:     INTCONbits.GIE = IntEnable;;user.c: 59: };user.c: 60: ;user.c: 61: ;use
+                                 r.c: 64: {
+  1029                           	movlw	0
+  1030  00ED  3000               	btfsc	(11),7	;volatile
+  1031  00EE  1B8B               	movlw	1
+  1032  00EF  3001               	movwf	(BitDataInit@IntEnable)
+  1033  00F0  00AA               	line	65
+  1034                           	
+  1035                           l853:	
+  1036  00F1                     ;user.c: 65: 
+  1037                           	bcf	(11),7	;volatile
+  1038  00F1  138B               	line	67
+  1039                           	
+  1040                           l855:	
+  1041  00F2                     ;user.c: 67: 
+  1042                           		decf	((BitDataInit@ModeTx)),w
+  1043  00F2  0329               	btfss	status,2
+  1044  00F3  1D03               	goto	u181
+  1045  00F4  28F6               	goto	u180
+  1046  00F5  28F7               u181:
+  1047  00F6                     	goto	l79
+  1048  00F6  28FA               u180:
+  1049  00F7                     	line	70
+  1050                           	
+  1051                           l857:	
+  1052  00F7                     ;user.c: 68: ;user.c: 70: 
+  1053                           	bsf	(11),3	;volatile
+  1054  00F7  158B               	line	73
+  1055                           ;user.c: 73: }
+  1056                           	bsf	(57/8),(57)&7	;volatile
+  1057  00F8  1487               	line	74
+  1058                           ;user.c: 74: 
+  1059                           	goto	l867
+  1060  00F9  2908               	line	75
+  1061                           ;user.c: 75: 
   1062                           	
-  1063                           i1l885:	
-  1064  00A4                     ;interrupts.c: 18:     if (INTCONbits.T0IF==1)
-  1065                           	btfss	(11),2	;volatile
-  1066  00A4  1D0B               	goto	u28_21
-  1067  00A5  28A7               	goto	u28_20
-  1068  00A6  28A8               u28_21:
-  1069  00A7                     	goto	i1l897
-  1070  00A7  28BA               u28_20:
-  1071  00A8                     	line	20
+  1063                           l79:	
+  1064  00FA                     	line	78
+  1065                           ;user.c: 76: ;user.c: 78: void BitIntr( void)
+  1066                           	bcf	(57/8),(57)&7	;volatile
+  1067  00FA  1087               	line	81
+  1068                           ;user.c: 81:     {
+  1069                           	clrf	(_BitData)
+  1070  00FB  01B3               	incf	(_BitData),f
+  1071  00FC  0AB3               	line	82
   1072                           	
-  1073                           i1l887:	
-  1074  00A8                     ;interrupts.c: 19:     {;interrupts.c: 20:         StartTickTimer();
-  1075                           	fcall	i1_StartTickTimer
-  1076  00A8  20E5               	line	23
-  1077                           	
-  1078                           i1l889:	
-  1079  00A9                     ;interrupts.c: 23:         if (TickCount==9)
-  1080                           		movlw	9
-  1081  00A9  3009               	bcf	status, 5	;RP0=0, select bank0
-  1082  00AA  1283               	xorwf	((_TickCount)),w
-  1083  00AB  0628               	btfss	status,2
-  1084  00AC  1D03               	goto	u29_21
-  1085  00AD  28AF               	goto	u29_20
-  1086  00AE  28B0               u29_21:
-  1087  00AF                     	goto	i1l895
-  1088  00AF  28B3               u29_20:
-  1089  00B0                     	line	25
-  1090                           	
-  1091                           i1l891:	
-  1092  00B0                     ;interrupts.c: 24:         {;interrupts.c: 25:             TickCount = 0;
-  1093                           	clrf	(_TickCount)
-  1094  00B0  01A8               	line	26
-  1095                           	
-  1096                           i1l893:	
-  1097  00B1                     ;interrupts.c: 26:             SendModule();
-  1098                           	fcall	_SendModule
-  1099  00B1  2113               	line	27
-  1100                           ;interrupts.c: 27:         }
-  1101                           	goto	i1l897
-  1102  00B2  28BA               	line	28
-  1103                           ;interrupts.c: 28:         else
+  1073                           l859:	
+  1074  00FD                     ;user.c: 82: 
+  1075                           	clrf	(_DataState)
+  1076  00FD  01AC               	line	83
+  1077                           ;user.c: 83: 
+  1078                           	clrf	(_Data)
+  1079  00FE  01AD               	line	84
+  1080                           ;user.c: 84:         Data = (Data<<1) | RA2;
+  1081                           	clrf	(_Addressed)
+  1082  00FF  01AB               	line	87
+  1083                           	
+  1084                           l861:	
+  1085  0100                     ;user.c: 87: 
+  1086                           	movf	(5),w	;volatile
+  1087  0100  0805               	movwf	(??_BitDataInit+0)+0
+  1088  0101  00A7               	movf	(??_BitDataInit+0)+0,w
+  1089  0102  0827               	movwf	(BitDataInit@Dummy)
+  1090  0103  00A8               	line	90
+  1091                           	
+  1092                           l863:	
+  1093  0104                     ;user.c: 90: 
+  1094                           	bsf	status, 5	;RP0=1, select bank1
+  1095  0104  1683               	bsf	(150)^080h,2	;volatile
+  1096  0105  1516               	line	91
+  1097                           	
+  1098                           l865:	
+  1099  0106                     ;user.c: 91:         INTCONbits.T0IF = 0;
+  1100                           	bsf	(11),3	;volatile
+  1101  0106  158B               	goto	l867
+  1102  0107  2908               	line	92
+  1103                           ;user.c: 92:         INTCONbits.T0IE = 1;
   1104                           	
-  1105                           i1l100:	
-  1106  00B3                     	line	30
+  1105                           l80:	
+  1106  0108                     	line	95
   1107                           	
-  1108                           i1l895:	
-  1109  00B3                     ;interrupts.c: 29:         {;interrupts.c: 30:             TickCount++;
-  1110                           	movlw	low(01h)
-  1111  00B3  3001               	bcf	status, 5	;RP0=0, select bank0
-  1112  00B4  1283               	movwf	(??_ISR+0)+0
-  1113  00B5  00AA               	movf	(??_ISR+0)+0,w
-  1114  00B6  082A               	addwf	(_TickCount),f
-  1115  00B7  07A8               	goto	i1l897
-  1116  00B8  28BA               	line	31
-  1117                           ;interrupts.c: 31:         }
-  1118                           	
-  1119                           i1l101:	
-  1120  00B9                     	goto	i1l897
-  1121  00B9  28BA               	line	32
-  1122                           ;interrupts.c: 32:     }
-  1123                           	
-  1124                           i1l99:	
-  1125  00BA                     	line	34
-  1126                           	
-  1127                           i1l897:	
-  1128  00BA                     ;interrupts.c: 34:     if (INTCONbits.RAIF==1)
-  1129                           	btfss	(11),0	;volatile
-  1130  00BA  1C0B               	goto	u30_21
-  1131  00BB  28BD               	goto	u30_20
-  1132  00BC  28BE               u30_21:
-  1133  00BD                     	goto	i1l901
-  1134  00BD  28C0               u30_20:
-  1135  00BE                     	line	36
-  1136                           	
-  1137                           i1l899:	
-  1138  00BE                     ;interrupts.c: 35:     {;interrupts.c: 36:         EdgeIntr();
-  1139                           	fcall	_EdgeIntr
-  1140  00BE  20FF               	goto	i1l901
-  1141  00BF  28C0               	line	37
-  1142                           ;interrupts.c: 37:     }
-  1143                           	
-  1144                           i1l102:	
-  1145  00C0                     	line	39
-  1146                           	
-  1147                           i1l901:	
-  1148  00C0                     ;interrupts.c: 39:     if (INTCONbits.GIE==1)
-  1149                           	btfss	(11),7	;volatile
-  1150  00C0  1F8B               	goto	u31_21
-  1151  00C1  28C3               	goto	u31_20
-  1152  00C2  28C4               u31_21:
-  1153  00C3                     	goto	i1l104
-  1154  00C3  28C6               u31_20:
-  1155  00C4                     	line	41
-  1156                           	
-  1157                           i1l903:	
-  1158  00C4                     ;interrupts.c: 40:     {;interrupts.c: 41:         BitIntr();
-  1159                           	fcall	_BitIntr
-  1160  00C4  201C               	goto	i1l104
-  1161  00C5  28C6               	line	42
-  1162                           ;interrupts.c: 42:     }
-  1163                           	
-  1164                           i1l103:	
-  1165  00C6                     	line	44
-  1166                           	
-  1167                           i1l104:	
-  1168  00C6                     	bcf	status, 5	;RP0=0, select bank0
-  1169  00C6  1283               	movf	(??_ISR+4),w
-  1170  00C7  082E               	movwf	btemp+1
-  1171  00C8  00DF               	movf	(??_ISR+3),w
-  1172  00C9  082D               	movwf	pclath
-  1173  00CA  008A               	movf	(??_ISR+2),w
-  1174  00CB  082C               	movwf	fsr0
-  1175  00CC  0084               	swapf	(??_ISR+1)^00h,w
-  1176  00CD  0E2B               	movwf	status
-  1177  00CE  0083               	swapf	saved_w,f
-  1178  00CF  0EDE               	swapf	saved_w,w
-  1179  00D0  0E5E               	retfie
-  1180  00D1  0009               	opt stack 0
-  1181                           GLOBAL	__end_of_ISR
-  1182                           	__end_of_ISR:
-  1183  00D2                     	signat	_ISR,89
-  1184                           	global	i1_StartTickTimer
-  1185                           
-  1186 ;; *************** function i1_StartTickTimer *****************
-  1187 ;; Defined at:
-  1188 ;;		line 41 in file "user.c"
-  1189 ;; Parameters:    Size  Location     Type
-  1190 ;;		None
-  1191 ;; Auto vars:     Size  Location     Type
-  1192 ;;  StartTickTim    1    0[BANK0 ] unsigned char 
-  1193 ;; Return value:  Size  Location     Type
-  1194 ;;                  1    wreg      void 
-  1195 ;; Registers used:
-  1196 ;;		wreg, status,2, status,0
-  1197 ;; Tracked objects:
-  1198 ;;		On entry : 0/0
-  1199 ;;		On exit  : 0/0
-  1200 ;;		Unchanged: 0/0
-  1201 ;; Data sizes:     COMMON   BANK0
-  1202 ;;      Params:         0       0
-  1203 ;;      Locals:         0       1
-  1204 ;;      Temps:          0       0
-  1205 ;;      Totals:         0       1
-  1206 ;;Total ram usage:        1 bytes
-  1207 ;; Hardware stack levels used:    1
-  1208 ;; This function calls:
-  1209 ;;		Nothing
-  1210 ;; This function is called by:
-  1211 ;;		_ISR
-  1212 ;; This function uses a non-reentrant model
-  1213 ;;
-  1214                           psect	text5,local,class=CODE,delta=2,merge=1,group=0
-  1215                           	file	"user.c"
-  1216                           	line	41
-  1217                           global __ptext5
-  1218                           __ptext5:	;psect for function i1_StartTickTimer
-  1219  00E5                     psect	text5
-  1220                           	file	"user.c"
-  1221                           	line	41
-  1222                           	global	__size_ofi1_StartTickTimer
-  1223                           	__size_ofi1_StartTickTimer	equ	__end_ofi1_StartTickTimer-i1_StartTickTimer
-  1224  0013                     	
-  1225                           i1_StartTickTimer:	
-  1226  00E5                     ;incstack = 0
-  1227                           	opt	stack 4
-  1228                           ; Regs used in i1_StartTickTimer: [wreg+status,2+status,0]
-  1229                           	line	46
-  1230                           	
-  1231                           i1l865:	
-  1232  00E5                     ;user.c: 43:     uint8_t IntEnable;;user.c: 46:     IntEnable = INTCONbits.GIE;
-  1233                           	movlw	0
-  1234  00E5  3000               	btfsc	(11),7	;volatile
-  1235  00E6  1B8B               	movlw	1
-  1236  00E7  3001               	bcf	status, 5	;RP0=0, select bank0
-  1237  00E8  1283               	movwf	(i1StartTickTimer@IntEnable)
-  1238  00E9  00A9               	line	49
-  1239                           	
-  1240                           i1l867:	
-  1241  00EA                     ;user.c: 49:     INTCONbits.GIE = 0;
-  1242                           	bcf	(11),7	;volatile
-  1243  00EA  138B               	line	51
-  1244                           	
-  1245                           i1l869:	
-  1246  00EB                     ;user.c: 51:     T1CONbits.TMR1ON = 0;
-  1247                           	bcf	(16),0	;volatile
-  1248  00EB  1010               	line	53
+  1108                           l867:	
+  1109  0108                     ;user.c: 95:         BitData = 0;
+  1110                           	bcf	status, 5	;RP0=0, select bank0
+  1111  0108  1283               	rrf	(BitDataInit@IntEnable),w
+  1112  0109  0C2A               	skipc
+  1113  010A  1C03               	bcf	(11),7	;volatile
+  1114  010B  138B               	skipnc
+  1115  010C  1803               	bsf	(11),7	;volatile
+  1116  010D  178B               	line	96
+  1117                           	
+  1118                           l81:	
+  1119  010E                     	return
+  1120  010E  0008               	opt stack 0
+  1121                           GLOBAL	__end_of_BitDataInit
+  1122                           	__end_of_BitDataInit:
+  1123  010F                     	signat	_BitDataInit,4217
+  1124                           	global	_ISR
+  1125                           
+  1126 ;; *************** function _ISR *****************
+  1127 ;; Defined at:
+  1128 ;;		line 16 in file "interrupts.c"
+  1129 ;; Parameters:    Size  Location     Type
+  1130 ;;		None
+  1131 ;; Auto vars:     Size  Location     Type
+  1132 ;;		None
+  1133 ;; Return value:  Size  Location     Type
+  1134 ;;                  1    wreg      void 
+  1135 ;; Registers used:
+  1136 ;;		wreg, fsr0l, fsr0h, status,2, status,0, pclath, cstack
+  1137 ;; Tracked objects:
+  1138 ;;		On entry : 0/0
+  1139 ;;		On exit  : 0/0
+  1140 ;;		Unchanged: 0/0
+  1141 ;; Data sizes:     COMMON   BANK0
+  1142 ;;      Params:         0       0
+  1143 ;;      Locals:         0       0
+  1144 ;;      Temps:          0       5
+  1145 ;;      Totals:         0       5
+  1146 ;;Total ram usage:        5 bytes
+  1147 ;; Hardware stack levels used:    1
+  1148 ;; Hardware stack levels required when called:    2
+  1149 ;; This function calls:
+  1150 ;;		_BitIntr
+  1151 ;;		_EdgeIntr
+  1152 ;;		_SendModule
+  1153 ;;		_StartTickTimer
+  1154 ;; This function is called by:
+  1155 ;;		Interrupt level 1
+  1156 ;; This function uses a non-reentrant model
+  1157 ;;
+  1158                           psect	text3,local,class=CODE,delta=2,merge=1,group=0
+  1159                           	file	"interrupts.c"
+  1160                           	line	16
+  1161                           global __ptext3
+  1162                           __ptext3:	;psect for function _ISR
+  1163  00BD                     psect	text3
+  1164                           	file	"interrupts.c"
+  1165                           	line	16
+  1166                           	global	__size_of_ISR
+  1167                           	__size_of_ISR	equ	__end_of_ISR-_ISR
+  1168  002E                     	
+  1169                           _ISR:	
+  1170  00BD                     ;incstack = 0
+  1171                           	opt	stack 3
+  1172                           ; Regs used in _ISR: [wreg-fsr0h+status,2+status,0+pclath+cstack]
+  1173                           psect	intentry,class=CODE,delta=2
+  1174                           global __pintentry
+  1175                           __pintentry:
+  1176  0004                     global interrupt_function
+  1177                           interrupt_function:
+  1178  0004                     	global saved_w
+  1179                           	saved_w	set	btemp+0
+  1180  005E                     	movwf	saved_w
+  1181  0004  00DE               	swapf	status,w
+  1182  0005  0E03               	bcf	status, 5	;RP0=0, select bank0
+  1183  0006  1283               	movwf	(??_ISR+1)
+  1184  0007  00A3               	movf	fsr0,w
+  1185  0008  0804               	movwf	(??_ISR+2)
+  1186  0009  00A4               	movf	pclath,w
+  1187  000A  080A               	movwf	(??_ISR+3)
+  1188  000B  00A5               	movf	btemp+1,w
+  1189  000C  085F               	movwf	(??_ISR+4)
+  1190  000D  00A6               	ljmp	_ISR
+  1191  000E  28BD               psect	text3
+  1192                           	line	18
+  1193                           	
+  1194                           i1l987:	
+  1195  00BD                     ;interrupts.c: 18:     if (INTCONbits.T0IF==1)
+  1196                           	btfss	(11),2	;volatile
+  1197  00BD  1D0B               	goto	u32_21
+  1198  00BE  28C0               	goto	u32_20
+  1199  00BF  28C1               u32_21:
+  1200  00C0                     	goto	i1l999
+  1201  00C0  28D3               u32_20:
+  1202  00C1                     	line	20
+  1203                           	
+  1204                           i1l989:	
+  1205  00C1                     ;interrupts.c: 19:     {;interrupts.c: 20:         StartTickTimer();
+  1206                           	fcall	_StartTickTimer
+  1207  00C1  2124               	line	23
+  1208                           	
+  1209                           i1l991:	
+  1210  00C2                     ;interrupts.c: 23:         if (TickCount==9)
+  1211                           		movlw	9
+  1212  00C2  3009               	bcf	status, 5	;RP0=0, select bank0
+  1213  00C3  1283               	xorwf	((_TickCount)),w
+  1214  00C4  0634               	btfss	status,2
+  1215  00C5  1D03               	goto	u33_21
+  1216  00C6  28C8               	goto	u33_20
+  1217  00C7  28C9               u33_21:
+  1218  00C8                     	goto	i1l997
+  1219  00C8  28CC               u33_20:
+  1220  00C9                     	line	25
+  1221                           	
+  1222                           i1l993:	
+  1223  00C9                     ;interrupts.c: 24:         {;interrupts.c: 25:             TickCount = 0;
+  1224                           	clrf	(_TickCount)
+  1225  00C9  01B4               	line	26
+  1226                           	
+  1227                           i1l995:	
+  1228  00CA                     ;interrupts.c: 26:             SendModule();
+  1229                           	fcall	_SendModule
+  1230  00CA  214A               	line	27
+  1231                           ;interrupts.c: 27:         }
+  1232                           	goto	i1l999
+  1233  00CB  28D3               	line	28
+  1234                           ;interrupts.c: 28:         else
+  1235                           	
+  1236                           i1l126:	
+  1237  00CC                     	line	30
+  1238                           	
+  1239                           i1l997:	
+  1240  00CC                     ;interrupts.c: 29:         {;interrupts.c: 30:             TickCount++;
+  1241                           	movlw	low(01h)
+  1242  00CC  3001               	bcf	status, 5	;RP0=0, select bank0
+  1243  00CD  1283               	movwf	(??_ISR+0)+0
+  1244  00CE  00A2               	movf	(??_ISR+0)+0,w
+  1245  00CF  0822               	addwf	(_TickCount),f
+  1246  00D0  07B4               	goto	i1l999
+  1247  00D1  28D3               	line	31
+  1248                           ;interrupts.c: 31:         }
   1249                           	
-  1250                           i1l871:	
-  1251  00EC                     ;user.c: 53:     INTCONbits.T0IF = 0;
-  1252                           	bcf	(11),2	;volatile
-  1253  00EC  110B               	line	55
+  1250                           i1l127:	
+  1251  00D2                     	goto	i1l999
+  1252  00D2  28D3               	line	32
+  1253                           ;interrupts.c: 32:     }
   1254                           	
-  1255                           i1l873:	
-  1256  00ED                     ;user.c: 55:     TMR1H = 0xC3;
-  1257                           	movlw	low(0C3h)
-  1258  00ED  30C3               	movwf	(15)	;volatile
-  1259  00EE  008F               	line	56
-  1260                           	
-  1261                           i1l875:	
-  1262  00EF                     ;user.c: 56:     TMR1L = 0x50;
-  1263                           	movlw	low(050h)
-  1264  00EF  3050               	movwf	(14)	;volatile
-  1265  00F0  008E               	line	57
-  1266                           	
-  1267                           i1l877:	
-  1268  00F1                     ;user.c: 57:     T1CONbits.TMR1ON = 1;
-  1269                           	bsf	(16),0	;volatile
-  1270  00F1  1410               	line	60
-  1271                           	
-  1272                           i1l879:	
-  1273  00F2                     ;user.c: 60:     INTCONbits.GIE = IntEnable;
-  1274                           	rrf	(i1StartTickTimer@IntEnable),w
-  1275  00F2  0C29               	skipc
-  1276  00F3  1C03               	bcf	(11),7	;volatile
-  1277  00F4  138B               	skipnc
-  1278  00F5  1803               	bsf	(11),7	;volatile
-  1279  00F6  178B               	line	61
-  1280                           	
-  1281                           i1l57:	
-  1282  00F7                     	return
-  1283  00F7  0008               	opt stack 0
-  1284                           GLOBAL	__end_ofi1_StartTickTimer
-  1285                           	__end_ofi1_StartTickTimer:
-  1286  00F8                     	signat	i1_StartTickTimer,89
-  1287                           	global	_SendModule
-  1288                           
-  1289 ;; *************** function _SendModule *****************
-  1290 ;; Defined at:
-  1291 ;;		line 137 in file "user.c"
-  1292 ;; Parameters:    Size  Location     Type
-  1293 ;;		None
-  1294 ;; Auto vars:     Size  Location     Type
-  1295 ;;		None
-  1296 ;; Return value:  Size  Location     Type
-  1297 ;;                  1    wreg      void 
-  1298 ;; Registers used:
-  1299 ;;		None
-  1300 ;; Tracked objects:
-  1301 ;;		On entry : 0/0
-  1302 ;;		On exit  : 0/0
-  1303 ;;		Unchanged: 0/0
-  1304 ;; Data sizes:     COMMON   BANK0
-  1305 ;;      Params:         0       0
-  1306 ;;      Locals:         0       0
-  1307 ;;      Temps:          0       0
-  1308 ;;      Totals:         0       0
-  1309 ;;Total ram usage:        0 bytes
-  1310 ;; Hardware stack levels used:    1
-  1311 ;; This function calls:
-  1312 ;;		Nothing
-  1313 ;; This function is called by:
-  1314 ;;		_ISR
-  1315 ;; This function uses a non-reentrant model
-  1316 ;;
-  1317                           psect	text6,local,class=CODE,delta=2,merge=1,group=0
-  1318                           	line	137
-  1319                           global __ptext6
-  1320                           __ptext6:	;psect for function _SendModule
-  1321  0113                     psect	text6
-  1322                           	file	"user.c"
-  1323                           	line	137
-  1324                           	global	__size_of_SendModule
-  1325                           	__size_of_SendModule	equ	__end_of_SendModule-_SendModule
-  1326  0001                     	
-  1327                           _SendModule:	
-  1328  0113                     ;incstack = 0
-  1329                           	opt	stack 4
-  1330                           ; Regs used in _SendModule: []
-  1331                           	line	140
-  1332                           	
-  1333                           i1l82:	
-  1334  0113                     	return
-  1335  0113  0008               	opt stack 0
-  1336                           GLOBAL	__end_of_SendModule
-  1337                           	__end_of_SendModule:
-  1338  0114                     	signat	_SendModule,89
-  1339                           	global	_EdgeIntr
-  1340                           
-  1341 ;; *************** function _EdgeIntr *****************
-  1342 ;; Defined at:
-  1343 ;;		line 63 in file "user.c"
-  1344 ;; Parameters:    Size  Location     Type
-  1345 ;;		None
-  1346 ;; Auto vars:     Size  Location     Type
-  1347 ;;		None
-  1348 ;; Return value:  Size  Location     Type
-  1349 ;;                  1    wreg      void 
-  1350 ;; Registers used:
-  1351 ;;		wreg, status,2
-  1352 ;; Tracked objects:
-  1353 ;;		On entry : 0/0
-  1354 ;;		On exit  : 0/0
-  1355 ;;		Unchanged: 0/0
-  1356 ;; Data sizes:     COMMON   BANK0
-  1357 ;;      Params:         0       0
-  1358 ;;      Locals:         0       0
-  1359 ;;      Temps:          0       0
-  1360 ;;      Totals:         0       0
-  1361 ;;Total ram usage:        0 bytes
-  1362 ;; Hardware stack levels used:    1
-  1363 ;; This function calls:
-  1364 ;;		Nothing
-  1365 ;; This function is called by:
-  1366 ;;		_ISR
-  1367 ;; This function uses a non-reentrant model
-  1368 ;;
-  1369                           psect	text7,local,class=CODE,delta=2,merge=1,group=0
-  1370                           	line	63
-  1371                           global __ptext7
-  1372                           __ptext7:	;psect for function _EdgeIntr
-  1373  00FF                     psect	text7
-  1374                           	file	"user.c"
-  1375                           	line	63
-  1376                           	global	__size_of_EdgeIntr
-  1377                           	__size_of_EdgeIntr	equ	__end_of_EdgeIntr-_EdgeIntr
-  1378  0006                     	
-  1379                           _EdgeIntr:	
-  1380  00FF                     ;incstack = 0
-  1381                           	opt	stack 4
-  1382                           ; Regs used in _EdgeIntr: [wreg+status,2]
-  1383                           	line	66
-  1384                           	
-  1385                           i1l813:	
-  1386  00FF                     ;user.c: 66:     TMR1H = 2;
-  1387                           	movlw	low(02h)
-  1388  00FF  3002               	bcf	status, 5	;RP0=0, select bank0
-  1389  0100  1283               	movwf	(15)	;volatile
-  1390  0101  008F               	line	67
-  1391                           	
-  1392                           i1l815:	
-  1393  0102                     ;user.c: 67:     TMR1L = 0;
-  1394                           	clrf	(14)	;volatile
-  1395  0102  018E               	line	69
-  1396                           	
-  1397                           i1l817:	
-  1398  0103                     ;user.c: 69:     T1CONbits.TMR1ON = 1;
-  1399                           	bsf	(16),0	;volatile
-  1400  0103  1410               	line	70
-  1401                           	
-  1402                           i1l60:	
-  1403  0104                     	return
-  1404  0104  0008               	opt stack 0
-  1405                           GLOBAL	__end_of_EdgeIntr
-  1406                           	__end_of_EdgeIntr:
-  1407  0105                     	signat	_EdgeIntr,89
-  1408                           	global	_BitIntr
-  1409                           
-  1410 ;; *************** function _BitIntr *****************
-  1411 ;; Defined at:
-  1412 ;;		line 73 in file "user.c"
-  1413 ;; Parameters:    Size  Location     Type
-  1414 ;;		None
-  1415 ;; Auto vars:     Size  Location     Type
-  1416 ;;		None
-  1417 ;; Return value:  Size  Location     Type
-  1418 ;;                  1    wreg      void 
-  1419 ;; Registers used:
-  1420 ;;		wreg, fsr0l, fsr0h, status,2, status,0, pclath
-  1421 ;; Tracked objects:
-  1422 ;;		On entry : 0/0
-  1423 ;;		On exit  : 0/0
-  1424 ;;		Unchanged: 0/0
-  1425 ;; Data sizes:     COMMON   BANK0
-  1426 ;;      Params:         0       0
-  1427 ;;      Locals:         0       0
-  1428 ;;      Temps:          0       1
-  1429 ;;      Totals:         0       1
-  1430 ;;Total ram usage:        1 bytes
-  1431 ;; Hardware stack levels used:    2
-  1432 ;; This function calls:
-  1433 ;;		Nothing
-  1434 ;; This function is called by:
-  1435 ;;		_ISR
-  1436 ;; This function uses a non-reentrant model
-  1437 ;;
-  1438                           psect	text8,local,class=CODE,delta=2,merge=1,group=0
-  1439                           	line	73
-  1440                           global __ptext8
-  1441                           __ptext8:	;psect for function _BitIntr
-  1442  001C                     psect	text8
-  1443                           	file	"user.c"
-  1444                           	line	73
-  1445                           	global	__size_of_BitIntr
-  1446                           	__size_of_BitIntr	equ	__end_of_BitIntr-_BitIntr
-  1447  0088                     	
-  1448                           _BitIntr:	
-  1449  001C                     ;incstack = 0
-  1450                           	opt	stack 3
-  1451                           ; Regs used in _BitIntr: [wreg-fsr0h+status,2+status,0+pclath]
-  1452                           	line	76
-  1453                           	
-  1454                           i1l819:	
-  1455  001C                     ;user.c: 76:     Data = (Data<<1) | RA0;
-  1456                           	clrc
-  1457  001C  1003               	bcf	status, 5	;RP0=0, select bank0
-  1458  001D  1283               	btfsc	(40/8),(40)&7	;volatile
-  1459  001E  1805               	setc
-  1460  001F  1403               	rlf	(_Data),f
-  1461  0020  0DA2               	line	79
-  1462                           	
-  1463                           i1l821:	
-  1464  0021                     ;user.c: 79:     T1CONbits.TMR1ON = 0;
-  1465                           	bcf	(16),0	;volatile
-  1466  0021  1010               	line	81
-  1467                           	
-  1468                           i1l823:	
-  1469  0022                     ;user.c: 81:     if (DataState==DATA_SYNC)
-  1470                           	movf	((_DataState)),w
-  1471  0022  0821               	btfss	status,2
-  1472  0023  1D03               	goto	u16_21
-  1473  0024  2826               	goto	u16_20
-  1474  0025  2827               u16_21:
-  1475  0026                     	goto	i1l835
-  1476  0026  283E               u16_20:
-  1477  0027                     	line	84
-  1478                           	
-  1479                           i1l825:	
-  1480  0027                     ;user.c: 82:     {;user.c: 84:         TickCount = 0;
-  1481                           	clrf	(_TickCount)
-  1482  0027  01A8               	line	88
-  1483                           	
-  1484                           i1l827:	
-  1485  0028                     ;user.c: 88:         if (++BitCount==4)
-  1486                           	movlw	low(01h)
-  1487  0028  3001               	movwf	(??_BitIntr+0)+0
-  1488  0029  00A9               	movf	(??_BitIntr+0)+0,w
-  1489  002A  0829               	addwf	(_BitCount),f
-  1490  002B  07A7               		movlw	4
-  1491  002C  3004               	xorwf	(((_BitCount))),w
-  1492  002D  0627               	btfss	status,2
-  1493  002E  1D03               	goto	u17_21
-  1494  002F  2831               	goto	u17_20
-  1495  0030  2832               u17_21:
-  1496  0031                     	goto	i1l79
-  1497  0031  28A3               u17_20:
-  1498  0032                     	line	90
-  1499                           	
-  1500                           i1l829:	
-  1501  0032                     ;user.c: 89:         {;user.c: 90:              if (Data==0x9)
-  1502                           		movlw	9
-  1503  0032  3009               	xorwf	((_Data)),w
-  1504  0033  0622               	btfss	status,2
-  1505  0034  1D03               	goto	u18_21
-  1506  0035  2837               	goto	u18_20
-  1507  0036  2838               u18_21:
-  1508  0037                     	goto	i1l79
-  1509  0037  28A3               u18_20:
-  1510  0038                     	line	92
-  1511                           	
-  1512                           i1l831:	
-  1513  0038                     ;user.c: 91:              {;user.c: 92:                 Data = 0;
-  1514                           	clrf	(_Data)
-  1515  0038  01A2               	line	93
-  1516                           	
-  1517                           i1l833:	
-  1518  0039                     ;user.c: 93:                 DataState = DATA_ADDRESS;
-  1519                           	clrf	(_DataState)
-  1520  0039  01A1               	incf	(_DataState),f
-  1521  003A  0AA1               	goto	i1l79
-  1522  003B  28A3               	line	94
-  1523                           ;user.c: 94:              }
-  1524                           	
-  1525                           i1l65:	
-  1526  003C                     	goto	i1l79
-  1527  003C  28A3               	line	95
-  1528                           ;user.c: 95:         }
+  1255                           i1l125:	
+  1256  00D3                     	line	34
+  1257                           	
+  1258                           i1l999:	
+  1259  00D3                     ;interrupts.c: 34:     if (INTCONbits.RAIF==1)
+  1260                           	btfss	(11),0	;volatile
+  1261  00D3  1C0B               	goto	u34_21
+  1262  00D4  28D6               	goto	u34_20
+  1263  00D5  28D7               u34_21:
+  1264  00D6                     	goto	i1l1003
+  1265  00D6  28D9               u34_20:
+  1266  00D7                     	line	36
+  1267                           	
+  1268                           i1l1001:	
+  1269  00D7                     ;interrupts.c: 35:     {;interrupts.c: 36:         EdgeIntr();
+  1270                           	fcall	_EdgeIntr
+  1271  00D7  213E               	goto	i1l1003
+  1272  00D8  28D9               	line	37
+  1273                           ;interrupts.c: 37:     }
+  1274                           	
+  1275                           i1l128:	
+  1276  00D9                     	line	39
+  1277                           	
+  1278                           i1l1003:	
+  1279  00D9                     ;interrupts.c: 39:     if (INTCONbits.GIE==1)
+  1280                           	btfss	(11),7	;volatile
+  1281  00D9  1F8B               	goto	u35_21
+  1282  00DA  28DC               	goto	u35_20
+  1283  00DB  28DD               u35_21:
+  1284  00DC                     	goto	i1l130
+  1285  00DC  28DF               u35_20:
+  1286  00DD                     	line	41
+  1287                           	
+  1288                           i1l1005:	
+  1289  00DD                     ;interrupts.c: 40:     {;interrupts.c: 41:         BitIntr();
+  1290                           	fcall	_BitIntr
+  1291  00DD  201D               	goto	i1l130
+  1292  00DE  28DF               	line	42
+  1293                           ;interrupts.c: 42:     }
+  1294                           	
+  1295                           i1l129:	
+  1296  00DF                     	line	44
+  1297                           	
+  1298                           i1l130:	
+  1299  00DF                     	bcf	status, 5	;RP0=0, select bank0
+  1300  00DF  1283               	movf	(??_ISR+4),w
+  1301  00E0  0826               	movwf	btemp+1
+  1302  00E1  00DF               	movf	(??_ISR+3),w
+  1303  00E2  0825               	movwf	pclath
+  1304  00E3  008A               	movf	(??_ISR+2),w
+  1305  00E4  0824               	movwf	fsr0
+  1306  00E5  0084               	swapf	(??_ISR+1)^00h,w
+  1307  00E6  0E23               	movwf	status
+  1308  00E7  0083               	swapf	saved_w,f
+  1309  00E8  0EDE               	swapf	saved_w,w
+  1310  00E9  0E5E               	retfie
+  1311  00EA  0009               	opt stack 0
+  1312                           GLOBAL	__end_of_ISR
+  1313                           	__end_of_ISR:
+  1314  00EB                     	signat	_ISR,89
+  1315                           	global	_StartTickTimer
+  1316                           
+  1317 ;; *************** function _StartTickTimer *****************
+  1318 ;; Defined at:
+  1319 ;;		line 36 in file "user.c"
+  1320 ;; Parameters:    Size  Location     Type
+  1321 ;;		None
+  1322 ;; Auto vars:     Size  Location     Type
+  1323 ;;  IntEnable       1    0[BANK0 ] unsigned char 
+  1324 ;; Return value:  Size  Location     Type
+  1325 ;;                  1    wreg      void 
+  1326 ;; Registers used:
+  1327 ;;		wreg, status,2, status,0
+  1328 ;; Tracked objects:
+  1329 ;;		On entry : 0/0
+  1330 ;;		On exit  : 0/0
+  1331 ;;		Unchanged: 0/0
+  1332 ;; Data sizes:     COMMON   BANK0
+  1333 ;;      Params:         0       0
+  1334 ;;      Locals:         0       0
+  1335 ;;      Temps:          0       0
+  1336 ;;      Totals:         0       0
+  1337 ;;Total ram usage:        0 bytes
+  1338 ;; Hardware stack levels used:    1
+  1339 ;; Hardware stack levels required when called:    3
+  1340 ;; This function calls:
+  1341 ;;		Nothing
+  1342 ;; This function is called by:
+  1343 ;;		_Initialise
+  1344 ;;		_ISR
+  1345 ;; This function uses a non-reentrant model
+  1346 ;;
+  1347                           psect	text4,local,class=CODE,delta=2,merge=1,group=0
+  1348                           	file	"user.c"
+  1349                           	line	36
+  1350                           global __ptext4
+  1351                           __ptext4:	;psect for function _StartTickTimer
+  1352  0124                     psect	text4
+  1353                           	file	"user.c"
+  1354                           	line	36
+  1355                           	global	__size_of_StartTickTimer
+  1356                           	__size_of_StartTickTimer	equ	__end_of_StartTickTimer-_StartTickTimer
+  1357  0013                     	
+  1358                           _StartTickTimer:	
+  1359  0124                     ;incstack = 0
+  1360                           	opt	stack 1
+  1361                           ; Regs used in _StartTickTimer: [wreg+status,2+status,0]
+  1362                           	line	41
+  1363                           	
+  1364                           i1l895:	
+  1365  0124                     ;user.c: 38:     else;user.c: 41:         RC1 = 0;
+  1366                           	movlw	0
+  1367  0124  3000               	btfsc	(11),7	;volatile
+  1368  0125  1B8B               	movlw	1
+  1369  0126  3001               	bcf	status, 5	;RP0=0, select bank0
+  1370  0127  1283               	movwf	(StartTickTimer@IntEnable)
+  1371  0128  00A0               	line	42
+  1372                           	
+  1373                           i1l897:	
+  1374  0129                     ;user.c: 42: 
+  1375                           	bcf	(11),7	;volatile
+  1376  0129  138B               	line	45
+  1377                           	
+  1378                           i1l899:	
+  1379  012A                     ;user.c: 45:         DataState = DATA_SYNC;
+  1380                           	bcf	(16),0	;volatile
+  1381  012A  1010               	line	47
+  1382                           	
+  1383                           i1l901:	
+  1384  012B                     ;user.c: 47:         Addressed = 0;
+  1385                           	bcf	(11),2	;volatile
+  1386  012B  110B               	line	49
+  1387                           	
+  1388                           i1l903:	
+  1389  012C                     ;user.c: 49: 
+  1390                           	movlw	low(0C3h)
+  1391  012C  30C3               	movwf	(15)	;volatile
+  1392  012D  008F               	line	50
+  1393                           	
+  1394                           i1l905:	
+  1395  012E                     ;user.c: 50:         Dummy = PORTA;
+  1396                           	movlw	low(050h)
+  1397  012E  3050               	movwf	(14)	;volatile
+  1398  012F  008E               	line	51
+  1399                           	
+  1400                           i1l907:	
+  1401  0130                     ;user.c: 51: 
+  1402                           	bsf	(16),0	;volatile
+  1403  0130  1410               	line	54
+  1404                           	
+  1405                           i1l909:	
+  1406  0131                     ;user.c: 54:         INTCONbits.RAIE = 1;
+  1407                           	rrf	(StartTickTimer@IntEnable),w
+  1408  0131  0C20               	skipc
+  1409  0132  1C03               	bcf	(11),7	;volatile
+  1410  0133  138B               	skipnc
+  1411  0134  1803               	bsf	(11),7	;volatile
+  1412  0135  178B               	line	55
+  1413                           	
+  1414                           i1l76:	
+  1415  0136                     	return
+  1416  0136  0008               	opt stack 0
+  1417                           GLOBAL	__end_of_StartTickTimer
+  1418                           	__end_of_StartTickTimer:
+  1419  0137                     	signat	_StartTickTimer,89
+  1420                           	global	_SendModule
+  1421                           
+  1422 ;; *************** function _SendModule *****************
+  1423 ;; Defined at:
+  1424 ;;		line 214 in file "user.c"
+  1425 ;; Parameters:    Size  Location     Type
+  1426 ;;		None
+  1427 ;; Auto vars:     Size  Location     Type
+  1428 ;;		None
+  1429 ;; Return value:  Size  Location     Type
+  1430 ;;                  1    wreg      void 
+  1431 ;; Registers used:
+  1432 ;;		None
+  1433 ;; Tracked objects:
+  1434 ;;		On entry : 0/0
+  1435 ;;		On exit  : 0/0
+  1436 ;;		Unchanged: 0/0
+  1437 ;; Data sizes:     COMMON   BANK0
+  1438 ;;      Params:         0       0
+  1439 ;;      Locals:         0       0
+  1440 ;;      Temps:          0       0
+  1441 ;;      Totals:         0       0
+  1442 ;;Total ram usage:        0 bytes
+  1443 ;; Hardware stack levels used:    1
+  1444 ;; This function calls:
+  1445 ;;		Nothing
+  1446 ;; This function is called by:
+  1447 ;;		_ISR
+  1448 ;; This function uses a non-reentrant model
+  1449 ;;
+  1450                           psect	text5,local,class=CODE,delta=2,merge=1,group=0
+  1451                           	line	214
+  1452                           global __ptext5
+  1453                           __ptext5:	;psect for function _SendModule
+  1454  014A                     psect	text5
+  1455                           	file	"user.c"
+  1456                           	line	214
+  1457                           	global	__size_of_SendModule
+  1458                           	__size_of_SendModule	equ	__end_of_SendModule-_SendModule
+  1459  0001                     	
+  1460                           _SendModule:	
+  1461  014A                     ;incstack = 0
+  1462                           	opt	stack 4
+  1463                           ; Regs used in _SendModule: []
+  1464                           	line	217
+  1465                           	
+  1466                           i1l108:	
+  1467  014A                     	return
+  1468  014A  0008               	opt stack 0
+  1469                           GLOBAL	__end_of_SendModule
+  1470                           	__end_of_SendModule:
+  1471  014B                     	signat	_SendModule,89
+  1472                           	global	_EdgeIntr
+  1473                           
+  1474 ;; *************** function _EdgeIntr *****************
+  1475 ;; Defined at:
+  1476 ;;		line 100 in file "user.c"
+  1477 ;; Parameters:    Size  Location     Type
+  1478 ;;		None
+  1479 ;; Auto vars:     Size  Location     Type
+  1480 ;;		None
+  1481 ;; Return value:  Size  Location     Type
+  1482 ;;                  1    wreg      void 
+  1483 ;; Registers used:
+  1484 ;;		wreg
+  1485 ;; Tracked objects:
+  1486 ;;		On entry : 0/0
+  1487 ;;		On exit  : 0/0
+  1488 ;;		Unchanged: 0/0
+  1489 ;; Data sizes:     COMMON   BANK0
+  1490 ;;      Params:         0       0
+  1491 ;;      Locals:         0       0
+  1492 ;;      Temps:          0       0
+  1493 ;;      Totals:         0       0
+  1494 ;;Total ram usage:        0 bytes
+  1495 ;; Hardware stack levels used:    1
+  1496 ;; This function calls:
+  1497 ;;		Nothing
+  1498 ;; This function is called by:
+  1499 ;;		_ISR
+  1500 ;; This function uses a non-reentrant model
+  1501 ;;
+  1502                           psect	text6,local,class=CODE,delta=2,merge=1,group=0
+  1503                           	line	100
+  1504                           global __ptext6
+  1505                           __ptext6:	;psect for function _EdgeIntr
+  1506  013E                     psect	text6
+  1507                           	file	"user.c"
+  1508                           	line	100
+  1509                           	global	__size_of_EdgeIntr
+  1510                           	__size_of_EdgeIntr	equ	__end_of_EdgeIntr-_EdgeIntr
+  1511  0007                     	
+  1512                           _EdgeIntr:	
+  1513  013E                     ;incstack = 0
+  1514                           	opt	stack 4
+  1515                           ; Regs used in _EdgeIntr: [wreg]
+  1516                           	line	103
+  1517                           	
+  1518                           i1l911:	
+  1519  013E                     ;user.c: 103: 
+  1520                           	bcf	(11),3	;volatile
+  1521  013E  118B               	line	106
+  1522                           	
+  1523                           i1l913:	
+  1524  013F                     ;user.c: 106: 
+  1525                           	movlw	low(06Ah)
+  1526  013F  306A               	bcf	status, 5	;RP0=0, select bank0
+  1527  0140  1283               	movwf	(1)	;volatile
+  1528  0141  0081               	line	108
   1529                           	
-  1530                           i1l64:	
-  1531  003D                     	line	96
-  1532                           ;user.c: 96:     }
-  1533                           	goto	i1l79
-  1534  003D  28A3               	line	97
-  1535                           ;user.c: 97:     else if (DataState==DATA_ADDRESS)
-  1536                           	
-  1537                           i1l63:	
-  1538  003E                     	
-  1539                           i1l835:	
-  1540  003E                     		decf	((_DataState)),w
-  1541  003E  0321               	btfss	status,2
-  1542  003F  1D03               	goto	u19_21
-  1543  0040  2842               	goto	u19_20
-  1544  0041  2843               u19_21:
-  1545  0042                     	goto	i1l847
-  1546  0042  2862               u19_20:
-  1547  0043                     	line	100
-  1548                           	
-  1549                           i1l837:	
-  1550  0043                     ;user.c: 98:     {;user.c: 100:         if (++BitCount==5)
-  1551                           	movlw	low(01h)
-  1552  0043  3001               	movwf	(??_BitIntr+0)+0
-  1553  0044  00A9               	movf	(??_BitIntr+0)+0,w
-  1554  0045  0829               	addwf	(_BitCount),f
-  1555  0046  07A7               		movlw	5
-  1556  0047  3005               	xorwf	(((_BitCount))),w
-  1557  0048  0627               	btfss	status,2
-  1558  0049  1D03               	goto	u20_21
-  1559  004A  284C               	goto	u20_20
-  1560  004B  284D               u20_21:
-  1561  004C                     	goto	i1l79
-  1562  004C  28A3               u20_20:
-  1563  004D                     	line	102
-  1564                           	
-  1565                           i1l839:	
-  1566  004D                     ;user.c: 101:         {;user.c: 102:             if (Data==BOX_ADDRESS)
-  1567                           	movlw	low((_BOX_ADDRESS-__stringbase))
-  1568  004D  3001               	movwf	fsr0
-  1569  004E  0084               	fcall	stringdir
-  1570  004F  20F8               	movwf	(??_BitIntr+0)+0
-  1571  0050  00A9               	movf	(_Data),w
-  1572  0051  0822               	xorwf	(??_BitIntr+0)+0,w
-  1573  0052  0629               	skipz
-  1574  0053  1D03               	goto	u21_21
-  1575  0054  2856               	goto	u21_20
-  1576  0055  2857               u21_21:
-  1577  0056                     	goto	i1l843
-  1578  0056  285A               u21_20:
-  1579  0057                     	line	103
-  1580                           	
-  1581                           i1l841:	
-  1582  0057                     ;user.c: 103:                 Addressed = 1;
-  1583                           	clrf	(_Addressed)
-  1584  0057  01A0               	incf	(_Addressed),f
-  1585  0058  0AA0               	goto	i1l845
-  1586  0059  285C               	line	104
-  1587                           ;user.c: 104:             else
-  1588                           	
-  1589                           i1l69:	
-  1590  005A                     	line	105
+  1530                           i1l915:	
+  1531  0142                     ;user.c: 108: 
+  1532                           	bcf	(11),2	;volatile
+  1533  0142  110B               	line	109
+  1534                           	
+  1535                           i1l917:	
+  1536  0143                     ;user.c: 109:             if (++BitCount==4)
+  1537                           	bsf	(11),5	;volatile
+  1538  0143  168B               	line	110
+  1539                           	
+  1540                           i1l84:	
+  1541  0144                     	return
+  1542  0144  0008               	opt stack 0
+  1543                           GLOBAL	__end_of_EdgeIntr
+  1544                           	__end_of_EdgeIntr:
+  1545  0145                     	signat	_EdgeIntr,89
+  1546                           	global	_BitIntr
+  1547                           
+  1548 ;; *************** function _BitIntr *****************
+  1549 ;; Defined at:
+  1550 ;;		line 115 in file "user.c"
+  1551 ;; Parameters:    Size  Location     Type
+  1552 ;;		None
+  1553 ;; Auto vars:     Size  Location     Type
+  1554 ;;  Dummy           1    1[BANK0 ] unsigned char 
+  1555 ;; Return value:  Size  Location     Type
+  1556 ;;                  1    wreg      void 
+  1557 ;; Registers used:
+  1558 ;;		wreg, fsr0l, fsr0h, status,2, status,0, pclath
+  1559 ;; Tracked objects:
+  1560 ;;		On entry : 0/0
+  1561 ;;		On exit  : 0/0
+  1562 ;;		Unchanged: 0/0
+  1563 ;; Data sizes:     COMMON   BANK0
+  1564 ;;      Params:         0       0
+  1565 ;;      Locals:         0       1
+  1566 ;;      Temps:          0       1
+  1567 ;;      Totals:         0       2
+  1568 ;;Total ram usage:        2 bytes
+  1569 ;; Hardware stack levels used:    2
+  1570 ;; This function calls:
+  1571 ;;		Nothing
+  1572 ;; This function is called by:
+  1573 ;;		_ISR
+  1574 ;; This function uses a non-reentrant model
+  1575 ;;
+  1576                           psect	text7,local,class=CODE,delta=2,merge=1,group=0
+  1577                           	line	115
+  1578                           global __ptext7
+  1579                           __ptext7:	;psect for function _BitIntr
+  1580  001D                     psect	text7
+  1581                           	file	"user.c"
+  1582                           	line	115
+  1583                           	global	__size_of_BitIntr
+  1584                           	__size_of_BitIntr	equ	__end_of_BitIntr-_BitIntr
+  1585  00A0                     	
+  1586                           _BitIntr:	
+  1587  001D                     ;incstack = 0
+  1588                           	opt	stack 3
+  1589                           ; Regs used in _BitIntr: [wreg-fsr0h+status,2+status,0+pclath]
+  1590                           	line	117
   1591                           	
-  1592                           i1l843:	
-  1593  005A                     ;user.c: 105:                 Addressed = 0;
-  1594                           	clrf	(_Addressed)
-  1595  005A  01A0               	goto	i1l845
-  1596  005B  285C               	
-  1597                           i1l70:	
-  1598  005C                     	line	107
-  1599                           	
-  1600                           i1l845:	
-  1601  005C                     ;user.c: 107:             DataState = DATA_SIZE;
-  1602                           	movlw	low(02h)
-  1603  005C  3002               	movwf	(??_BitIntr+0)+0
-  1604  005D  00A9               	movf	(??_BitIntr+0)+0,w
-  1605  005E  0829               	movwf	(_DataState)
-  1606  005F  00A1               	goto	i1l79
-  1607  0060  28A3               	line	108
-  1608                           ;user.c: 108:         }
-  1609                           	
-  1610                           i1l68:	
-  1611  0061                     	line	109
-  1612                           ;user.c: 109:     }
-  1613                           	goto	i1l79
-  1614  0061  28A3               	line	110
-  1615                           ;user.c: 110:     else if (DataState==DATA_SIZE)
-  1616                           	
-  1617                           i1l67:	
-  1618  0062                     	
-  1619                           i1l847:	
-  1620  0062                     		movlw	2
-  1621  0062  3002               	xorwf	((_DataState)),w
-  1622  0063  0621               	btfss	status,2
-  1623  0064  1D03               	goto	u22_21
-  1624  0065  2867               	goto	u22_20
-  1625  0066  2868               u22_21:
-  1626  0067                     	goto	i1l855
-  1627  0067  2882               u22_20:
-  1628  0068                     	line	113
-  1629                           	
-  1630                           i1l849:	
-  1631  0068                     ;user.c: 111:     {;user.c: 113:         if (++BitCount==5)
-  1632                           	movlw	low(01h)
-  1633  0068  3001               	movwf	(??_BitIntr+0)+0
-  1634  0069  00A9               	movf	(??_BitIntr+0)+0,w
-  1635  006A  0829               	addwf	(_BitCount),f
-  1636  006B  07A7               		movlw	5
-  1637  006C  3005               	xorwf	(((_BitCount))),w
-  1638  006D  0627               	btfss	status,2
-  1639  006E  1D03               	goto	u23_21
-  1640  006F  2871               	goto	u23_20
-  1641  0070  2872               u23_21:
-  1642  0071                     	goto	i1l79
-  1643  0071  28A3               u23_20:
-  1644  0072                     	line	115
-  1645                           	
-  1646                           i1l851:	
-  1647  0072                     ;user.c: 114:         {;user.c: 115:             if (Data < 31)
-  1648                           	movlw	low(01Fh)
-  1649  0072  301F               	subwf	(_Data),w
-  1650  0073  0222               	skipnc
-  1651  0074  1803               	goto	u24_21
-  1652  0075  2877               	goto	u24_20
-  1653  0076  2878               u24_21:
-  1654  0077                     	goto	i1l74
-  1655  0077  287C               u24_20:
-  1656  0078                     	line	116
-  1657                           	
-  1658                           i1l853:	
-  1659  0078                     ;user.c: 116:                 BoxSize = Data;
-  1660                           	movf	(_Data),w
-  1661  0078  0822               	movwf	(??_BitIntr+0)+0
-  1662  0079  00A9               	movf	(??_BitIntr+0)+0,w
-  1663  007A  0829               	movwf	(_BoxSize)
-  1664  007B  00A4               	
-  1665                           i1l74:	
-  1666  007C                     	line	118
-  1667                           ;user.c: 118:             DataState = DATA_LAMPS;
-  1668                           	movlw	low(03h)
-  1669  007C  3003               	movwf	(??_BitIntr+0)+0
-  1670  007D  00A9               	movf	(??_BitIntr+0)+0,w
-  1671  007E  0829               	movwf	(_DataState)
-  1672  007F  00A1               	goto	i1l79
-  1673  0080  28A3               	line	119
-  1674                           ;user.c: 119:         }
-  1675                           	
-  1676                           i1l73:	
-  1677  0081                     	line	120
-  1678                           ;user.c: 120:     }
-  1679                           	goto	i1l79
-  1680  0081  28A3               	line	121
-  1681                           ;user.c: 121:     else if (DataState==DATA_LAMPS)
-  1682                           	
-  1683                           i1l72:	
-  1684  0082                     	
-  1685                           i1l855:	
-  1686  0082                     		movlw	3
-  1687  0082  3003               	xorwf	((_DataState)),w
-  1688  0083  0621               	btfss	status,2
-  1689  0084  1D03               	goto	u25_21
-  1690  0085  2887               	goto	u25_20
-  1691  0086  2888               u25_21:
-  1692  0087                     	goto	i1l79
-  1693  0087  28A3               u25_20:
-  1694  0088                     	line	125
-  1695                           	
-  1696                           i1l857:	
-  1697  0088                     ;user.c: 122:     {;user.c: 125:         if (Addressed==1)
-  1698                           		decf	((_Addressed)),w
-  1699  0088  0320               	btfss	status,2
-  1700  0089  1D03               	goto	u26_21
-  1701  008A  288C               	goto	u26_20
-  1702  008B  288D               u26_21:
-  1703  008C                     	goto	i1l861
-  1704  008C  2892               u26_20:
-  1705  008D                     	line	126
-  1706                           	
-  1707                           i1l859:	
-  1708  008D                     ;user.c: 126:             Lamps = Data;
-  1709                           	movf	(_Data),w
-  1710  008D  0822               	movwf	(??_BitIntr+0)+0
-  1711  008E  00A9               	movf	(??_BitIntr+0)+0,w
-  1712  008F  0829               	movwf	(_Lamps)
-  1713  0090  00A3               	goto	i1l861
-  1714  0091  2892               	
-  1715                           i1l77:	
-  1716  0092                     	line	128
-  1717                           	
-  1718                           i1l861:	
-  1719  0092                     ;user.c: 128:         if (++BitCount==BoxSize)
-  1720                           	movlw	low(01h)
-  1721  0092  3001               	movwf	(??_BitIntr+0)+0
-  1722  0093  00A9               	movf	(??_BitIntr+0)+0,w
-  1723  0094  0829               	addwf	(_BitCount),f
-  1724  0095  07A7               	movf	((_BitCount)),w
-  1725  0096  0827               	xorwf	(_BoxSize),w
-  1726  0097  0624               	skipz
-  1727  0098  1D03               	goto	u27_21
-  1728  0099  289B               	goto	u27_20
-  1729  009A  289C               u27_21:
-  1730  009B                     	goto	i1l79
-  1731  009B  28A3               u27_20:
-  1732  009C                     	line	129
-  1733                           	
-  1734                           i1l863:	
-  1735  009C                     ;user.c: 129:             DataState = DATA_ADDRESS;
-  1736                           	clrf	(_DataState)
-  1737  009C  01A1               	incf	(_DataState),f
-  1738  009D  0AA1               	goto	i1l79
-  1739  009E  28A3               	
-  1740                           i1l78:	
-  1741  009F                     	goto	i1l79
-  1742  009F  28A3               	line	131
-  1743                           ;user.c: 131:     }
-  1744                           	
-  1745                           i1l76:	
-  1746  00A0                     	goto	i1l79
-  1747  00A0  28A3               	
-  1748                           i1l75:	
-  1749  00A1                     	goto	i1l79
-  1750  00A1  28A3               	
-  1751                           i1l71:	
-  1752  00A2                     	goto	i1l79
-  1753  00A2  28A3               	
-  1754                           i1l66:	
-  1755  00A3                     	line	133
-  1756                           	
-  1757                           i1l79:	
-  1758  00A3                     	return
-  1759  00A3  0008               	opt stack 0
-  1760                           GLOBAL	__end_of_BitIntr
-  1761                           	__end_of_BitIntr:
-  1762  00A4                     	signat	_BitIntr,89
-  1763                           global	___latbits
-  1764                           ___latbits	equ	0
-  1765  0000                     	global	btemp
-  1766                           	btemp set 05Eh
-  1767  005E                     
-  1768                           	DABS	1,94,2	;btemp
-  1769                           	global	wtemp0
-  1770                           	wtemp0 set btemp+0
-  1771  005E                     	end
+  1592                           i1l919:	
+  1593  001D                     ;user.c: 117:         }
+  1594                           	bcf	status, 5	;RP0=0, select bank0
+  1595  001D  1283               		decf	((_BitData)),w
+  1596  001E  0333               	btfss	status,2
+  1597  001F  1D03               	goto	u19_21
+  1598  0020  2822               	goto	u19_20
+  1599  0021  2823               u19_21:
+  1600  0022                     	goto	i1l87
+  1601  0022  28B4               u19_20:
+  1602  0023                     	line	121
+  1603                           	
+  1604                           i1l921:	
+  1605  0023                     ;user.c: 118:         else if (DataState==DATA_ADDRESS);user.c: 121:             if (++B
+                                 itCount==5)
+  1606                           	clrc
+  1607  0023  1003               	btfsc	(42/8),(42)&7	;volatile
+  1608  0024  1905               	setc
+  1609  0025  1403               	rlf	(_Data),f
+  1610  0026  0DAD               	line	126
+  1611                           	
+  1612                           i1l923:	
+  1613  0027                     ;user.c: 126:                     RC3=1;
+  1614                           	movlw	low(09Ch)
+  1615  0027  309C               	movwf	(1)	;volatile
+  1616  0028  0081               	line	128
+  1617                           	
+  1618                           i1l925:	
+  1619  0029                     ;user.c: 128:                 }
+  1620                           	bcf	(11),2	;volatile
+  1621  0029  110B               	line	129
+  1622                           	
+  1623                           i1l927:	
+  1624  002A                     ;user.c: 129:                 else
+  1625                           	bsf	(11),5	;volatile
+  1626  002A  168B               	line	132
+  1627                           	
+  1628                           i1l929:	
+  1629  002B                     ;user.c: 132:                 }
+  1630                           	clrf	(_BitData)
+  1631  002B  01B3               	line	134
+  1632                           ;user.c: 134:                 DataState = DATA_SIZE;
+  1633                           	movf	((_DataState)),w
+  1634  002C  082C               	btfss	status,2
+  1635  002D  1D03               	goto	u20_21
+  1636  002E  2830               	goto	u20_20
+  1637  002F  2831               u20_21:
+  1638  0030                     	goto	i1l945
+  1639  0030  284A               u20_20:
+  1640  0031                     	line	137
+  1641                           	
+  1642                           i1l931:	
+  1643  0031                     ;user.c: 135:             };user.c: 137:         else if (DataState==DATA_SIZE)
+  1644                           	clrf	(_TickCount)
+  1645  0031  01B4               	line	141
+  1646                           	
+  1647                           i1l933:	
+  1648  0032                     ;user.c: 141:             {
+  1649                           	bsf	(60/8),(60)&7	;volatile
+  1650  0032  1607               	line	142
+  1651                           	
+  1652                           i1l935:	
+  1653  0033                     ;user.c: 142:                 if (Data < 31)
+  1654                           	bcf	(60/8),(60)&7	;volatile
+  1655  0033  1207               	line	146
+  1656                           	
+  1657                           i1l937:	
+  1658  0034                     ;user.c: 146:             }
+  1659                           	movlw	low(01h)
+  1660  0034  3001               	movwf	(??_BitIntr+0)+0
+  1661  0035  00A0               	movf	(??_BitIntr+0)+0,w
+  1662  0036  0820               	addwf	(_BitCount),f
+  1663  0037  07B2               		movlw	4
+  1664  0038  3004               	xorwf	(((_BitCount))),w
+  1665  0039  0632               	btfss	status,2
+  1666  003A  1D03               	goto	u21_21
+  1667  003B  283D               	goto	u21_20
+  1668  003C  283E               u21_21:
+  1669  003D                     	goto	i1l105
+  1670  003D  28BC               u21_20:
+  1671  003E                     	line	148
+  1672                           	
+  1673                           i1l939:	
+  1674  003E                     ;user.c: 147:         };user.c: 148:         else if (DataState==DATA_LAMPS)
+  1675                           		movlw	9
+  1676  003E  3009               	xorwf	((_Data)),w
+  1677  003F  062D               	btfss	status,2
+  1678  0040  1D03               	goto	u22_21
+  1679  0041  2843               	goto	u22_20
+  1680  0042  2844               u22_21:
+  1681  0043                     	goto	i1l105
+  1682  0043  28BC               u22_20:
+  1683  0044                     	line	150
+  1684                           	
+  1685                           i1l941:	
+  1686  0044                     ;user.c: 149:         {;user.c: 150: 
+  1687                           	clrf	(_Data)
+  1688  0044  01AD               	line	151
+  1689                           	
+  1690                           i1l943:	
+  1691  0045                     ;user.c: 151: 
+  1692                           	clrf	(_DataState)
+  1693  0045  01AC               	incf	(_DataState),f
+  1694  0046  0AAC               	goto	i1l105
+  1695  0047  28BC               	line	152
+  1696                           ;user.c: 152:             if (Addressed==1)
+  1697                           	
+  1698                           i1l90:	
+  1699  0048                     	goto	i1l105
+  1700  0048  28BC               	line	153
+  1701                           ;user.c: 153:             {
+  1702                           	
+  1703                           i1l89:	
+  1704  0049                     	line	154
+  1705                           ;user.c: 154:                 Lamps = Data;
+  1706                           	goto	i1l105
+  1707  0049  28BC               	line	155
+  1708                           ;user.c: 155:                 RC5=1;
+  1709                           	
+  1710                           i1l88:	
+  1711  004A                     	
+  1712                           i1l945:	
+  1713  004A                     		decf	((_DataState)),w
+  1714  004A  032C               	btfss	status,2
+  1715  004B  1D03               	goto	u23_21
+  1716  004C  284E               	goto	u23_20
+  1717  004D  284F               u23_21:
+  1718  004E                     	goto	i1l957
+  1719  004E  2870               u23_20:
+  1720  004F                     	line	158
+  1721                           	
+  1722                           i1l947:	
+  1723  004F                     ;user.c: 156:                 RC5=0;;user.c: 158: 
+  1724                           	movlw	low(01h)
+  1725  004F  3001               	movwf	(??_BitIntr+0)+0
+  1726  0050  00A0               	movf	(??_BitIntr+0)+0,w
+  1727  0051  0820               	addwf	(_BitCount),f
+  1728  0052  07B2               		movlw	5
+  1729  0053  3005               	xorwf	(((_BitCount))),w
+  1730  0054  0632               	btfss	status,2
+  1731  0055  1D03               	goto	u24_21
+  1732  0056  2858               	goto	u24_20
+  1733  0057  2859               u24_21:
+  1734  0058                     	goto	i1l105
+  1735  0058  28BC               u24_20:
+  1736  0059                     	line	160
+  1737                           	
+  1738                           i1l949:	
+  1739  0059                     ;user.c: 159:             if (++BitCount==BoxSize);user.c: 160:                 DataStat
+                                 e = DATA_ADDRESS;
+  1740                           	movlw	low((_BOX_ADDRESS-__stringbase))
+  1741  0059  3001               	movwf	fsr0
+  1742  005A  0084               	fcall	stringdir
+  1743  005B  2137               	movwf	(??_BitIntr+0)+0
+  1744  005C  00A0               	movf	(_Data),w
+  1745  005D  082D               	xorwf	(??_BitIntr+0)+0,w
+  1746  005E  0620               	skipz
+  1747  005F  1D03               	goto	u25_21
+  1748  0060  2862               	goto	u25_20
+  1749  0061  2863               u25_21:
+  1750  0062                     	goto	i1l953
+  1751  0062  2868               u25_20:
+  1752  0063                     	line	162
+  1753                           	
+  1754                           i1l951:	
+  1755  0063                     ;user.c: 161: ;user.c: 162:         }
+  1756                           	clrf	(_Addressed)
+  1757  0063  01AB               	incf	(_Addressed),f
+  1758  0064  0AAB               	line	163
+  1759                           ;user.c: 163:     }
+  1760                           	bsf	(59/8),(59)&7	;volatile
+  1761  0065  1587               	line	164
+  1762                           ;user.c: 164:     else
+  1763                           	bcf	(59/8),(59)&7	;volatile
+  1764  0066  1187               	line	165
+  1765                           ;user.c: 165:     {
+  1766                           	goto	i1l955
+  1767  0067  286A               	line	166
+  1768                           ;user.c: 166: 
+  1769                           	
+  1770                           i1l94:	
+  1771  0068                     	line	168
+  1772                           	
+  1773                           i1l953:	
+  1774  0068                     ;user.c: 167:         BitData = 1;;user.c: 168: 
+  1775                           	clrf	(_Addressed)
+  1776  0068  01AB               	goto	i1l955
+  1777  0069  286A               	line	169
+  1778                           ;user.c: 169:         uint8_t Dummy = PORTA;
+  1779                           	
+  1780                           i1l95:	
+  1781  006A                     	line	171
+  1782                           	
+  1783                           i1l955:	
+  1784  006A                     ;user.c: 171:         INTCONbits.RAIE = 0;
+  1785                           	movlw	low(02h)
+  1786  006A  3002               	movwf	(??_BitIntr+0)+0
+  1787  006B  00A0               	movf	(??_BitIntr+0)+0,w
+  1788  006C  0820               	movwf	(_DataState)
+  1789  006D  00AC               	goto	i1l105
+  1790  006E  28BC               	line	172
+  1791                           ;user.c: 172:     }
+  1792                           	
+  1793                           i1l93:	
+  1794  006F                     	line	173
+  1795                           ;user.c: 173: }
+  1796                           	goto	i1l105
+  1797  006F  28BC               	line	174
+  1798                           ;user.c: 174: 
+  1799                           	
+  1800                           i1l92:	
+  1801  0070                     	
+  1802                           i1l957:	
+  1803  0070                     		movlw	2
+  1804  0070  3002               	xorwf	((_DataState)),w
+  1805  0071  062C               	btfss	status,2
+  1806  0072  1D03               	goto	u26_21
+  1807  0073  2875               	goto	u26_20
+  1808  0074  2876               u26_21:
+  1809  0075                     	goto	i1l965
+  1810  0075  2890               u26_20:
+  1811  0076                     	line	177
+  1812                           	
+  1813                           i1l959:	
+  1814  0076                     ;user.c: 175: ;user.c: 177: void SendModule( void)
+  1815                           	movlw	low(01h)
+  1816  0076  3001               	movwf	(??_BitIntr+0)+0
+  1817  0077  00A0               	movf	(??_BitIntr+0)+0,w
+  1818  0078  0820               	addwf	(_BitCount),f
+  1819  0079  07B2               		movlw	5
+  1820  007A  3005               	xorwf	(((_BitCount))),w
+  1821  007B  0632               	btfss	status,2
+  1822  007C  1D03               	goto	u27_21
+  1823  007D  287F               	goto	u27_20
+  1824  007E  2880               u27_21:
+  1825  007F                     	goto	i1l105
+  1826  007F  28BC               u27_20:
+  1827  0080                     	line	179
+  1828                           	
+  1829                           i1l961:	
+  1830  0080                     ;user.c: 178: {;user.c: 179: 
+  1831                           	movlw	low(01Fh)
+  1832  0080  301F               	subwf	(_Data),w
+  1833  0081  022D               	skipnc
+  1834  0082  1803               	goto	u28_21
+  1835  0083  2885               	goto	u28_20
+  1836  0084  2886               u28_21:
+  1837  0085                     	goto	i1l99
+  1838  0085  288A               u28_20:
+  1839  0086                     	line	180
+  1840                           	
+  1841                           i1l963:	
+  1842  0086                     ;user.c: 180: }
+  1843                           	movf	(_Data),w
+  1844  0086  082D               	movwf	(??_BitIntr+0)+0
+  1845  0087  00A0               	movf	(??_BitIntr+0)+0,w
+  1846  0088  0820               	movwf	(_BoxSize)
+  1847  0089  00AF               	
+  1848                           i1l99:	
+  1849  008A                     	line	182
+  1850                           	movlw	low(03h)
+  1851  008A  3003               	movwf	(??_BitIntr+0)+0
+  1852  008B  00A0               	movf	(??_BitIntr+0)+0,w
+  1853  008C  0820               	movwf	(_DataState)
+  1854  008D  00AC               	goto	i1l105
+  1855  008E  28BC               	line	183
+  1856                           	
+  1857                           i1l98:	
+  1858  008F                     	line	184
+  1859                           	goto	i1l105
+  1860  008F  28BC               	line	185
+  1861                           	
+  1862                           i1l97:	
+  1863  0090                     	
+  1864                           i1l965:	
+  1865  0090                     		movlw	3
+  1866  0090  3003               	xorwf	((_DataState)),w
+  1867  0091  062C               	btfss	status,2
+  1868  0092  1D03               	goto	u29_21
+  1869  0093  2895               	goto	u29_20
+  1870  0094  2896               u29_21:
+  1871  0095                     	goto	i1l105
+  1872  0095  28BC               u29_20:
+  1873  0096                     	line	189
+  1874                           	
+  1875                           i1l967:	
+  1876  0096                     		decf	((_Addressed)),w
+  1877  0096  032B               	btfss	status,2
+  1878  0097  1D03               	goto	u30_21
+  1879  0098  289A               	goto	u30_20
+  1880  0099  289B               u30_21:
+  1881  009A                     	goto	i1l975
+  1882  009A  28A2               u30_20:
+  1883  009B                     	line	191
+  1884                           	
+  1885                           i1l969:	
+  1886  009B                     	movf	(_Data),w
+  1887  009B  082D               	movwf	(??_BitIntr+0)+0
+  1888  009C  00A0               	movf	(??_BitIntr+0)+0,w
+  1889  009D  0820               	movwf	(_Lamps)
+  1890  009E  00AE               	line	192
+  1891                           	
+  1892                           i1l971:	
+  1893  009F                     	bsf	(61/8),(61)&7	;volatile
+  1894  009F  1687               	line	193
+  1895                           	
+  1896                           i1l973:	
+  1897  00A0                     	bcf	(61/8),(61)&7	;volatile
+  1898  00A0  1287               	goto	i1l975
+  1899  00A1  28A2               	line	194
+  1900                           	
+  1901                           i1l102:	
+  1902  00A2                     	line	196
+  1903                           	
+  1904                           i1l975:	
+  1905  00A2                     	movlw	low(01h)
+  1906  00A2  3001               	movwf	(??_BitIntr+0)+0
+  1907  00A3  00A0               	movf	(??_BitIntr+0)+0,w
+  1908  00A4  0820               	addwf	(_BitCount),f
+  1909  00A5  07B2               	movf	((_BitCount)),w
+  1910  00A6  0832               	xorwf	(_BoxSize),w
+  1911  00A7  062F               	skipz
+  1912  00A8  1D03               	goto	u31_21
+  1913  00A9  28AB               	goto	u31_20
+  1914  00AA  28AC               u31_21:
+  1915  00AB                     	goto	i1l105
+  1916  00AB  28BC               u31_20:
+  1917  00AC                     	line	197
+  1918                           	
+  1919                           i1l977:	
+  1920  00AC                     	clrf	(_DataState)
+  1921  00AC  01AC               	incf	(_DataState),f
+  1922  00AD  0AAC               	goto	i1l105
+  1923  00AE  28BC               	
+  1924                           i1l103:	
+  1925  00AF                     	goto	i1l105
+  1926  00AF  28BC               	line	199
+  1927                           	
+  1928                           i1l101:	
+  1929  00B0                     	goto	i1l105
+  1930  00B0  28BC               	
+  1931                           i1l100:	
+  1932  00B1                     	goto	i1l105
+  1933  00B1  28BC               	
+  1934                           i1l96:	
+  1935  00B2                     	goto	i1l105
+  1936  00B2  28BC               	
+  1937                           i1l91:	
+  1938  00B3                     	line	200
+  1939                           	goto	i1l105
+  1940  00B3  28BC               	line	201
+  1941                           	
+  1942                           i1l87:	
+  1943  00B4                     	line	204
+  1944                           	clrf	(_BitData)
+  1945  00B4  01B3               	incf	(_BitData),f
+  1946  00B5  0AB3               	line	206
+  1947                           	
+  1948                           i1l979:	
+  1949  00B6                     	movf	(5),w	;volatile
+  1950  00B6  0805               	movwf	(??_BitIntr+0)+0
+  1951  00B7  00A0               	movf	(??_BitIntr+0)+0,w
+  1952  00B8  0820               	movwf	(BitIntr@Dummy)
+  1953  00B9  00A1               	line	208
+  1954                           	
+  1955                           i1l981:	
+  1956  00BA                     	bcf	(11),3	;volatile
+  1957  00BA  118B               	goto	i1l105
+  1958  00BB  28BC               	line	209
+  1959                           	
+  1960                           i1l104:	
+  1961  00BC                     	line	210
+  1962                           	
+  1963                           i1l105:	
+  1964  00BC                     	return
+  1965  00BC  0008               	opt stack 0
+  1966                           GLOBAL	__end_of_BitIntr
+  1967                           	__end_of_BitIntr:
+  1968  00BD                     	signat	_BitIntr,89
+  1969                           global	___latbits
+  1970                           ___latbits	equ	0
+  1971  0000                     	global	btemp
+  1972                           	btemp set 05Eh
+  1973  005E                     
+  1974                           	DABS	1,94,2	;btemp
+  1975                           	global	wtemp0
+  1976                           	wtemp0 set btemp+0
+  1977  005E                     	end
 
 
 Data Sizes:
     Strings     0
     Constant    1
     Data        0
-    BSS         9
+    BSS         10
     Persistent  0
     Stack       0
 
 Auto Spaces:
     Space          Size  Autos    Used
     COMMON            0      0       0
-    BANK0            62      7      16
+    BANK0            62     11      21
 
 Pointer List with Targets:
 
@@ -1861,50 +2070,48 @@ Critical Paths under _ISR in COMMON
 
 Critical Paths under _main in BANK0
 
-    _Initialise->_StartTickTimer
+    _Initialise->_BitDataInit
 
 Critical Paths under _ISR in BANK0
 
     _ISR->_BitIntr
-    _ISR->i1_StartTickTimer
 
 Call Graph Tables:
 
  ---------------------------------------------------------------------------------
  (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
  ---------------------------------------------------------------------------------
- (0) _main                                                 0     0      0      23
+ (0) _main                                                 0     0      0      69
                          _Initialise
  ---------------------------------------------------------------------------------
- (1) _Initialise                                           0     0      0      23
+ (1) _Initialise                                           0     0      0      69
                         _BitDataInit
                      _StartTickTimer
  ---------------------------------------------------------------------------------
- (2) _StartTickTimer                                       1     1      0      23
-                                              6 BANK0      1     1      0
+ (4) _StartTickTimer                                       1     1      0      23
  ---------------------------------------------------------------------------------
- (2) _BitDataInit                                          0     0      0       0
+ (2) _BitDataInit                                          4     4      0      46
+                                              7 BANK0      4     4      0
  ---------------------------------------------------------------------------------
- Estimated maximum stack depth 2
+ Estimated maximum stack depth 4
  ---------------------------------------------------------------------------------
  (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
  ---------------------------------------------------------------------------------
- (3) _ISR                                                  5     5      0      23
-                                              1 BANK0      5     5      0
+ (3) _ISR                                                  5     5      0      24
+                                              2 BANK0      5     5      0
                             _BitIntr
                            _EdgeIntr
                          _SendModule
-                   i1_StartTickTimer
+                     _StartTickTimer
  ---------------------------------------------------------------------------------
- (4) i1_StartTickTimer                                     1     1      0      23
-                                              0 BANK0      1     1      0
+ (4) _StartTickTimer                                       1     1      0      23
  ---------------------------------------------------------------------------------
  (4) _SendModule                                           0     0      0       0
  ---------------------------------------------------------------------------------
  (4) _EdgeIntr                                             0     0      0       0
  ---------------------------------------------------------------------------------
- (5) _BitIntr                                              1     1      0       0
-                                              0 BANK0      1     1      0
+ (5) _BitIntr                                              2     2      0       1
+                                              0 BANK0      2     2      0
  ---------------------------------------------------------------------------------
  Estimated maximum stack depth 5
  ---------------------------------------------------------------------------------
@@ -1920,7 +2127,7 @@ Call Graph Tables:
    _BitIntr
    _EdgeIntr
    _SendModule
-   i1_StartTickTimer
+   _StartTickTimer
 
  Address spaces:
 Name               Size   Autos  Total    Cost      Usage
@@ -1935,88 +2142,99 @@ BITSFR1              0      0       0       2        0.0%
 SFR1                 0      0       0       2        0.0%
 STACK                0      0       0       2        0.0%
 BITBANK0            3E      0       0       3        0.0%
-BANK0               3E      7      10       4       25.8%
-ABS                  0      0      10       5        0.0%
-DATA                 0      0      10       6        0.0%
+BANK0               3E      B      15       4       33.9%
+ABS                  0      0      15       5        0.0%
+DATA                 0      0      15       6        0.0%
 
 
 Microchip Technology PIC Macro Assembler V2.00 build -1524193055 
-Symbol Table                                                                                   Sun Oct 21 17:45:15 2018
+Symbol Table                                                                                   Fri Oct 26 14:25:27 2018
 
-                        l9 0108                          pc 0002                __CFG_CP$OFF 0000  
-                       l10 0108                         l11 0109                         l12 0109  
-                       l21 0112                         l54 010E                         l57 00E4  
-                       fsr 0004                        l801 00DE                        l803 00DF  
-                      l811 0111                        l805 010A                        l807 010F  
-                      l809 0110                        l791 00D7                        l793 00D8  
-                      l881 0105                        l795 00D9                        l883 0106  
-                      l797 00DA                        l789 00D2                        l799 00DC  
-                      _RA0 0028               __CFG_CPD$OFF 0000                        _ISR 00A4  
-                      fsr0 0004               __CFG_FOSC$EC 0000                       ?_ISR 0029  
-                     i1l60 0104                       i1l70 005C                       i1l71 00A2  
-                     i1l63 003E                       i1l72 0082                       i1l64 003D  
-                     i1l73 0081                       i1l65 003C                       i1l57 00F7  
-                     i1l66 00A3                       i1l74 007C                       i1l82 0113  
-                     i1l75 00A1                       i1l67 0062                       i1l76 00A0  
-                     i1l68 0061                       i1l77 0092                       i1l69 005A  
-                     i1l78 009F                       i1l79 00A3                       i1l99 00BA  
-                     _Data 0022                       _Sync 0026                       _main 0105  
-                     btemp 005E                       start 000F            __end_of_BitIntr 00A4  
-            __CFG_MCLRE$ON 0000                _BitDataInit 010A                      ??_ISR 002A  
-                    ?_main 0029              __CFG_WDTE$OFF 0000                      i1l100 00B3  
-                    i1l101 00B9                      i1l102 00C0                      i1l103 00C6  
-                    i1l104 00C6                      i1l821 0021                      i1l813 00FF  
-                    i1l901 00C0                      i1l831 0038                      i1l823 0022  
-                    i1l815 0102                      i1l903 00C4                      i1l841 0057  
-                    i1l833 0039                      i1l825 0027                      i1l817 0103  
-                    i1l851 0072                      i1l843 005A                      i1l827 0028  
-                    i1l835 003E                      i1l819 001C                      i1l861 0092  
-                    i1l853 0078                      i1l845 005C                      i1l837 0043  
-                    i1l829 0032                      i1l863 009C                      i1l855 0082  
-                    i1l839 004D                      i1l847 0062                      i1l871 00EC  
-                    i1l857 0088                      i1l849 0068                      i1l873 00ED  
-                    i1l865 00E5                      i1l859 008D                      i1l875 00EF  
-                    i1l867 00EA                      i1l891 00B0                      i1l877 00F1  
-                    i1l869 00EB                      i1l893 00B1                      i1l885 00A4  
-                    i1l879 00F2                      i1l895 00B3                      i1l887 00A8  
-                    i1l889 00A9                      i1l897 00BA                      i1l899 00BE  
-                    u20_20 004D                      u20_21 004C                      u21_20 0057  
-                    u21_21 0056                      u22_20 0068                      u30_20 00BE  
-                    u22_21 0067                      u30_21 00BD                      u23_20 0072  
-                    u31_20 00C4                      u23_21 0071                      u31_21 00C3  
-                    u24_20 0078                      u16_20 0027                      u24_21 0077  
-                    u16_21 0026                      u25_20 0088                      u17_20 0032  
-                    u25_21 0087                      u17_21 0031                      _TMR1H 000F  
-                    _TMR1L 000E                      u26_20 008D                      u18_20 0038  
-                    u26_21 008C                      u18_21 0037                      u27_20 009C  
-                    u19_20 0043                      u27_21 009B                      u19_21 0042  
-                    u28_20 00A8                      u28_21 00A7                      u29_20 00B0  
-                    u29_21 00AF                      _Lamps 0023           i1_StartTickTimer 00E5  
-           __CFG_BOREN$OFF 0000                      pclath 000A                      status 0003  
-         __end_of_EdgeIntr 0105                      wtemp0 005E            __initialization 0010  
-             __end_of_main 010A                 _Initialise 010F                     ??_main 0000  
-               _SendModule 0113                  ??_BitIntr 0029           ??_StartTickTimer 0000  
-           __CFG_PWRTE$OFF 0000                     saved_w 005E    __end_of__initialization 001A  
-           __pcstackCOMMON 0000                ?_Initialise 0029                  ?_EdgeIntr 0029  
-              ?_SendModule 0029                 __pbssBANK0 0020                 __pmaintext 0105  
-             ?_BitDataInit 0029   __end_ofi1_StartTickTimer 00F8                 __pintentry 0004  
-               ??_EdgeIntr 0000                 __stringtab 00F8                    _Address 0025  
-                  _BitIntr 001C        __size_of_Initialise 0004                    _BoxSize 0024  
-      __size_of_SendModule 0001                    __ptext1 010F                    __ptext2 00D2  
-                  __ptext3 010A                    __ptext4 00A4                    __ptext5 00E5  
-                  __ptext6 0113                    __ptext7 00FF                    __ptext8 001C  
-             __size_of_ISR 002E                  _T1CONbits 0010       end_of_initialization 001A  
-  StartTickTimer@IntEnable 002F  i1StartTickTimer@IntEnable 0029                  _Addressed 0020  
-                _DataState 0021               ??_Initialise 0000       __size_of_BitDataInit 0005  
-      start_initialization 0010                __end_of_ISR 00D2          __size_of_EdgeIntr 0006  
-             ??_SendModule 0000         __end_of_Initialise 0113                  _TickCount 0028  
-      __end_of_BOX_ADDRESS 00FF          ?i1_StartTickTimer 0029    __size_of_StartTickTimer 0013  
-       __end_of_SendModule 0114         ??i1_StartTickTimer 0000                  ___latbits 0000  
-            __pcstackBANK0 0029                   ?_BitIntr 0029                  __pstrings 00F8  
-        interrupt_function 0004                _BOX_ADDRESS 00FE                __stringbase 00FD  
-                 _EdgeIntr 00FF                   _BitCount 0027           __size_of_BitIntr 0088  
-           _StartTickTimer 00D2         __end_of__stringtab 00FE              __size_of_main 0005  
-   __end_of_StartTickTimer 00E5              ??_BitDataInit 0000                 _INTCONbits 000B  
-__size_ofi1_StartTickTimer 0013                   intlevel1 0000                  stringcode 00F8  
-          ?_StartTickTimer 0029        __end_of_BitDataInit 010F                   stringdir 00F8  
-                 stringtab 00F8  
+                      l9 0148                        pc 0002              __CFG_CP$OFF 0000  
+                     l10 0148                       l11 0149                       l12 0149  
+                     l27 0123                       l80 0108                       l81 010E  
+                     l79 00FA                       fsr 0004                      l851 00ED  
+                    l861 0100                      l853 00F1                      l863 0104  
+                    l855 00F2                      l871 0112                      l865 0106  
+                    l857 00F7                      l881 0118                      l873 0114  
+                    l859 00FD                      l867 0108                      l891 0120  
+                    l883 0119                      l875 0115                      l893 0122  
+                    l885 011D                      l877 0116                      l869 010F  
+                    l887 011E                      l879 0117                      l983 0145  
+                    l889 011F                      l985 0146                      _RA2 002A  
+                    _RC1 0039                      _RC3 003B                      _RC4 003C  
+                    _RC5 003D                      u180 00F7                      u181 00F6  
+           __CFG_CPD$OFF 0000                      _ISR 00BD                      fsr0 0004  
+           __CFG_FOSC$EC 0000                     ?_ISR 0020                     i1l90 0048  
+                   i1l91 00B3                     i1l92 0070                     i1l84 0144  
+                   i1l76 0136                     i1l93 006F                     i1l94 0068  
+                   i1l95 006A                     i1l87 00B4                     i1l96 00B2  
+                   i1l88 004A                     i1l97 0090                     i1l89 0049  
+                   i1l98 008F                     i1l99 008A                     _TMR0 0001  
+                   _Data 002D                     _Sync 0031                     _main 0145  
+                   btemp 005E                     start 000F          __end_of_BitIntr 00BD  
+            _BitDataInit 00EB                    ??_ISR 0022                    ?_main 0020  
+          __CFG_WDTE$OFF 0000                    i1l100 00B1                    i1l101 00B0  
+                  i1l102 00A2                    i1l103 00AF                    i1l104 00BC  
+                  i1l105 00BC                    i1l130 00DF                    i1l108 014A  
+                  i1l125 00D3                    i1l126 00CC                    i1l127 00D2  
+                  i1l128 00D9                    i1l129 00DF                    i1l901 012B  
+                  i1l911 013E                    i1l903 012C                    i1l921 0023  
+                  i1l913 013F                    i1l905 012E                    i1l931 0031  
+                  i1l923 0027                    i1l915 0142                    i1l907 0130  
+                  i1l941 0044                    i1l933 0032                    i1l925 0029  
+                  i1l917 0143                    i1l909 0131                    i1l951 0063  
+                  i1l943 0045                    i1l935 0033                    i1l927 002A  
+                  i1l919 001D                    i1l961 0080                    i1l953 0068  
+                  i1l937 0034                    i1l945 004A                    i1l929 002B  
+                  i1l971 009F                    i1l963 0086                    i1l955 006A  
+                  i1l947 004F                    i1l939 003E                    i1l981 00BA  
+                  i1l973 00A0                    i1l965 0090                    i1l949 0059  
+                  i1l957 0070                    i1l975 00A2                    i1l967 0096  
+                  i1l959 0076                    i1l895 0124                    i1l991 00C2  
+                  i1l977 00AC                    i1l969 009B                    i1l897 0129  
+                  i1l993 00C9                    i1l979 00B6                    i1l899 012A  
+                  i1l995 00CA                    i1l987 00BD                    i1l997 00CC  
+                  i1l989 00C1                    i1l999 00D3                    u20_20 0031  
+                  u20_21 0030                    u21_20 003E                    u21_21 003D  
+                  u30_20 009B                    u22_20 0044                    u30_21 009A  
+                  u22_21 0043                    u31_20 00AC                    u23_20 004F  
+                  u31_21 00AB                    u23_21 004E                    u24_20 0059  
+                  u32_20 00C1                    u24_21 0058                    u32_21 00C0  
+                  u25_20 0063                    u33_20 00C9                    u25_21 0062  
+                  u33_21 00C8                    _TMR1H 000F                    _TMR1L 000E  
+                  u26_20 0076                    u34_20 00D7                    u26_21 0075  
+                  u34_21 00D6                    u27_20 0080                    u19_20 0023  
+                  u35_20 00DD                    u27_21 007F                    u19_21 0022  
+                  u35_21 00DC                    _PORTA 0005                    u28_20 0086  
+                  u28_21 0085                    u29_20 0096                    u29_21 0095  
+                  _Lamps 002E           __CFG_BOREN$OFF 0000                    pclath 000A  
+                  status 0003         __end_of_EdgeIntr 0145                    wtemp0 005E  
+         __CFG_MCLRE$OFF 0000          __initialization 0010             __end_of_main 014A  
+             _Initialise 010F                   ??_main 0000               _SendModule 014A  
+                 i1l1001 00D7                   i1l1003 00D9                   i1l1005 00DD  
+              ??_BitIntr 0020         ??_StartTickTimer 0000           __CFG_PWRTE$OFF 0000  
+                 saved_w 005E  __end_of__initialization 001B           __pcstackCOMMON 0000  
+            ?_Initialise 0020                ?_EdgeIntr 0020        BitDataInit@ModeTx 0029  
+            ?_SendModule 0020               __pbssBANK0 002B               __pmaintext 0145  
+           ?_BitDataInit 0020               __pintentry 0004               ??_EdgeIntr 0000  
+             __stringtab 0137                  _Address 0030                  _BitData 0033  
+                _BitIntr 001D      __size_of_Initialise 0015                  _BoxSize 002F  
+              _CMCONbits 0019      __size_of_SendModule 0001                  __ptext1 010F  
+                __ptext2 00EB                  __ptext3 00BD                  __ptext4 0124  
+                __ptext5 014A                  __ptext6 013E                  __ptext7 001D  
+   BitDataInit@IntEnable 002A             __size_of_ISR 002E                _T1CONbits 0010  
+   end_of_initialization 001B  StartTickTimer@IntEnable 0020                _TRISCbits 0087  
+              _Addressed 002B             BitIntr@Dummy 0021                _DataState 002C  
+           ??_Initialise 0000     __size_of_BitDataInit 0024      start_initialization 0010  
+            __end_of_ISR 00EB        __size_of_EdgeIntr 0007             ??_SendModule 0000  
+     __end_of_Initialise 0124                _TickCount 0034      __end_of_BOX_ADDRESS 013E  
+__size_of_StartTickTimer 0013       __end_of_SendModule 014B                ___latbits 0000  
+          __pcstackBANK0 0020                 ?_BitIntr 0020         BitDataInit@Dummy 0028  
+              __pstrings 0137        interrupt_function 0004              _BOX_ADDRESS 013D  
+               _IOCAbits 0096              __stringbase 013C                 _EdgeIntr 013E  
+               _BitCount 0032         __size_of_BitIntr 00A0           _StartTickTimer 0124  
+     __end_of__stringtab 013D            __size_of_main 0005   __end_of_StartTickTimer 0137  
+          ??_BitDataInit 0027               _INTCONbits 000B                 intlevel1 0000  
+              stringcode 0137          ?_StartTickTimer 0020      __end_of_BitDataInit 010F  
+               stringdir 0137                 stringtab 0137  

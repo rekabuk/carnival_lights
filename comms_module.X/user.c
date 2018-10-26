@@ -13,6 +13,7 @@
 
 const uint8_t BOX_ADDRESS = 0;
 
+uint8_t BitData;
 uint8_t BitCount;
 uint8_t Sync;
 uint8_t Address;
@@ -30,20 +31,14 @@ uint8_t Data;
 DATA_MC_STATE_T DataState;
 uint8_t Addressed;
 
-void BitDataInit( void)
-{
-    DataState = DATA_SYNC;
-    Data = 0;
-	Addressed = 0;
-}
-
-
+// Enable tick timer on TMR1
+#pragma interrupt_level 1
 void StartTickTimer( void)
 {
     uint8_t IntEnable;
     
-    // Store interrupt enable status
-    IntEnable = INTCONbits.GIE;obal interrupts
+    // Store interrupt enable status and disable interrupts
+    IntEnable = INTCONbits.GIE;
     INTCONbits.GIE = 0;
     
     // Stop TMR1
@@ -59,77 +54,159 @@ void StartTickTimer( void)
     INTCONbits.GIE =  IntEnable;
 }
 
-void  EdgeIntr( void)
+// Enable for TX or RX
+void BitDataInit( uint8_t ModeTx)
 {
-    //INTCONbits
-    TMR1H = 2;
-    TMR1L = 0;
-    // Start data timer 30 us   (front porch 20us, data 20us, back porch 20us)
-    TCON0bits.TMR0ON = 1;
+    uint8_t IntEnable;
+    uint8_t Dummy;
+    
+    // Store interrupt enable status and disable interrupts
+    IntEnable = INTCONbits.GIE;
+    INTCONbits.GIE = 0;
+    
+    if (ModeTx == 1)
+    {
+        // Disable change of state interrupt
+        INTCONbits.RAIE = 1;
+
+        // Set transceiver to RX
+        RC1 = 1;
+    }
+    else
+    {
+        // Set transceiver to RX
+        RC1 = 0;
+        
+        // Initialise RX state machine
+        BitData = 1;
+        DataState = DATA_SYNC;
+        Data = 0;
+        Addressed = 0;
+        
+        // Read RXD to set current latched state ready for change
+        Dummy = PORTA;
+        
+        // Enable interrupt on RDX bit low-to high    
+        IOCAbits.IOCA2 = 1;
+        INTCONbits.RAIE = 1;
+    }
+    
+    // Set interrupts back to previous state
+    INTCONbits.GIE =  IntEnable;
 }
 
-// danny danny  daddy pollty,
 
+// Called when rising edge detected on RXD
+void  EdgeIntr( void)
+{
+    // Disable edge interrupts
+    INTCONbits.RAIE = 0;
+    
+    //Start data timer 30 us   (front porch 20us, data 20us, back porch 20us)
+    TMR0 = 106; // 256-150 
+    // Clear and enable timer interrupt
+    INTCONbits.T0IF = 0;
+    INTCONbits.T0IE = 1;    
+}
+
+// Called by timer 30us after RXD bit changes state
+// then again 20us later in the middle of the guard band
+// so that the change of state interrupt may be reset
 void BitIntr( void)
 {
-    // Grab the data
-    Data = (Data<<1) | RA0;
-
-    // Stop bit data timer
-    T1CONbits.TMR1ON = 0;
-    
-    if (DataState==DATA_SYNC)
-    {   
-        // Re-Sync tick count and H/W timer.
-        TickCount = 0;
-                
-        // Sync Word
-        // 0x9 = Default message   <SYNC>[<<ADDR><SIZE><DATA>>....]
-        if (++BitCount==4)
-        {
-             if (Data==0x9)
-             {
-                Data = 0;
-                DataState = DATA_ADDRESS;
-             }
-        }  
-    }
-    else if (DataState==DATA_ADDRESS)	
+    if (BitData==1)
     {
-        // 5-bit box address
-        if (++BitCount==5)
-        {
-            if (Data==BOX_ADDRESS)
-                Addressed = 1;
-            else
-                Addressed = 0;
+        // Capture the data
+        // Reading RA2 will clear the interrupt on change bit
+        Data = (Data<<1) | RA2;
+
+        // Set the timer to interrupt in the guard band so we can reset the 
+        // port change interrupt
+        // Start data timer 20 us   (front porch 20us, data 20us, back porch 20us)
+        TMR0 = 156; // 256-100 
+        // Clear and enable timer interrupt
+        INTCONbits.T0IF = 0;
+        INTCONbits.T0IE = 1;    
+        
+        // Next interrupt will be in the guard bit
+        BitData = 0;
+
+        if (DataState==DATA_SYNC)
+        {   
+            // Re-Sync tick count and H/W timer.
+            TickCount = 0;
+            // TODO reset HW timer
             
-            DataState = DATA_SIZE;            
-        }  
-    }	
-    else if (DataState==DATA_SIZE)	
-    {
-        // 5-bit number of lamps
-        if (++BitCount==5)
+            // Debug
+            RC4=1;
+            RC4=0;
+
+            // Sync Word
+            // 0x9 = Default message   <SYNC>[<<ADDR><SIZE><DATA>>....]
+            if (++BitCount==4)
+            {
+                 if (Data==0x9)
+                 {
+                    Data = 0;
+                    DataState = DATA_ADDRESS;
+                 }
+            }  
+        }
+        else if (DataState==DATA_ADDRESS)	
         {
-            if (Data < 31)
-                BoxSize = Data;
+            // 5-bit box address
+            if (++BitCount==5)
+            {
+                if (Data==BOX_ADDRESS)
+                {
+                    Addressed = 1;
+                    RC3=1;
+                    RC3=0;
+                }
+                else
+                {
+                    Addressed = 0;
+                }
 
-            DataState = DATA_LAMPS;
-        }  
-    }	
-    else if (DataState==DATA_LAMPS)	
+                DataState = DATA_SIZE;            
+            }  
+        }	
+        else if (DataState==DATA_SIZE)	
+        {
+            // 5-bit number of lamps
+            if (++BitCount==5)
+            {
+                if (Data < 31)
+                    BoxSize = Data;
+
+                DataState = DATA_LAMPS;
+            }  
+        }	
+        else if (DataState==DATA_LAMPS)	
+        {
+            // n-bit number of lamps
+            // TODO Only works for 8-lamp modules
+            if (Addressed==1)
+            {
+                Lamps = Data;
+                RC5=1;
+                RC5=0;
+            }
+
+            if (++BitCount==BoxSize)
+                DataState = DATA_ADDRESS;
+
+        }	
+    }
+    else
     {
-        // n-bit number of lamps
-        // TODO Only works for 8-lamp modules
-        if (Addressed==1)
-            Lamps = Data;
-        
-        if (++BitCount==BoxSize)
-            DataState = DATA_ADDRESS;
-        
-    }	
-
+        // Next timer interrupt will be a data bit
+        BitData = 1;
+        // Read port to reset change of state
+        uint8_t Dummy = PORTA;
+        // Enable change of state interrupt
+        INTCONbits.RAIE = 0;
+    }
 }
 
 // Send data to base unit

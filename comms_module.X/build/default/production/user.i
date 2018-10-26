@@ -1026,6 +1026,7 @@ void Initialise( void);
 
 const uint8_t BOX_ADDRESS = 0;
 
+uint8_t BitData;
 uint8_t BitCount;
 uint8_t Sync;
 uint8_t Address;
@@ -1043,23 +1044,16 @@ uint8_t Data;
 DATA_MC_STATE_T DataState;
 uint8_t Addressed;
 
-void BitDataInit( void)
-{
-    DataState = DATA_SYNC;
-    Data = 0;
- Addressed = 0;
-}
 
-
+#pragma interrupt_level 1
 void StartTickTimer( void)
 {
     uint8_t IntEnable;
 
 
     IntEnable = INTCONbits.GIE;
-
-
     INTCONbits.GIE = 0;
+
 
     T1CONbits.TMR1ON = 0;
 
@@ -1073,76 +1067,159 @@ void StartTickTimer( void)
     INTCONbits.GIE = IntEnable;
 }
 
+
+void BitDataInit( uint8_t ModeTx)
+{
+    uint8_t IntEnable;
+    uint8_t Dummy;
+
+
+    IntEnable = INTCONbits.GIE;
+    INTCONbits.GIE = 0;
+
+    if (ModeTx == 1)
+    {
+
+        INTCONbits.RAIE = 1;
+
+
+        RC1 = 1;
+    }
+    else
+    {
+
+        RC1 = 0;
+
+
+        BitData = 1;
+        DataState = DATA_SYNC;
+        Data = 0;
+        Addressed = 0;
+
+
+        Dummy = PORTA;
+
+
+        IOCAbits.IOCA2 = 1;
+        INTCONbits.RAIE = 1;
+    }
+
+
+    INTCONbits.GIE = IntEnable;
+}
+
+
+
 void EdgeIntr( void)
 {
 
-    TMR1H = 2;
-    TMR1L = 0;
+    INTCONbits.RAIE = 0;
 
-    T1CONbits.TMR1ON = 1;
+
+    TMR0 = 106;
+
+    INTCONbits.T0IF = 0;
+    INTCONbits.T0IE = 1;
 }
+
+
 
 
 void BitIntr( void)
 {
-
-    Data = (Data<<1) | RA0;
-
-
-    T1CONbits.TMR1ON = 0;
-
-    if (DataState==DATA_SYNC)
+    if (BitData==1)
     {
 
-        TickCount = 0;
+
+        Data = (Data<<1) | RA2;
 
 
 
-        if (++BitCount==4)
+
+        TMR0 = 156;
+
+        INTCONbits.T0IF = 0;
+        INTCONbits.T0IE = 1;
+
+
+        BitData = 0;
+
+        if (DataState==DATA_SYNC)
         {
-             if (Data==0x9)
-             {
-                Data = 0;
+
+            TickCount = 0;
+
+
+
+            RC4=1;
+            RC4=0;
+
+
+
+            if (++BitCount==4)
+            {
+                 if (Data==0x9)
+                 {
+                    Data = 0;
+                    DataState = DATA_ADDRESS;
+                 }
+            }
+        }
+        else if (DataState==DATA_ADDRESS)
+        {
+
+            if (++BitCount==5)
+            {
+                if (Data==BOX_ADDRESS)
+                {
+                    Addressed = 1;
+                    RC3=1;
+                    RC3=0;
+                }
+                else
+                {
+                    Addressed = 0;
+                }
+
+                DataState = DATA_SIZE;
+            }
+        }
+        else if (DataState==DATA_SIZE)
+        {
+
+            if (++BitCount==5)
+            {
+                if (Data < 31)
+                    BoxSize = Data;
+
+                DataState = DATA_LAMPS;
+            }
+        }
+        else if (DataState==DATA_LAMPS)
+        {
+
+
+            if (Addressed==1)
+            {
+                Lamps = Data;
+                RC5=1;
+                RC5=0;
+            }
+
+            if (++BitCount==BoxSize)
                 DataState = DATA_ADDRESS;
-             }
+
         }
     }
-    else if (DataState==DATA_ADDRESS)
+    else
     {
 
-        if (++BitCount==5)
-        {
-            if (Data==BOX_ADDRESS)
-                Addressed = 1;
-            else
-                Addressed = 0;
+        BitData = 1;
 
-            DataState = DATA_SIZE;
-        }
+        uint8_t Dummy = PORTA;
+
+        INTCONbits.RAIE = 0;
     }
-    else if (DataState==DATA_SIZE)
-    {
-
-        if (++BitCount==5)
-        {
-            if (Data < 31)
-                BoxSize = Data;
-
-            DataState = DATA_LAMPS;
-        }
-    }
-    else if (DataState==DATA_LAMPS)
-    {
-
-
-        if (Addressed==1)
-            Lamps = Data;
-
-        if (++BitCount==BoxSize)
-            DataState = DATA_ADDRESS;
-
-    }
-
 }
 
 

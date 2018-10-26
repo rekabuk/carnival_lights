@@ -1,10 +1,51 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"16 ./user.h
-[; ;./user.h: 16: void StartTickTimer( void);
+"498 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 498:     struct {
+[s S21 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S21 . CM CIS CINV . COUT ]
+"505
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 505:     struct {
+[s S22 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S22 . CM0 CM1 CM2 ]
+"497
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 497: typedef union {
+[u S20 `S21 1 `S22 1 ]
+[n S20 . . . ]
+"511
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 511: extern volatile CMCONbits_t CMCONbits __attribute__((address(0x019)));
+[v _CMCONbits `VS20 ~T0 @X0 0 e@25 ]
+"684
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 684:     struct {
+[s S29 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S29 . TRISC0 TRISC1 TRISC2 TRISC3 TRISC4 TRISC5 ]
+"683
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 683: typedef union {
+[u S28 `S29 1 ]
+[n S28 . . ]
+"693
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 693: extern volatile TRISCbits_t TRISCbits __attribute__((address(0x087)));
+[v _TRISCbits `VS28 ~T0 @X0 0 e@135 ]
+"433
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 433:     struct {
+[s S18 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 ]
+[n S18 . TMR1ON TMR1CS nT1SYNC T1OSCEN T1CKPS TMR1GE ]
+"441
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 441:     struct {
+[s S19 :4 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S19 . . T1CKPS0 T1CKPS1 ]
+"432
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 432: typedef union {
+[u S17 `S18 1 `S19 1 ]
+[n S17 . . . ]
+"447
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 447: extern volatile T1CONbits_t T1CONbits __attribute__((address(0x010)));
+[v _T1CONbits `VS17 ~T0 @X0 0 e@16 ]
+"18 ./user.h
+[; ;./user.h: 18: void StartTickTimer( void);
 [v _StartTickTimer `(v ~T0 @X0 0 ef ]
-"11
-[; ;./user.h: 11: void BitDataInit( void);
-[v _BitDataInit `(v ~T0 @X0 0 ef ]
+"13
+[; ;./user.h: 13: void BitDataInit( uint8_t ModeTx);
+[v _BitDataInit `(v ~T0 @X0 0 ef1`uc ]
 "292 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 292:     struct {
 [s S12 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -121,16 +162,49 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 [e :U _Initialise ]
 [f ]
-"17
-[; ;system.c: 17:     StartTickTimer();
-[e ( _StartTickTimer ..  ]
-"19
-[; ;system.c: 19:     BitDataInit();
-[e ( _BitDataInit ..  ]
+"18
+[; ;system.c: 18:     CMCONbits.CM = 7;
+[e = . . _CMCONbits 0 0 -> -> 7 `i `uc ]
+"21
+[; ;system.c: 21:     TRISCbits.TRISC0 = 1;
+[e = . . _TRISCbits 0 0 -> -> 1 `i `uc ]
 "22
-[; ;system.c: 22:     INTCONbits.PEIE = 1;
-[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
+[; ;system.c: 22:     TRISCbits.TRISC1 = 0;
+[e = . . _TRISCbits 0 1 -> -> 0 `i `uc ]
 "23
-[; ;system.c: 23: }
+[; ;system.c: 23:     TRISCbits.TRISC2 = 0;
+[e = . . _TRISCbits 0 2 -> -> 0 `i `uc ]
+"24
+[; ;system.c: 24:     TRISCbits.TRISC3 = 0;
+[e = . . _TRISCbits 0 3 -> -> 0 `i `uc ]
+"25
+[; ;system.c: 25:     TRISCbits.TRISC4 = 0;
+[e = . . _TRISCbits 0 4 -> -> 0 `i `uc ]
+"26
+[; ;system.c: 26:     TRISCbits.TRISC5 = 0;
+[e = . . _TRISCbits 0 5 -> -> 0 `i `uc ]
+"29
+[; ;system.c: 29:     T1CONbits.TMR1CS = 0;
+[e = . . _T1CONbits 0 1 -> -> 0 `i `uc ]
+"30
+[; ;system.c: 30:     T1CONbits.T1CKPS = 0;
+[e = . . _T1CONbits 0 4 -> -> 0 `i `uc ]
+"31
+[; ;system.c: 31:     T1CONbits.nT1SYNC = 1;
+[e = . . _T1CONbits 0 2 -> -> 1 `i `uc ]
+"32
+[; ;system.c: 32:     T1CONbits.TMR1GE = 0;
+[e = . . _T1CONbits 0 5 -> -> 0 `i `uc ]
+"35
+[; ;system.c: 35:     StartTickTimer();
+[e ( _StartTickTimer ..  ]
+"38
+[; ;system.c: 38:     BitDataInit( 0);
+[e ( _BitDataInit (1 -> -> 0 `i `uc ]
+"41
+[; ;system.c: 41:     INTCONbits.PEIE = 1;
+[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
+"42
+[; ;system.c: 42: }
 [e :UE 56 ]
 }
