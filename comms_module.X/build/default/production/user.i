@@ -1019,9 +1019,25 @@ extern uint8_t TickCount;
 # 11 "user.c" 2
 
 # 1 "./system.h" 1
-# 18 "./system.h"
+# 19 "./system.h"
 void Initialise( void);
 # 12 "user.c" 2
+
+# 1 "./user.h" 1
+# 11 "./user.h"
+# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\c90\\stdint.h" 1 3
+# 11 "./user.h" 2
+
+
+
+
+void BitDataInit( uint8_t ModeTx);
+void EdgeIntr( void);
+void BitIntr( void);
+void TickIntr( void);
+void SendModule( void);
+void StartTickTimer( void);
+# 13 "user.c" 2
 
 
 const uint8_t BOX_ADDRESS = 0;
@@ -1032,6 +1048,7 @@ uint8_t Sync;
 uint8_t Address;
 uint8_t BoxSize;
 uint8_t Lamps;
+uint8_t EdgeDetect;
 
 typedef enum {
     DATA_SYNC = 0,
@@ -1045,29 +1062,26 @@ DATA_MC_STATE_T DataState;
 uint8_t Addressed;
 
 
-#pragma interrupt_level 1
 void StartTickTimer( void)
 {
-    uint8_t IntEnable;
-
-
-    IntEnable = INTCONbits.GIE;
-    INTCONbits.GIE = 0;
-
 
     T1CONbits.TMR1ON = 0;
 
+    TMR1H = 0x3C;
+    TMR1L = 0xB0;
+
     PIR1bits.TMR1IF = 0;
 
-    TMR1H = 0xC3;
-    TMR1L = 0x50;
     T1CONbits.TMR1ON = 1;
 
 
-    INTCONbits.GIE = IntEnable;
+
+    if (++EdgeDetect >= 2)
+        BitDataInit( 0);
 }
 
 
+#pragma interrupt_level 1
 void BitDataInit( uint8_t ModeTx)
 {
     uint8_t IntEnable;
@@ -1080,7 +1094,7 @@ void BitDataInit( uint8_t ModeTx)
     if (ModeTx == 1)
     {
 
-        INTCONbits.RAIE = 1;
+        INTCONbits.RAIE = 0;
 
 
         RC1 = 1;
@@ -1100,7 +1114,6 @@ void BitDataInit( uint8_t ModeTx)
         Dummy = PORTA;
 
 
-        IOCAbits.IOCA2 = 1;
         INTCONbits.RAIE = 1;
     }
 
@@ -1119,6 +1132,12 @@ void EdgeIntr( void)
     RC4=0;
 
 
+    EdgeDetect = 0;
+
+
+    BitData = 1;
+
+
     TMR0 = 106;
 
     INTCONbits.T0IF = 0;
@@ -1132,6 +1151,7 @@ void BitIntr( void)
 {
     RC3=1;
     RC3=0;
+
 
     if (BitData==1)
     {
@@ -1154,10 +1174,10 @@ void BitIntr( void)
         {
 
             TickCount = 0;
-# 152 "user.c"
+# 157 "user.c"
             if (++BitCount==4)
             {
-                 if (Data==0x9)
+                 if ((Data&0xF)==0x9)
                  {
                     Data = 0;
                     DataState = DATA_ADDRESS;
@@ -1210,6 +1230,7 @@ void BitIntr( void)
 
         }
     }
+
     else
     {
 

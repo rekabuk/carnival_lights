@@ -32,18 +32,20 @@ void Initialise( void)
     T1CONbits.T1CKPS = 0;   // Pre-scaler = 1
     T1CONbits.nT1SYNC = 1;  // No sync required
     T1CONbits.TMR1GE = 0;   // TMR1 Run
-    
-    // Keeps track of time
-    StartTickTimer();
+    TMR1H = TMR1H_VAL;
+    TMR1L = TMR1L_VAL;     
+    PIR1bits.TMR1IF = 0;    // Clear interrupt
+    PIE1bits.TMR1IE = 1;    // Enable PIE interrupt
+    T1CONbits.TMR1ON = 1;   
 
     // TMR0 is for bit timing, use Fosc/4 and no prescaler
     OPTION_REGbits.T0CS = 0;
     OPTION_REGbits.PSA = 1;
-    
+
+    // Enable change of state detection on 
+    IOCAbits.IOCA2 = 1;
+
     // Enable interrupt on RDX bit low-to high
-    BitDataInit( RX_MODE);
-    
-    // Enable peripheral interrupts
-    INTCONbits.PEIE = 1;
+    BitDataInit( RX_MODE);    
 }
 

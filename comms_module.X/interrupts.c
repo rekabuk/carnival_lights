@@ -15,7 +15,7 @@ uint8_t TickCount;
 
 void __interrupt() ISR( void)
 {
-    // Timer 1 tick interrupt
+    // Timer 1 - Tick interrupt
     if (PIR1bits.TMR1IF==1)
     {
         StartTickTimer();
@@ -38,7 +38,7 @@ void __interrupt() ISR( void)
         EdgeIntr();
     }
     
-    // Timer 0 bit Interrupt
+    // Timer 0 - Bit Interrupt
     if (INTCONbits.T0IF==1)
     {
         BitIntr();

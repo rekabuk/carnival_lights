@@ -11,9 +11,10 @@
 #define FOSC 20000000
 #define SYS_CLK  FOSC / 4
 
-// 20000000/4/50000  = 50000 = 0xC350 ~ 1ms
-#define TMR1H_VAL 0xC3
-#define TMR1L_VAL 0x50
+// 20000000/4/50000 = 15536, so (2^16)-15536 = 0xC350 ~ 10ms
+// Interrupt on roll over 0xffff -> 0x0000
+#define TMR1H_VAL 0x3C
+#define TMR1L_VAL 0xB0
 
 void Initialise( void);
 

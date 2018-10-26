@@ -10,6 +10,7 @@
 
 #include "interrupts.h"
 #include "system.h"
+#include "user.h"
 
 const uint8_t BOX_ADDRESS = 0;
 
@@ -19,6 +20,7 @@ uint8_t Sync;
 uint8_t Address;
 uint8_t BoxSize;
 uint8_t Lamps;
+uint8_t EdgeDetect;
 
 typedef enum {
     DATA_SYNC = 0,
@@ -32,29 +34,26 @@ DATA_MC_STATE_T DataState;
 uint8_t Addressed;
 
 // Enable tick timer on TMR1
-#pragma interrupt_level 1
 void StartTickTimer( void)
 {
-    uint8_t IntEnable;
-    
-    // Store interrupt enable status and disable interrupts
-    IntEnable = INTCONbits.GIE;
-    INTCONbits.GIE = 0;
-    
     // Stop TMR1
     T1CONbits.TMR1ON = 0;
-    // Clear interrupt 
-    PIR1bits.TMR1IF = 0;
-    //Restart timer
+    // Reset timer
     TMR1H = TMR1H_VAL;
     TMR1L = TMR1L_VAL;
+    // Clear interrupt 
+    PIR1bits.TMR1IF = 0;
+    // Enable timer
     T1CONbits.TMR1ON = 1;
     
-    // Set interrupts back to previous state
-    INTCONbits.GIE =  IntEnable;
+    // If there have been no edges for two ticks
+    // then restart the RX state machine
+    if (++EdgeDetect >= 2)
+        BitDataInit( RX_MODE);        
 }
 
 // Enable for TX or RX
+#pragma interrupt_level 1
 void BitDataInit( uint8_t ModeTx)
 {
     uint8_t IntEnable;
@@ -64,10 +63,10 @@ void BitDataInit( uint8_t ModeTx)
     IntEnable = INTCONbits.GIE;
     INTCONbits.GIE = 0;
     
-    if (ModeTx == 1)
+    if (ModeTx == TX_MODE)
     {
         // Disable change of state interrupt
-        INTCONbits.RAIE = 1;
+        INTCONbits.RAIE = 0;
 
         // Set transceiver to RX
         RC1 = 1;
@@ -87,7 +86,6 @@ void BitDataInit( uint8_t ModeTx)
         Dummy = PORTA;
         
         // Enable interrupt on RXD bit state change    
-        IOCAbits.IOCA2 = 1;
         INTCONbits.RAIE = 1;
     }
     
@@ -102,9 +100,15 @@ void  EdgeIntr( void)
     // Disable edge interrupts
     INTCONbits.RAIE = 0;
     
-    RC4=1;
+    RC4=1;  // Debug
     RC4=0;
-
+    
+    // Clear for every edge - Used to timeout packet reception
+    EdgeDetect = 0;
+    
+    // Next TMR0 interrupt will be a data one
+    BitData = 1;
+    
     //Start data timer 30 us   (front porch 20us, data 20us, back porch 20us)
     TMR0 = 106; // 256-150 
     // Clear and enable timer interrupt
@@ -120,6 +124,7 @@ void BitIntr( void)
     RC3=1;
     RC3=0;
 
+    // Is this an interrupt to sample the data?
     if (BitData==1)
     {
         // Capture the data
@@ -151,7 +156,7 @@ void BitIntr( void)
             // 0x9 = Default message   <SYNC>[<<ADDR><SIZE><DATA>>....]
             if (++BitCount==4)
             {
-                 if (Data==0x9)
+                 if ((Data&0xF)==0x9)
                  {
                     Data = 0;
                     DataState = DATA_ADDRESS;
@@ -204,6 +209,7 @@ void BitIntr( void)
 
         }	
     }
+    // Otherwise it's to reset change-of-state
     else
     {
         // Next timer interrupt will be a data bit

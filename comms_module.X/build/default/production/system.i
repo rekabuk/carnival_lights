@@ -1014,7 +1014,7 @@ typedef uint16_t uintptr_t;
 
 
 # 1 "./system.h" 1
-# 18 "./system.h"
+# 19 "./system.h"
 void Initialise( void);
 # 11 "system.c" 2
 
@@ -1056,17 +1056,19 @@ void Initialise( void)
     T1CONbits.T1CKPS = 0;
     T1CONbits.nT1SYNC = 1;
     T1CONbits.TMR1GE = 0;
-
-
-    StartTickTimer();
+    TMR1H = 0x3C;
+    TMR1L = 0xB0;
+    PIR1bits.TMR1IF = 0;
+    PIE1bits.TMR1IE = 1;
+    T1CONbits.TMR1ON = 1;
 
 
     OPTION_REGbits.T0CS = 0;
     OPTION_REGbits.PSA = 1;
 
 
+    IOCAbits.IOCA2 = 1;
+
+
     BitDataInit( 0);
-
-
-    INTCONbits.PEIE = 1;
 }

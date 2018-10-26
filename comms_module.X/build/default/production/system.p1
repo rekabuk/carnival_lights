@@ -51,10 +51,43 @@ Version 4.0 HI-TECH Software Intermediate Code
 "447
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 447: extern volatile T1CONbits_t T1CONbits __attribute__((address(0x010)));
 [v _T1CONbits `VS17 ~T0 @X0 0 e@16 ]
-"20 ./user.h
-[; ;./user.h: 20: void StartTickTimer( void);
-[v _StartTickTimer `(v ~T0 @X0 0 ef ]
-"557 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h
+"420
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 420: extern volatile unsigned char TMR1H __attribute__((address(0x00F)));
+[v _TMR1H `Vuc ~T0 @X0 0 e@15 ]
+"413
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 413: extern volatile unsigned char TMR1L __attribute__((address(0x00E)));
+[v _TMR1L `Vuc ~T0 @X0 0 e@14 ]
+"370
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 370:     struct {
+[s S15 :1 `uc 1 :2 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 ]
+[n S15 . TMR1IF . CMIF . EEIF ]
+"377
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 377:     struct {
+[s S16 :1 `uc 1 ]
+[n S16 . T1IF ]
+"369
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 369: typedef union {
+[u S14 `S15 1 `S16 1 ]
+[n S14 . . . ]
+"381
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 381: extern volatile PIR1bits_t PIR1bits __attribute__((address(0x00C)));
+[v _PIR1bits `VS14 ~T0 @X0 0 e@12 ]
+"734
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 734:     struct {
+[s S31 :1 `uc 1 :2 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 ]
+[n S31 . TMR1IE . CMIE . EEIE ]
+"741
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 741:     struct {
+[s S32 :1 `uc 1 ]
+[n S32 . T1IE ]
+"733
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 733: typedef union {
+[u S30 `S31 1 `S32 1 ]
+[n S30 . . . ]
+"745
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 745: extern volatile PIE1bits_t PIE1bits __attribute__((address(0x08C)));
+[v _PIE1bits `VS30 ~T0 @X0 0 e@140 ]
+"557
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 557:     struct {
 [s S24 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S24 . PS PSA T0SE T0CS INTEDG nRAPU ]
@@ -69,24 +102,20 @@ Version 4.0 HI-TECH Software Intermediate Code
 "573
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 573: extern volatile OPTION_REGbits_t OPTION_REGbits __attribute__((address(0x081)));
 [v _OPTION_REGbits `VS23 ~T0 @X0 0 e@129 ]
+"963
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 963:     struct {
+[s S44 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S44 . IOCA0 IOCA1 IOCA2 IOCA3 IOCA4 IOCA5 ]
+"962
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 962: typedef union {
+[u S43 `S44 1 ]
+[n S43 . . ]
+"972
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 972: extern volatile IOCAbits_t IOCAbits __attribute__((address(0x096)));
+[v _IOCAbits `VS43 ~T0 @X0 0 e@150 ]
 "15 ./user.h
 [; ;./user.h: 15: void BitDataInit( uint8_t ModeTx);
 [v _BitDataInit `(v ~T0 @X0 0 ef1`uc ]
-"292 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 292:     struct {
-[s S12 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S12 . RAIF INTF T0IF RAIE INTE T0IE PEIE GIE ]
-"302
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 302:     struct {
-[s S13 :2 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 ]
-[n S13 . . TMR0IF . TMR0IE ]
-"291
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 291: typedef union {
-[u S11 `S12 1 `S13 1 ]
-[n S11 . . . ]
-"309
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 309: extern volatile INTCONbits_t INTCONbits __attribute__((address(0x00B)));
-[v _INTCONbits `VS11 ~T0 @X0 0 e@11 ]
 "54 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 54: __asm("INDF equ 00h");
 [; <" INDF equ 00h ;# ">
@@ -221,22 +250,34 @@ Version 4.0 HI-TECH Software Intermediate Code
 "34
 [; ;system.c: 34:     T1CONbits.TMR1GE = 0;
 [e = . . _T1CONbits 0 5 -> -> 0 `i `uc ]
+"35
+[; ;system.c: 35:     TMR1H = 0x3C;
+[e = _TMR1H -> -> 60 `i `uc ]
+"36
+[; ;system.c: 36:     TMR1L = 0xB0;
+[e = _TMR1L -> -> 176 `i `uc ]
 "37
-[; ;system.c: 37:     StartTickTimer();
-[e ( _StartTickTimer ..  ]
-"40
-[; ;system.c: 40:     OPTION_REGbits.T0CS = 0;
+[; ;system.c: 37:     PIR1bits.TMR1IF = 0;
+[e = . . _PIR1bits 0 0 -> -> 0 `i `uc ]
+"38
+[; ;system.c: 38:     PIE1bits.TMR1IE = 1;
+[e = . . _PIE1bits 0 0 -> -> 1 `i `uc ]
+"39
+[; ;system.c: 39:     T1CONbits.TMR1ON = 1;
+[e = . . _T1CONbits 0 0 -> -> 1 `i `uc ]
+"42
+[; ;system.c: 42:     OPTION_REGbits.T0CS = 0;
 [e = . . _OPTION_REGbits 0 3 -> -> 0 `i `uc ]
-"41
-[; ;system.c: 41:     OPTION_REGbits.PSA = 1;
+"43
+[; ;system.c: 43:     OPTION_REGbits.PSA = 1;
 [e = . . _OPTION_REGbits 0 1 -> -> 1 `i `uc ]
-"44
-[; ;system.c: 44:     BitDataInit( 0);
+"46
+[; ;system.c: 46:     IOCAbits.IOCA2 = 1;
+[e = . . _IOCAbits 0 2 -> -> 1 `i `uc ]
+"49
+[; ;system.c: 49:     BitDataInit( 0);
 [e ( _BitDataInit (1 -> -> 0 `i `uc ]
-"47
-[; ;system.c: 47:     INTCONbits.PEIE = 1;
-[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
-"48
-[; ;system.c: 48: }
+"50
+[; ;system.c: 50: }
 [e :UE 56 ]
 }
