@@ -1057,7 +1057,7 @@ void StartTickTimer( void)
 
     T1CONbits.TMR1ON = 0;
 
-    INTCONbits.T0IF = 0;
+    PIR1bits.TMR1IF = 0;
 
     TMR1H = 0xC3;
     TMR1L = 0x50;
@@ -1115,6 +1115,9 @@ void EdgeIntr( void)
 
     INTCONbits.RAIE = 0;
 
+    RC4=1;
+    RC4=0;
+
 
     TMR0 = 106;
 
@@ -1127,6 +1130,9 @@ void EdgeIntr( void)
 
 void BitIntr( void)
 {
+    RC3=1;
+    RC3=0;
+
     if (BitData==1)
     {
 
@@ -1148,14 +1154,7 @@ void BitIntr( void)
         {
 
             TickCount = 0;
-
-
-
-            RC4=1;
-            RC4=0;
-
-
-
+# 152 "user.c"
             if (++BitCount==4)
             {
                  if (Data==0x9)
@@ -1173,8 +1172,8 @@ void BitIntr( void)
                 if (Data==BOX_ADDRESS)
                 {
                     Addressed = 1;
-                    RC3=1;
-                    RC3=0;
+
+
                 }
                 else
                 {

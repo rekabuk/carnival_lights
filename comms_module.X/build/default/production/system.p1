@@ -14,6 +14,17 @@ Version 4.0 HI-TECH Software Intermediate Code
 "511
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 511: extern volatile CMCONbits_t CMCONbits __attribute__((address(0x019)));
 [v _CMCONbits `VS20 ~T0 @X0 0 e@25 ]
+"634
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 634:     struct {
+[s S27 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S27 . TRISA0 TRISA1 TRISA2 TRISA3 TRISA4 TRISA5 ]
+"633
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 633: typedef union {
+[u S26 `S27 1 ]
+[n S26 . . ]
+"643
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 643: extern volatile TRISAbits_t TRISAbits __attribute__((address(0x085)));
+[v _TRISAbits `VS26 ~T0 @X0 0 e@133 ]
 "684
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 684:     struct {
 [s S29 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -40,11 +51,26 @@ Version 4.0 HI-TECH Software Intermediate Code
 "447
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 447: extern volatile T1CONbits_t T1CONbits __attribute__((address(0x010)));
 [v _T1CONbits `VS17 ~T0 @X0 0 e@16 ]
-"18 ./user.h
-[; ;./user.h: 18: void StartTickTimer( void);
+"20 ./user.h
+[; ;./user.h: 20: void StartTickTimer( void);
 [v _StartTickTimer `(v ~T0 @X0 0 ef ]
-"13
-[; ;./user.h: 13: void BitDataInit( uint8_t ModeTx);
+"557 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 557:     struct {
+[s S24 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S24 . PS PSA T0SE T0CS INTEDG nRAPU ]
+"565
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 565:     struct {
+[s S25 :1 `uc 1 :1 `uc 1 :1 `uc 1 :4 `uc 1 :1 `uc 1 ]
+[n S25 . PS0 PS1 PS2 . nGPPU ]
+"556
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 556: typedef union {
+[u S23 `S24 1 `S25 1 ]
+[n S23 . . . ]
+"573
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 573: extern volatile OPTION_REGbits_t OPTION_REGbits __attribute__((address(0x081)));
+[v _OPTION_REGbits `VS23 ~T0 @X0 0 e@129 ]
+"15 ./user.h
+[; ;./user.h: 15: void BitDataInit( uint8_t ModeTx);
 [v _BitDataInit `(v ~T0 @X0 0 ef1`uc ]
 "292 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 292:     struct {
@@ -165,46 +191,52 @@ Version 4.0 HI-TECH Software Intermediate Code
 "18
 [; ;system.c: 18:     CMCONbits.CM = 7;
 [e = . . _CMCONbits 0 0 -> -> 7 `i `uc ]
-"21
-[; ;system.c: 21:     TRISCbits.TRISC0 = 1;
-[e = . . _TRISCbits 0 0 -> -> 1 `i `uc ]
-"22
-[; ;system.c: 22:     TRISCbits.TRISC1 = 0;
-[e = . . _TRISCbits 0 1 -> -> 0 `i `uc ]
-"23
-[; ;system.c: 23:     TRISCbits.TRISC2 = 0;
-[e = . . _TRISCbits 0 2 -> -> 0 `i `uc ]
+"20
+[; ;system.c: 20:     TRISAbits.TRISA2 = 1;
+[e = . . _TRISAbits 0 2 -> -> 1 `i `uc ]
 "24
-[; ;system.c: 24:     TRISCbits.TRISC3 = 0;
-[e = . . _TRISCbits 0 3 -> -> 0 `i `uc ]
+[; ;system.c: 24:     TRISCbits.TRISC1 = 0;
+[e = . . _TRISCbits 0 1 -> -> 0 `i `uc ]
 "25
-[; ;system.c: 25:     TRISCbits.TRISC4 = 0;
-[e = . . _TRISCbits 0 4 -> -> 0 `i `uc ]
+[; ;system.c: 25:     TRISCbits.TRISC2 = 0;
+[e = . . _TRISCbits 0 2 -> -> 0 `i `uc ]
 "26
-[; ;system.c: 26:     TRISCbits.TRISC5 = 0;
+[; ;system.c: 26:     TRISCbits.TRISC3 = 0;
+[e = . . _TRISCbits 0 3 -> -> 0 `i `uc ]
+"27
+[; ;system.c: 27:     TRISCbits.TRISC4 = 0;
+[e = . . _TRISCbits 0 4 -> -> 0 `i `uc ]
+"28
+[; ;system.c: 28:     TRISCbits.TRISC5 = 0;
 [e = . . _TRISCbits 0 5 -> -> 0 `i `uc ]
-"29
-[; ;system.c: 29:     T1CONbits.TMR1CS = 0;
-[e = . . _T1CONbits 0 1 -> -> 0 `i `uc ]
-"30
-[; ;system.c: 30:     T1CONbits.T1CKPS = 0;
-[e = . . _T1CONbits 0 4 -> -> 0 `i `uc ]
 "31
-[; ;system.c: 31:     T1CONbits.nT1SYNC = 1;
-[e = . . _T1CONbits 0 2 -> -> 1 `i `uc ]
+[; ;system.c: 31:     T1CONbits.TMR1CS = 0;
+[e = . . _T1CONbits 0 1 -> -> 0 `i `uc ]
 "32
-[; ;system.c: 32:     T1CONbits.TMR1GE = 0;
+[; ;system.c: 32:     T1CONbits.T1CKPS = 0;
+[e = . . _T1CONbits 0 4 -> -> 0 `i `uc ]
+"33
+[; ;system.c: 33:     T1CONbits.nT1SYNC = 1;
+[e = . . _T1CONbits 0 2 -> -> 1 `i `uc ]
+"34
+[; ;system.c: 34:     T1CONbits.TMR1GE = 0;
 [e = . . _T1CONbits 0 5 -> -> 0 `i `uc ]
-"35
-[; ;system.c: 35:     StartTickTimer();
+"37
+[; ;system.c: 37:     StartTickTimer();
 [e ( _StartTickTimer ..  ]
-"38
-[; ;system.c: 38:     BitDataInit( 0);
-[e ( _BitDataInit (1 -> -> 0 `i `uc ]
+"40
+[; ;system.c: 40:     OPTION_REGbits.T0CS = 0;
+[e = . . _OPTION_REGbits 0 3 -> -> 0 `i `uc ]
 "41
-[; ;system.c: 41:     INTCONbits.PEIE = 1;
+[; ;system.c: 41:     OPTION_REGbits.PSA = 1;
+[e = . . _OPTION_REGbits 0 1 -> -> 1 `i `uc ]
+"44
+[; ;system.c: 44:     BitDataInit( 0);
+[e ( _BitDataInit (1 -> -> 0 `i `uc ]
+"47
+[; ;system.c: 47:     INTCONbits.PEIE = 1;
 [e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
-"42
-[; ;system.c: 42: }
+"48
+[; ;system.c: 48: }
 [e :UE 56 ]
 }

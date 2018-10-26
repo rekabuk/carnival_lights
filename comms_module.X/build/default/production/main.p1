@@ -125,8 +125,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 12:     INTCONbits.GIE = 1;
 [e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
 "14
-[; ;main.c: 14:     while(1==1)
-[e $U 57  ]
+[; ;main.c: 14:     while(1)
 [e :U 58 ]
 "15
 [; ;main.c: 15:     {
@@ -135,14 +134,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 17:     }
 }
 [e :U 57 ]
-"14
-[; ;main.c: 14:     while(1==1)
-[e $ == -> 1 `i -> 1 `i 58  ]
+[e $U 58  ]
 [e :U 59 ]
 "19
-[; ;main.c: 19:     return;
-[e $UE 56  ]
-"20
-[; ;main.c: 20: }
+[; ;main.c: 19: }
 [e :UE 56 ]
 }

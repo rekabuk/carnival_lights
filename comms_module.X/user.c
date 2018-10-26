@@ -44,7 +44,7 @@ void StartTickTimer( void)
     // Stop TMR1
     T1CONbits.TMR1ON = 0;
     // Clear interrupt 
-    INTCONbits.T0IF = 0;
+    PIR1bits.TMR1IF = 0;
     //Restart timer
     TMR1H = TMR1H_VAL;
     TMR1L = TMR1L_VAL;
@@ -86,7 +86,7 @@ void BitDataInit( uint8_t ModeTx)
         // Read RXD to set current latched state ready for change
         Dummy = PORTA;
         
-        // Enable interrupt on RDX bit low-to high    
+        // Enable interrupt on RXD bit state change    
         IOCAbits.IOCA2 = 1;
         INTCONbits.RAIE = 1;
     }
@@ -102,6 +102,9 @@ void  EdgeIntr( void)
     // Disable edge interrupts
     INTCONbits.RAIE = 0;
     
+    RC4=1;
+    RC4=0;
+
     //Start data timer 30 us   (front porch 20us, data 20us, back porch 20us)
     TMR0 = 106; // 256-150 
     // Clear and enable timer interrupt
@@ -114,6 +117,9 @@ void  EdgeIntr( void)
 // so that the change of state interrupt may be reset
 void BitIntr( void)
 {
+    RC3=1;
+    RC3=0;
+
     if (BitData==1)
     {
         // Capture the data
@@ -138,8 +144,8 @@ void BitIntr( void)
             // TODO reset HW timer
             
             // Debug
-            RC4=1;
-            RC4=0;
+            //RC4=1;
+            //RC4=0;
 
             // Sync Word
             // 0x9 = Default message   <SYNC>[<<ADDR><SIZE><DATA>>....]
@@ -160,8 +166,8 @@ void BitIntr( void)
                 if (Data==BOX_ADDRESS)
                 {
                     Addressed = 1;
-                    RC3=1;
-                    RC3=0;
+                    //RC3=1;
+                    //RC3=0;
                 }
                 else
                 {

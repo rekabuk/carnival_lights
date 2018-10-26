@@ -8,6 +8,8 @@
 #ifndef USER_H
 #define	USER_H
 
+#include <stdint.h>
+
 #define RX_MODE 0
 #define TX_MODE 1
 void BitDataInit( uint8_t ModeTx);

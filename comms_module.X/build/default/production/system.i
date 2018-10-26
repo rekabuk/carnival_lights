@@ -1019,7 +1019,13 @@ void Initialise( void);
 # 11 "system.c" 2
 
 # 1 "./user.h" 1
-# 13 "./user.h"
+# 11 "./user.h"
+# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\c90\\stdint.h" 1 3
+# 11 "./user.h" 2
+
+
+
+
 void BitDataInit( uint8_t ModeTx);
 void EdgeIntr( void);
 void BitIntr( void);
@@ -1035,8 +1041,10 @@ void Initialise( void)
 
     CMCONbits.CM = 7;
 
+    TRISAbits.TRISA2 = 1;
 
-    TRISCbits.TRISC0 = 1;
+
+
     TRISCbits.TRISC1 = 0;
     TRISCbits.TRISC2 = 0;
     TRISCbits.TRISC3 = 0;
@@ -1051,6 +1059,10 @@ void Initialise( void)
 
 
     StartTickTimer();
+
+
+    OPTION_REGbits.T0CS = 0;
+    OPTION_REGbits.PSA = 1;
 
 
     BitDataInit( 0);
