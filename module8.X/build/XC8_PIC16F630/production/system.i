@@ -1116,6 +1116,6 @@ void ConfigureOscillator(void)
     OPTION_REGbits.T0CS = 0;
     OPTION_REGbits.PSA = 0;
     OPTION_REGbits.PS = 7;
-    TMR0 = 195;
+    TMR0 = 48;
     INTCONbits.T0IE = 1;
 }

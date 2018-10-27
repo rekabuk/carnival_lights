@@ -19,6 +19,9 @@ void InitApp(void)
 {
     // Disable comparator
     CMCONbits.CM = 7;
+
+    // Debug
+    TRISAbits.TRISA0 = 0;
     
     // Lamp control outputs
     TRISAbits.TRISA1 = 0;
@@ -30,14 +33,6 @@ void InitApp(void)
     TRISCbits.TRISC3 = 0;
     TRISCbits.TRISC4 = 0;
     TRISCbits.TRISC5 = 0;
-
-    /* TODO Initialize User Ports/Peripherals/Project here */
-
-    /* Setup analog functionality and port direction */
-
-    /* Initialize peripherals */
-
-    /* Enable interrupts */
 }
 
 #pragma interrupt_level 1
@@ -87,13 +82,19 @@ void SetLamps( uint8_t Lamps)
 
 void SequenceUpdate( void)
 {
+    static uint8_t Debug = 0;
     static uint8_t TimeCount = 0;
     static uint8_t SequenceIndex = 0;
     const uint8_t Sequence[4] = {0x88, 0x44, 0x22, 0x11};
     
+        // Debug
+        Debug = (Debug==0) ? 1 : 0;
+        RA0 = Debug;
+        
     // This will run every second
-    if (++TimeCount==4)
+    if (++TimeCount>=7)
     {
+        
         TimeCount = 0;
         
         if (++SequenceIndex == sizeof(Sequence))        

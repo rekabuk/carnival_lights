@@ -143,8 +143,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;system.c: 20:     OPTION_REGbits.PS = 7;
 [e = . . _OPTION_REGbits 0 0 -> -> 7 `i `uc ]
 "21
-[; ;system.c: 21:     TMR0 = 195;
-[e = _TMR0 -> -> 195 `i `uc ]
+[; ;system.c: 21:     TMR0 = 48;
+[e = _TMR0 -> -> 48 `i `uc ]
 "22
 [; ;system.c: 22:     INTCONbits.T0IE = 1;
 [e = . . _INTCONbits 0 5 -> -> 1 `i `uc ]

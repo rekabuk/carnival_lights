@@ -1030,6 +1030,9 @@ void InitApp(void)
     CMCONbits.CM = 7;
 
 
+    TRISAbits.TRISA0 = 0;
+
+
     TRISAbits.TRISA1 = 0;
     TRISAbits.TRISA2 = 0;
 
@@ -1039,7 +1042,6 @@ void InitApp(void)
     TRISCbits.TRISC3 = 0;
     TRISCbits.TRISC4 = 0;
     TRISCbits.TRISC5 = 0;
-# 41 "user.c"
 }
 
 #pragma interrupt_level 1
@@ -1089,13 +1091,19 @@ void SetLamps( uint8_t Lamps)
 
 void SequenceUpdate( void)
 {
+    static uint8_t Debug = 0;
     static uint8_t TimeCount = 0;
     static uint8_t SequenceIndex = 0;
     const uint8_t Sequence[4] = {0x88, 0x44, 0x22, 0x11};
 
 
-    if (++TimeCount==4)
+        Debug = (Debug==0) ? 1 : 0;
+        RA0 = Debug;
+
+
+    if (++TimeCount>=7)
     {
+
         TimeCount = 0;
 
         if (++SequenceIndex == sizeof(Sequence))

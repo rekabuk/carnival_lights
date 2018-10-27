@@ -16,6 +16,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 "309
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 309: extern volatile INTCONbits_t INTCONbits __attribute__((address(0x00B)));
 [v _INTCONbits `VS11 ~T0 @X0 0 e@11 ]
+"59
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 59: extern volatile unsigned char TMR0 __attribute__((address(0x001)));
+[v _TMR0 `Vuc ~T0 @X0 0 e@1 ]
 "15 ./user.h
 [; ;./user.h: 15: void SequenceUpdate( void);
 [v _SequenceUpdate `(v ~T0 @X0 0 ef ]
@@ -128,16 +131,19 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 15:     {
 {
 "16
-[; ;interrupts.c: 16:         SequenceUpdate();
-[e ( _SequenceUpdate ..  ]
-"17
-[; ;interrupts.c: 17:         INTCONbits.T0IF=0;
+[; ;interrupts.c: 16:         INTCONbits.T0IF=0;
 [e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
+"17
+[; ;interrupts.c: 17:         TMR0 = 48;
+[e = _TMR0 -> -> 48 `i `uc ]
 "18
-[; ;interrupts.c: 18:     }
+[; ;interrupts.c: 18:         SequenceUpdate();
+[e ( _SequenceUpdate ..  ]
+"19
+[; ;interrupts.c: 19:     }
 }
 [e :U 57 ]
-"19
-[; ;interrupts.c: 19: }
+"20
+[; ;interrupts.c: 20: }
 [e :UE 56 ]
 }

@@ -60,6 +60,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 "1314
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 1314: extern volatile __bit RA2 __attribute__((address(0x2A)));
 [v _RA2 `Vb ~T0 @X0 0 e@42 ]
+"1308
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 1308: extern volatile __bit RA0 __attribute__((address(0x28)));
+[v _RA0 `Vb ~T0 @X0 0 e@40 ]
 "54 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 54: __asm("INDF equ 00h");
 [; <" INDF equ 00h ;# ">
@@ -168,172 +171,190 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;user.c: 21:     if (Lamps & 0x10)
 [e = . . _CMCONbits 0 0 -> -> 7 `i `uc ]
 "24
-[; ;user.c: 24:     TRISAbits.TRISA1 = 0;
+[; ;user.c: 24:     TRISAbits.TRISA0 = 0;
 [; ;user.c: 24:         RC2 = 0;
-[e = . . _TRISAbits 0 1 -> -> 0 `i `uc ]
-"25
-[; ;user.c: 25:     TRISAbits.TRISA2 = 0;
-[; ;user.c: 25: 
-[e = . . _TRISAbits 0 2 -> -> 0 `i `uc ]
+[e = . . _TRISAbits 0 0 -> -> 0 `i `uc ]
 "27
-[; ;user.c: 27:     TRISCbits.TRISC0 = 0;
+[; ;user.c: 27:     TRISAbits.TRISA1 = 0;
 [; ;user.c: 27:         RC1 = 1;
-[e = . . _TRISCbits 0 0 -> -> 0 `i `uc ]
+[e = . . _TRISAbits 0 1 -> -> 0 `i `uc ]
 "28
-[; ;user.c: 28:     TRISCbits.TRISC1 = 0;
+[; ;user.c: 28:     TRISAbits.TRISA2 = 0;
 [; ;user.c: 28:     else
-[e = . . _TRISCbits 0 1 -> -> 0 `i `uc ]
-"29
-[; ;user.c: 29:     TRISCbits.TRISC2 = 0;
-[; ;user.c: 29:         RC1 = 0;
-[e = . . _TRISCbits 0 2 -> -> 0 `i `uc ]
+[e = . . _TRISAbits 0 2 -> -> 0 `i `uc ]
 "30
-[; ;user.c: 30:     TRISCbits.TRISC3 = 0;
+[; ;user.c: 30:     TRISCbits.TRISC0 = 0;
 [; ;user.c: 30: 
-[e = . . _TRISCbits 0 3 -> -> 0 `i `uc ]
+[e = . . _TRISCbits 0 0 -> -> 0 `i `uc ]
 "31
-[; ;user.c: 31:     TRISCbits.TRISC4 = 0;
+[; ;user.c: 31:     TRISCbits.TRISC1 = 0;
 [; ;user.c: 31:     if (Lamps & 0x40)
-[e = . . _TRISCbits 0 4 -> -> 0 `i `uc ]
+[e = . . _TRISCbits 0 1 -> -> 0 `i `uc ]
 "32
-[; ;user.c: 32:     TRISCbits.TRISC5 = 0;
+[; ;user.c: 32:     TRISCbits.TRISC2 = 0;
 [; ;user.c: 32:         RC0 = 1;
+[e = . . _TRISCbits 0 2 -> -> 0 `i `uc ]
+"33
+[; ;user.c: 33:     TRISCbits.TRISC3 = 0;
+[; ;user.c: 33:     else
+[e = . . _TRISCbits 0 3 -> -> 0 `i `uc ]
+"34
+[; ;user.c: 34:     TRISCbits.TRISC4 = 0;
+[; ;user.c: 34:         RC0 = 0;
+[e = . . _TRISCbits 0 4 -> -> 0 `i `uc ]
+"35
+[; ;user.c: 35:     TRISCbits.TRISC5 = 0;
+[; ;user.c: 35: 
 [e = . . _TRISCbits 0 5 -> -> 0 `i `uc ]
-"41
-[; ;user.c: 41: }
-[; ;user.c: 41: }
+"36
+[; ;user.c: 36: }
+[; ;user.c: 36:     if (Lamps & 0x80)
 [e :UE 56 ]
 }
-"43
-[; ;user.c: 43: void SequenceUpdate( void)
+"38
+[; ;user.c: 38:     else
 [p l 1 ]
-"44
-[; ;user.c: 44: {
+"39
+[; ;user.c: 39:         RA2 = 0;
 [v _SetLamps `(v ~T0 @X0 1 ef1`uc ]
-"45
-[; ;user.c: 45:     static uint8_t TimeCount = 0;
+"40
+[; ;user.c: 40: 
 {
 [e :U _SetLamps ]
-"44
-[; ;user.c: 44: {
+"39
+[; ;user.c: 39:         RA2 = 0;
 [v _Lamps `uc ~T0 @X0 1 r1 ]
-"45
-[; ;user.c: 45:     static uint8_t TimeCount = 0;
+"40
+[; ;user.c: 40: 
 [f ]
-"46
-[; ;user.c: 46:     static uint8_t SequenceIndex = 0;
+"41
+[; ;user.c: 41: }
 [e $ ! != & -> _Lamps `i -> 1 `i -> 0 `i 58  ]
-"47
-[; ;user.c: 47:     const uint8_t Sequence[4] = {0x88, 0x44, 0x22, 0x11};
+"42
+[; ;user.c: 42: 
 [e = _RA1 -> -> 1 `i `b ]
 [e $U 59  ]
-"48
-[; ;user.c: 48: 
+"43
+[; ;user.c: 43: void SequenceUpdate( void)
 [e :U 58 ]
-"49
-[; ;user.c: 49: 
+"44
+[; ;user.c: 44: {
 [e = _RA1 -> -> 0 `i `b ]
 [e :U 59 ]
-"51
-[; ;user.c: 51:     {
+"46
+[; ;user.c: 46:     static uint8_t TimeCount = 0;
 [e $ ! != & -> _Lamps `i -> 2 `i -> 0 `i 60  ]
-"52
-[; ;user.c: 52:         TimeCount = 0;
+"47
+[; ;user.c: 47:     static uint8_t SequenceIndex = 0;
 [e = _RC5 -> -> 1 `i `b ]
 [e $U 61  ]
-"53
-[; ;user.c: 53: 
+"48
+[; ;user.c: 48:     const uint8_t Sequence[4] = {0x88, 0x44, 0x22, 0x11};
 [e :U 60 ]
-"54
-[; ;user.c: 54:         if (++SequenceIndex == sizeof(Sequence))
+"49
+[; ;user.c: 49: 
 [e = _RC5 -> -> 0 `i `b ]
 [e :U 61 ]
-"56
-[; ;user.c: 56: 
+"51
+[; ;user.c: 51:         Debug = (Debug==0) ? 1 : 0;
 [e $ ! != & -> _Lamps `i -> 4 `i -> 0 `i 62  ]
-"57
-[; ;user.c: 57:         SetLamps(Sequence[SequenceIndex]);
+"52
+[; ;user.c: 52:         RA0 = Debug;
 [e = _RC4 -> -> 1 `i `b ]
 [e $U 63  ]
-"58
-[; ;user.c: 58:     }
+"53
+[; ;user.c: 53: 
 [e :U 62 ]
-"59
-[; ;user.c: 59: 
+"54
+[; ;user.c: 54: 
 [e = _RC4 -> -> 0 `i `b ]
 [e :U 63 ]
-"61
+"56
+[; ;user.c: 56:     {
 [e $ ! != & -> _Lamps `i -> 8 `i -> 0 `i 64  ]
-"62
+"57
+[; ;user.c: 57: 
 [e = _RC3 -> -> 1 `i `b ]
 [e $U 65  ]
-"63
+"58
+[; ;user.c: 58:         TimeCount = 0;
 [e :U 64 ]
-"64
+"59
+[; ;user.c: 59: 
 [e = _RC3 -> -> 0 `i `b ]
 [e :U 65 ]
-"66
+"61
+[; ;user.c: 61:             SequenceIndex = 0;
 [e $ ! != & -> _Lamps `i -> 16 `i -> 0 `i 66  ]
-"67
+"62
+[; ;user.c: 62: 
 [e = _RC2 -> -> 1 `i `b ]
 [e $U 67  ]
-"68
+"63
+[; ;user.c: 63:         SetLamps(Sequence[SequenceIndex]);
 [e :U 66 ]
-"69
+"64
+[; ;user.c: 64:     }
 [e = _RC2 -> -> 0 `i `b ]
 [e :U 67 ]
-"71
+"66
+[; ;user.c: 66: }
 [e $ ! != & -> _Lamps `i -> 32 `i -> 0 `i 68  ]
-"72
+"67
 [e = _RC1 -> -> 1 `i `b ]
 [e $U 69  ]
-"73
+"68
 [e :U 68 ]
-"74
+"69
 [e = _RC1 -> -> 0 `i `b ]
 [e :U 69 ]
-"76
+"71
 [e $ ! != & -> _Lamps `i -> 64 `i -> 0 `i 70  ]
-"77
+"72
 [e = _RC0 -> -> 1 `i `b ]
 [e $U 71  ]
-"78
+"73
 [e :U 70 ]
-"79
+"74
 [e = _RC0 -> -> 0 `i `b ]
 [e :U 71 ]
-"81
+"76
 [e $ ! != & -> _Lamps `i -> 128 `i -> 0 `i 72  ]
-"82
+"77
 [e = _RA2 -> -> 1 `i `b ]
 [e $U 73  ]
-"83
+"78
 [e :U 72 ]
-"84
+"79
 [e = _RA2 -> -> 0 `i `b ]
 [e :U 73 ]
-"86
+"81
 [e :UE 57 ]
 }
-"88
+"83
 [v _SequenceUpdate `(v ~T0 @X0 1 ef ]
-"89
+"84
 {
 [e :U _SequenceUpdate ]
 [f ]
-"90
-[v F471 `uc ~T0 @X0 1 s TimeCount ]
+"85
+[v F471 `uc ~T0 @X0 1 s Debug ]
 [i F471
 -> -> 0 `i `uc
 ]
-"91
-[v F472 `uc ~T0 @X0 1 s SequenceIndex ]
+"86
+[v F472 `uc ~T0 @X0 1 s TimeCount ]
 [i F472
 -> -> 0 `i `uc
 ]
-"92
-[v F473 `Cuc ~T0 @X0 -> 4 `i s Sequence ]
+"87
+[v F473 `uc ~T0 @X0 1 s SequenceIndex ]
 [i F473
+-> -> 0 `i `uc
+]
+"88
+[v F474 `Cuc ~T0 @X0 -> 4 `i s Sequence ]
+[i F474
 :U ..
 -> -> 136 `i `uc
 -> -> 68 `i `uc
@@ -341,22 +362,26 @@ Version 4.0 HI-TECH Software Intermediate Code
 -> -> 17 `i `uc
 ..
 ]
+"91
+[e = F471 -> ? == -> F471 `i -> 0 `i : -> 1 `i -> 0 `i `uc ]
+"92
+[e = _RA0 -> F471 `b ]
 "95
-[e $ ! == -> =+ F471 -> -> 1 `i `uc `i -> 4 `i 75  ]
+[e $ ! >= -> =+ F472 -> -> 1 `i `uc `i -> 7 `i 75  ]
 "96
 {
-"97
-[e = F471 -> -> 0 `i `uc ]
-"99
-[e $ ! == -> =+ F472 -> -> 1 `i `uc `ui -> # F473 `ui 76  ]
-"100
+"98
 [e = F472 -> -> 0 `i `uc ]
+"100
+[e $ ! == -> =+ F473 -> -> 1 `i `uc `ui -> # F474 `ui 76  ]
+"101
+[e = F473 -> -> 0 `i `uc ]
 [e :U 76 ]
-"102
-[e ( _SetLamps (1 *U + &U F473 * -> F472 `ux -> -> # *U &U F473 `ui `ux ]
 "103
+[e ( _SetLamps (1 *U + &U F474 * -> F473 `ux -> -> # *U &U F474 `ui `ux ]
+"104
 }
 [e :U 75 ]
-"105
+"106
 [e :UE 74 ]
 }

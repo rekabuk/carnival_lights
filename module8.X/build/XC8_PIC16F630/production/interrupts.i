@@ -1021,7 +1021,8 @@ void __attribute__((picinterrupt(""))) isr(void)
 {
     if (INTCONbits.T0IF==1)
     {
-        SequenceUpdate();
         INTCONbits.T0IF=0;
+        TMR0 = 48;
+        SequenceUpdate();
     }
 }
