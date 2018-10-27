@@ -270,10 +270,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _RC4 -> -> 0 `i `b ]
 [e :U 63 ]
 "56
-[; ;user.c: 56:     {
+[; ;user.c: 56:     if (TimeCount>=7)
 [e $ ! != & -> _Lamps `i -> 8 `i -> 0 `i 64  ]
 "57
-[; ;user.c: 57: 
+[; ;user.c: 57:     {
 [e = _RC3 -> -> 1 `i `b ]
 [e $U 65  ]
 "58
@@ -367,8 +367,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "92
 [e = _RA0 -> F471 `b ]
 "95
-[e $ ! >= -> =+ F472 -> -> 1 `i `uc `i -> 7 `i 75  ]
+[e ++ F472 -> -> 1 `i `uc ]
 "96
+[e $ ! >= -> F472 `i -> 7 `i 75  ]
+"97
 {
 "98
 [e = F472 -> -> 0 `i `uc ]

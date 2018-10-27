@@ -1,7 +1,7 @@
 
 
 Microchip Technology PIC LITE Macro Assembler V2.00 build -1524193055 
-                                                                                               Sat Oct 27 20:30:28 2018
+                                                                                               Sat Oct 27 20:35:35 2018
 
 Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 20180527130849
      1  0000                     
@@ -606,7 +606,7 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
    543                           __CFG_CP$OFF equ 0x0
    544  0000                     global __CFG_CPD$OFF
    545                           __CFG_CPD$OFF equ 0x0
-   546  0000                     	file	"C:\Users\abaker\AppData\Local\Temp\ser8."
+   546  0000                     	file	"C:\Users\abaker\AppData\Local\Temp\sa90."
    547                           	line	#
    548                           psect cinit,class=CODE,delta=2
    549                           global start_initialization
@@ -626,7 +626,7 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
    563                           SequenceUpdate@Debug:
    564  0028                            ds      1
    565  0028                     
-   566                           	file	"C:\Users\abaker\AppData\Local\Temp\ser8."
+   566                           	file	"C:\Users\abaker\AppData\Local\Temp\sa90."
    567                           	line	#
    568                           ; Clear objects allocated to BANK0
    569                           psect cinit,class=CODE,delta=2,merge=1
@@ -820,7 +820,7 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
    757                           ; Regs used in _main: [wreg+status,2+status,0+pclath+cstack]
    758                           	line	26
    759                           	
-   760                           l805:	
+   760                           l809:	
    761  00BE                     ;main.c: 26:     ConfigureOscillator();
    762                           	fcall	_ConfigureOscillator
    763  00BE  20B4               	line	29
@@ -832,7 +832,7 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
    769  00C0  3000               	fcall	_SetLamps
    770  00C1  201A               	line	34
    771                           	
-   772                           l807:	
+   772                           l811:	
    773  00C2                     ;main.c: 34:     INTCONbits. GIE = 1;
    774                           	bsf	(11),7	;volatile
    775  00C2  178B               	line	36
@@ -903,55 +903,55 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
    840                           ; Regs used in _InitApp: [wreg+status,2+status,0]
    841                           	line	21
    842                           	
-   843                           l777:	
+   843                           l781:	
    844  009C                     ;user.c: 21:     CMCONbits.CM = 7;;user.c: 21:     if (Lamps & 0x10)
    845                           	movlw	(07h & ((1<<3)-1))<<0
    846  009C  3007               	bcf	status, 5	;RP0=0, select bank0
    847  009D  1283               	iorwf	(25),f	;volatile
    848  009E  0499               	line	24
    849                           	
-   850                           l779:	
+   850                           l783:	
    851  009F                     ;user.c: 24:     TRISAbits.TRISA0 = 0;;user.c: 24:         RC2 = 0;
    852                           	bsf	status, 5	;RP0=1, select bank1
    853  009F  1683               	bcf	(133)^080h,0	;volatile
    854  00A0  1005               	line	27
    855                           	
-   856                           l781:	
+   856                           l785:	
    857  00A1                     ;user.c: 27:     TRISAbits.TRISA1 = 0;;user.c: 27:         RC1 = 1;
    858                           	bcf	(133)^080h,1	;volatile
    859  00A1  1085               	line	28
    860                           	
-   861                           l783:	
+   861                           l787:	
    862  00A2                     ;user.c: 28:     TRISAbits.TRISA2 = 0;;user.c: 28:     else
    863                           	bcf	(133)^080h,2	;volatile
    864  00A2  1105               	line	30
    865                           	
-   866                           l785:	
+   866                           l789:	
    867  00A3                     ;user.c: 30:     TRISCbits.TRISC0 = 0;;user.c: 30: 
    868                           	bcf	(135)^080h,0	;volatile
    869  00A3  1007               	line	31
    870                           	
-   871                           l787:	
+   871                           l791:	
    872  00A4                     ;user.c: 31:     TRISCbits.TRISC1 = 0;;user.c: 31:     if (Lamps & 0x40)
    873                           	bcf	(135)^080h,1	;volatile
    874  00A4  1087               	line	32
    875                           	
-   876                           l789:	
+   876                           l793:	
    877  00A5                     ;user.c: 32:     TRISCbits.TRISC2 = 0;;user.c: 32:         RC0 = 1;
    878                           	bcf	(135)^080h,2	;volatile
    879  00A5  1107               	line	33
    880                           	
-   881                           l791:	
+   881                           l795:	
    882  00A6                     ;user.c: 33:     TRISCbits.TRISC3 = 0;;user.c: 33:     else
    883                           	bcf	(135)^080h,3	;volatile
    884  00A6  1187               	line	34
    885                           	
-   886                           l793:	
+   886                           l797:	
    887  00A7                     ;user.c: 34:     TRISCbits.TRISC4 = 0;;user.c: 34:         RC0 = 0;
    888                           	bcf	(135)^080h,4	;volatile
    889  00A7  1207               	line	35
    890                           	
-   891                           l795:	
+   891                           l799:	
    892  00A8                     ;user.c: 35:     TRISCbits.TRISC5 = 0;;user.c: 35: 
    893                           	bcf	(135)^080h,5	;volatile
    894  00A8  1287               	line	36
@@ -1010,7 +1010,7 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
    947                           ; Regs used in _ConfigureOscillator: [wreg+status,2+status,0]
    948                           	line	18
    949                           	
-   950                           l769:	
+   950                           l773:	
    951  00B4                     ;system.c: 18:     OPTION_REGbits.T0CS = 0;
    952                           	bsf	status, 5	;RP0=1, select bank1
    953  00B4  1683               	bcf	(129)^080h,5	;volatile
@@ -1019,20 +1019,20 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
    956                           	bcf	(129)^080h,3	;volatile
    957  00B6  1181               	line	20
    958                           	
-   959                           l771:	
+   959                           l775:	
    960  00B7                     ;system.c: 20:     OPTION_REGbits.PS = 7;
    961                           	movlw	(07h & ((1<<3)-1))<<0
    962  00B7  3007               	iorwf	(129)^080h,f	;volatile
    963  00B8  0481               	line	21
    964                           	
-   965                           l773:	
+   965                           l777:	
    966  00B9                     ;system.c: 21:     TMR0 = 48;
    967                           	movlw	low(030h)
    968  00B9  3030               	bcf	status, 5	;RP0=0, select bank0
    969  00BA  1283               	movwf	(1)	;volatile
    970  00BB  0081               	line	22
    971                           	
-   972                           l775:	
+   972                           l779:	
    973  00BC                     ;system.c: 22:     INTCONbits.T0IE = 1;
    974                           	bsf	(11),5	;volatile
    975  00BC  168B               	line	23
@@ -1110,7 +1110,7 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   1047  000E  2887               psect	text3
   1048                           	line	14
   1049                           	
-  1050                           i1l797:	
+  1050                           i1l801:	
   1051  0087                     ;interrupts.c: 14:     if (INTCONbits.T0IF==1)
   1052                           	btfss	(11),2	;volatile
   1053  0087  1D0B               	goto	u30_21
@@ -1120,18 +1120,18 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   1057  008A  2890               u30_20:
   1058  008B                     	line	16
   1059                           	
-  1060                           i1l799:	
+  1060                           i1l803:	
   1061  008B                     ;interrupts.c: 15:     {;interrupts.c: 16:         INTCONbits.T0IF=0;
   1062                           	bcf	(11),2	;volatile
   1063  008B  110B               	line	17
   1064                           	
-  1065                           i1l801:	
+  1065                           i1l805:	
   1066  008C                     ;interrupts.c: 17:         TMR0 = 48;
   1067                           	movlw	low(030h)
   1068  008C  3030               	movwf	(1)	;volatile
   1069  008D  0081               	line	18
   1070                           	
-  1071                           i1l803:	
+  1071                           i1l807:	
   1072  008E                     ;interrupts.c: 18:         SequenceUpdate();
   1073                           	fcall	_SequenceUpdate
   1074  008E  2056               	goto	i1l12
@@ -1206,7 +1206,7 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   1143                           ; Regs used in _SequenceUpdate: [wreg-fsr0h+status,2+status,0+pclath+cstack]
   1144                           	line	91
   1145                           	
-  1146                           i1l757:	
+  1146                           i1l759:	
   1147  0056                     	bcf	status, 5	;RP0=0, select bank0
   1148  0056  1283               	movf	((SequenceUpdate@Debug)),w
   1149  0057  0828               	btfsc	status,2
@@ -1223,7 +1223,7 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   1160  005F  0821               	movwf	(SequenceUpdate@Debug)
   1161  0060  00A8               	line	92
   1162                           	
-  1163                           i1l759:	
+  1163                           i1l761:	
   1164  0061                     	btfsc	(SequenceUpdate@Debug),0
   1165  0061  1828               	goto	u26_21
   1166  0062  2864               	goto	u26_20
@@ -1241,302 +1241,305 @@ Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 201805271
   1178  0069  3001               	movwf	(??_SequenceUpdate+0)+0
   1179  006A  00A1               	movf	(??_SequenceUpdate+0)+0,w
   1180  006B  0821               	addwf	(SequenceUpdate@TimeCount),f
-  1181  006C  07A7               	movlw	low(07h)
-  1182  006D  3007               	subwf	((SequenceUpdate@TimeCount)),w
-  1183  006E  0227               	skipc
-  1184  006F  1C03               	goto	u28_21
-  1185  0070  2872               	goto	u28_20
-  1186  0071  2873               u28_21:
-  1187  0072                     	goto	i1l96
-  1188  0072  2886               u28_20:
-  1189  0073                     	line	98
-  1190                           	
-  1191                           i1l761:	
-  1192  0073                     	clrf	(SequenceUpdate@TimeCount)
-  1193  0073  01A7               	line	100
-  1194                           	
-  1195                           i1l763:	
-  1196  0074                     	movlw	low(01h)
-  1197  0074  3001               	movwf	(??_SequenceUpdate+0)+0
-  1198  0075  00A1               	movf	(??_SequenceUpdate+0)+0,w
-  1199  0076  0821               	addwf	(SequenceUpdate@SequenceIndex),f
-  1200  0077  07A6               		movlw	4
-  1201  0078  3004               	xorwf	(((SequenceUpdate@SequenceIndex))),w
-  1202  0079  0626               	btfss	status,2
-  1203  007A  1D03               	goto	u29_21
-  1204  007B  287D               	goto	u29_20
-  1205  007C  287E               u29_21:
-  1206  007D                     	goto	i1l767
-  1207  007D  2880               u29_20:
-  1208  007E                     	line	101
-  1209                           	
-  1210                           i1l765:	
-  1211  007E                     	clrf	(SequenceUpdate@SequenceIndex)
-  1212  007E  01A6               	goto	i1l767
-  1213  007F  2880               	
-  1214                           i1l95:	
-  1215  0080                     	line	103
-  1216                           	
-  1217                           i1l767:	
-  1218  0080                     	movf	(SequenceUpdate@SequenceIndex),w
-  1219  0080  0826               	addlw	low((((SequenceUpdate@Sequence)-__stringbase)|8000h))
-  1220  0081  3E01               	movwf	fsr0
-  1221  0082  0084               	fcall	stringdir
-  1222  0083  20AA               	fcall	_SetLamps
-  1223  0084  201A               	goto	i1l96
-  1224  0085  2886               	line	104
-  1225                           	
-  1226                           i1l94:	
-  1227  0086                     	line	106
+  1181  006C  07A7               	line	96
+  1182                           	
+  1183                           i1l763:	
+  1184  006D                     	movlw	low(07h)
+  1185  006D  3007               	subwf	(SequenceUpdate@TimeCount),w
+  1186  006E  0227               	skipc
+  1187  006F  1C03               	goto	u28_21
+  1188  0070  2872               	goto	u28_20
+  1189  0071  2873               u28_21:
+  1190  0072                     	goto	i1l96
+  1191  0072  2886               u28_20:
+  1192  0073                     	line	98
+  1193                           	
+  1194                           i1l765:	
+  1195  0073                     	clrf	(SequenceUpdate@TimeCount)
+  1196  0073  01A7               	line	100
+  1197                           	
+  1198                           i1l767:	
+  1199  0074                     	movlw	low(01h)
+  1200  0074  3001               	movwf	(??_SequenceUpdate+0)+0
+  1201  0075  00A1               	movf	(??_SequenceUpdate+0)+0,w
+  1202  0076  0821               	addwf	(SequenceUpdate@SequenceIndex),f
+  1203  0077  07A6               		movlw	4
+  1204  0078  3004               	xorwf	(((SequenceUpdate@SequenceIndex))),w
+  1205  0079  0626               	btfss	status,2
+  1206  007A  1D03               	goto	u29_21
+  1207  007B  287D               	goto	u29_20
+  1208  007C  287E               u29_21:
+  1209  007D                     	goto	i1l771
+  1210  007D  2880               u29_20:
+  1211  007E                     	line	101
+  1212                           	
+  1213                           i1l769:	
+  1214  007E                     	clrf	(SequenceUpdate@SequenceIndex)
+  1215  007E  01A6               	goto	i1l771
+  1216  007F  2880               	
+  1217                           i1l95:	
+  1218  0080                     	line	103
+  1219                           	
+  1220                           i1l771:	
+  1221  0080                     	movf	(SequenceUpdate@SequenceIndex),w
+  1222  0080  0826               	addlw	low((((SequenceUpdate@Sequence)-__stringbase)|8000h))
+  1223  0081  3E01               	movwf	fsr0
+  1224  0082  0084               	fcall	stringdir
+  1225  0083  20AA               	fcall	_SetLamps
+  1226  0084  201A               	goto	i1l96
+  1227  0085  2886               	line	104
   1228                           	
-  1229                           i1l96:	
-  1230  0086                     	return
-  1231  0086  0008               	opt stack 0
-  1232                           GLOBAL	__end_of_SequenceUpdate
-  1233                           	__end_of_SequenceUpdate:
-  1234  0087                     	signat	_SequenceUpdate,89
-  1235                           	global	_SetLamps
-  1236                           
-  1237 ;; *************** function _SetLamps *****************
-  1238 ;; Defined at:
-  1239 ;;		line 39 in file "user.c"
-  1240 ;; Parameters:    Size  Location     Type
-  1241 ;;  Lamps           1    wreg     unsigned char 
-  1242 ;; Auto vars:     Size  Location     Type
-  1243 ;;  Lamps           1    0[BANK0 ] unsigned char 
-  1244 ;; Return value:  Size  Location     Type
-  1245 ;;                  1    wreg      void 
-  1246 ;; Registers used:
-  1247 ;;		wreg
-  1248 ;; Tracked objects:
-  1249 ;;		On entry : 0/0
-  1250 ;;		On exit  : 0/0
-  1251 ;;		Unchanged: 0/0
-  1252 ;; Data sizes:     COMMON   BANK0
-  1253 ;;      Params:         0       0
-  1254 ;;      Locals:         0       0
-  1255 ;;      Temps:          0       0
-  1256 ;;      Totals:         0       0
-  1257 ;;Total ram usage:        0 bytes
-  1258 ;; Hardware stack levels used:    1
-  1259 ;; Hardware stack levels required when called:    3
-  1260 ;; This function calls:
-  1261 ;;		Nothing
-  1262 ;; This function is called by:
-  1263 ;;		_main
-  1264 ;;		_SequenceUpdate
-  1265 ;; This function uses a non-reentrant model
-  1266 ;;
-  1267                           psect	text5,local,class=CODE,delta=2,merge=1,group=0
-  1268                           	line	39
-  1269                           global __ptext5
-  1270                           __ptext5:	;psect for function _SetLamps
-  1271  001A                     psect	text5
-  1272                           	file	"user.c"
-  1273                           	line	39
-  1274                           	global	__size_of_SetLamps
-  1275                           	__size_of_SetLamps	equ	__end_of_SetLamps-_SetLamps
-  1276  003C                     	
-  1277                           _SetLamps:	
-  1278  001A                     ;incstack = 0
-  1279                           	opt	stack 1
-  1280                           ; Regs used in _SetLamps: [wreg]
-  1281                           ;SetLamps@Lamps stored from wreg
-  1282                           	bcf	status, 5	;RP0=0, select bank0
-  1283  001A  1283               	movwf	(SetLamps@Lamps)
-  1284  001B  00A0               	line	41
-  1285                           	
-  1286                           i1l739:	
-  1287  001C                     ;user.c: 39:         RA2 = 0;;user.c: 40: ;user.c: 41: }
-  1288                           	btfss	(SetLamps@Lamps),(0)&7
-  1289  001C  1C20               	goto	u16_21
-  1290  001D  281F               	goto	u16_20
-  1291  001E  2820               u16_21:
-  1292  001F                     	goto	i1l67
-  1293  001F  2822               u16_20:
-  1294  0020                     	line	42
-  1295                           	
-  1296                           i1l741:	
-  1297  0020                     ;user.c: 42: 
-  1298                           	bsf	(41/8),(41)&7	;volatile
-  1299  0020  1485               	goto	i1l68
-  1300  0021  2823               	line	43
-  1301                           ;user.c: 43: void SequenceUpdate( void)
-  1302                           	
-  1303                           i1l67:	
-  1304  0022                     	line	44
-  1305                           ;user.c: 44: {
-  1306                           	bcf	(41/8),(41)&7	;volatile
-  1307  0022  1085               	
-  1308                           i1l68:	
-  1309  0023                     	line	46
-  1310                           ;user.c: 46:     static uint8_t TimeCount = 0;
-  1311                           	btfss	(SetLamps@Lamps),(1)&7
-  1312  0023  1CA0               	goto	u17_21
-  1313  0024  2826               	goto	u17_20
-  1314  0025  2827               u17_21:
-  1315  0026                     	goto	i1l69
-  1316  0026  2829               u17_20:
-  1317  0027                     	line	47
-  1318                           	
-  1319                           i1l743:	
-  1320  0027                     ;user.c: 47:     static uint8_t SequenceIndex = 0;
-  1321                           	bsf	(61/8),(61)&7	;volatile
-  1322  0027  1687               	goto	i1l70
-  1323  0028  282A               	line	48
-  1324                           ;user.c: 48:     const uint8_t Sequence[4] = {0x88, 0x44, 0x22, 0x11};
-  1325                           	
-  1326                           i1l69:	
-  1327  0029                     	line	49
-  1328                           ;user.c: 49: 
-  1329                           	bcf	(61/8),(61)&7	;volatile
-  1330  0029  1287               	
-  1331                           i1l70:	
-  1332  002A                     	line	51
-  1333                           ;user.c: 51:         Debug = (Debug==0) ? 1 : 0;
-  1334                           	btfss	(SetLamps@Lamps),(2)&7
-  1335  002A  1D20               	goto	u18_21
-  1336  002B  282D               	goto	u18_20
-  1337  002C  282E               u18_21:
-  1338  002D                     	goto	i1l71
-  1339  002D  2830               u18_20:
-  1340  002E                     	line	52
-  1341                           	
-  1342                           i1l745:	
-  1343  002E                     ;user.c: 52:         RA0 = Debug;
-  1344                           	bsf	(60/8),(60)&7	;volatile
-  1345  002E  1607               	goto	i1l72
-  1346  002F  2831               	line	53
-  1347                           ;user.c: 53: 
-  1348                           	
-  1349                           i1l71:	
-  1350  0030                     	line	54
-  1351                           ;user.c: 54: 
-  1352                           	bcf	(60/8),(60)&7	;volatile
-  1353  0030  1207               	
-  1354                           i1l72:	
-  1355  0031                     	line	56
-  1356                           ;user.c: 56:     {
-  1357                           	btfss	(SetLamps@Lamps),(3)&7
-  1358  0031  1DA0               	goto	u19_21
-  1359  0032  2834               	goto	u19_20
-  1360  0033  2835               u19_21:
-  1361  0034                     	goto	i1l73
-  1362  0034  2837               u19_20:
-  1363  0035                     	line	57
-  1364                           	
-  1365                           i1l747:	
-  1366  0035                     ;user.c: 57: 
-  1367                           	bsf	(59/8),(59)&7	;volatile
-  1368  0035  1587               	goto	i1l74
-  1369  0036  2838               	line	58
-  1370                           ;user.c: 58:         TimeCount = 0;
-  1371                           	
-  1372                           i1l73:	
-  1373  0037                     	line	59
-  1374                           ;user.c: 59: 
-  1375                           	bcf	(59/8),(59)&7	;volatile
-  1376  0037  1187               	
-  1377                           i1l74:	
-  1378  0038                     	line	61
-  1379                           ;user.c: 61:             SequenceIndex = 0;
-  1380                           	btfss	(SetLamps@Lamps),(4)&7
-  1381  0038  1E20               	goto	u20_21
-  1382  0039  283B               	goto	u20_20
-  1383  003A  283C               u20_21:
-  1384  003B                     	goto	i1l75
-  1385  003B  283E               u20_20:
-  1386  003C                     	line	62
-  1387                           	
-  1388                           i1l749:	
-  1389  003C                     ;user.c: 62: 
-  1390                           	bsf	(58/8),(58)&7	;volatile
-  1391  003C  1507               	goto	i1l76
-  1392  003D  283F               	line	63
-  1393                           ;user.c: 63:         SetLamps(Sequence[SequenceIndex]);
-  1394                           	
-  1395                           i1l75:	
-  1396  003E                     	line	64
-  1397                           ;user.c: 64:     }
-  1398                           	bcf	(58/8),(58)&7	;volatile
-  1399  003E  1107               	
-  1400                           i1l76:	
-  1401  003F                     	line	66
-  1402                           ;user.c: 66: }
-  1403                           	btfss	(SetLamps@Lamps),(5)&7
-  1404  003F  1EA0               	goto	u21_21
-  1405  0040  2842               	goto	u21_20
-  1406  0041  2843               u21_21:
-  1407  0042                     	goto	i1l77
-  1408  0042  2845               u21_20:
-  1409  0043                     	line	67
-  1410                           	
-  1411                           i1l751:	
-  1412  0043                     	bsf	(57/8),(57)&7	;volatile
-  1413  0043  1487               	goto	i1l78
-  1414  0044  2846               	line	68
-  1415                           	
-  1416                           i1l77:	
-  1417  0045                     	line	69
-  1418                           	bcf	(57/8),(57)&7	;volatile
-  1419  0045  1087               	
-  1420                           i1l78:	
-  1421  0046                     	line	71
-  1422                           	btfss	(SetLamps@Lamps),(6)&7
-  1423  0046  1F20               	goto	u22_21
-  1424  0047  2849               	goto	u22_20
-  1425  0048  284A               u22_21:
-  1426  0049                     	goto	i1l79
-  1427  0049  284C               u22_20:
-  1428  004A                     	line	72
-  1429                           	
-  1430                           i1l753:	
-  1431  004A                     	bsf	(56/8),(56)&7	;volatile
-  1432  004A  1407               	goto	i1l80
-  1433  004B  284D               	line	73
-  1434                           	
-  1435                           i1l79:	
-  1436  004C                     	line	74
-  1437                           	bcf	(56/8),(56)&7	;volatile
-  1438  004C  1007               	
-  1439                           i1l80:	
-  1440  004D                     	line	76
-  1441                           	btfss	(SetLamps@Lamps),(7)&7
-  1442  004D  1FA0               	goto	u23_21
-  1443  004E  2850               	goto	u23_20
-  1444  004F  2851               u23_21:
-  1445  0050                     	goto	i1l81
-  1446  0050  2853               u23_20:
-  1447  0051                     	line	77
-  1448                           	
-  1449                           i1l755:	
-  1450  0051                     	bsf	(42/8),(42)&7	;volatile
-  1451  0051  1505               	goto	i1l83
-  1452  0052  2855               	line	78
-  1453                           	
-  1454                           i1l81:	
-  1455  0053                     	line	79
-  1456                           	bcf	(42/8),(42)&7	;volatile
-  1457  0053  1105               	goto	i1l83
-  1458  0054  2855               	
-  1459                           i1l82:	
-  1460  0055                     	line	81
-  1461                           	
-  1462                           i1l83:	
-  1463  0055                     	return
-  1464  0055  0008               	opt stack 0
-  1465                           GLOBAL	__end_of_SetLamps
-  1466                           	__end_of_SetLamps:
-  1467  0056                     	signat	_SetLamps,4217
-  1468                           global	___latbits
-  1469                           ___latbits	equ	0
-  1470  0000                     	global	btemp
-  1471                           	btemp set 05Eh
-  1472  005E                     
-  1473                           	DABS	1,94,2	;btemp
-  1474                           	global	wtemp0
-  1475                           	wtemp0 set btemp+0
-  1476  005E                     	end
+  1229                           i1l94:	
+  1230  0086                     	line	106
+  1231                           	
+  1232                           i1l96:	
+  1233  0086                     	return
+  1234  0086  0008               	opt stack 0
+  1235                           GLOBAL	__end_of_SequenceUpdate
+  1236                           	__end_of_SequenceUpdate:
+  1237  0087                     	signat	_SequenceUpdate,89
+  1238                           	global	_SetLamps
+  1239                           
+  1240 ;; *************** function _SetLamps *****************
+  1241 ;; Defined at:
+  1242 ;;		line 39 in file "user.c"
+  1243 ;; Parameters:    Size  Location     Type
+  1244 ;;  Lamps           1    wreg     unsigned char 
+  1245 ;; Auto vars:     Size  Location     Type
+  1246 ;;  Lamps           1    0[BANK0 ] unsigned char 
+  1247 ;; Return value:  Size  Location     Type
+  1248 ;;                  1    wreg      void 
+  1249 ;; Registers used:
+  1250 ;;		wreg
+  1251 ;; Tracked objects:
+  1252 ;;		On entry : 0/0
+  1253 ;;		On exit  : 0/0
+  1254 ;;		Unchanged: 0/0
+  1255 ;; Data sizes:     COMMON   BANK0
+  1256 ;;      Params:         0       0
+  1257 ;;      Locals:         0       0
+  1258 ;;      Temps:          0       0
+  1259 ;;      Totals:         0       0
+  1260 ;;Total ram usage:        0 bytes
+  1261 ;; Hardware stack levels used:    1
+  1262 ;; Hardware stack levels required when called:    3
+  1263 ;; This function calls:
+  1264 ;;		Nothing
+  1265 ;; This function is called by:
+  1266 ;;		_main
+  1267 ;;		_SequenceUpdate
+  1268 ;; This function uses a non-reentrant model
+  1269 ;;
+  1270                           psect	text5,local,class=CODE,delta=2,merge=1,group=0
+  1271                           	line	39
+  1272                           global __ptext5
+  1273                           __ptext5:	;psect for function _SetLamps
+  1274  001A                     psect	text5
+  1275                           	file	"user.c"
+  1276                           	line	39
+  1277                           	global	__size_of_SetLamps
+  1278                           	__size_of_SetLamps	equ	__end_of_SetLamps-_SetLamps
+  1279  003C                     	
+  1280                           _SetLamps:	
+  1281  001A                     ;incstack = 0
+  1282                           	opt	stack 1
+  1283                           ; Regs used in _SetLamps: [wreg]
+  1284                           ;SetLamps@Lamps stored from wreg
+  1285                           	bcf	status, 5	;RP0=0, select bank0
+  1286  001A  1283               	movwf	(SetLamps@Lamps)
+  1287  001B  00A0               	line	41
+  1288                           	
+  1289                           i1l741:	
+  1290  001C                     ;user.c: 39:         RA2 = 0;;user.c: 40: ;user.c: 41: }
+  1291                           	btfss	(SetLamps@Lamps),(0)&7
+  1292  001C  1C20               	goto	u16_21
+  1293  001D  281F               	goto	u16_20
+  1294  001E  2820               u16_21:
+  1295  001F                     	goto	i1l67
+  1296  001F  2822               u16_20:
+  1297  0020                     	line	42
+  1298                           	
+  1299                           i1l743:	
+  1300  0020                     ;user.c: 42: 
+  1301                           	bsf	(41/8),(41)&7	;volatile
+  1302  0020  1485               	goto	i1l68
+  1303  0021  2823               	line	43
+  1304                           ;user.c: 43: void SequenceUpdate( void)
+  1305                           	
+  1306                           i1l67:	
+  1307  0022                     	line	44
+  1308                           ;user.c: 44: {
+  1309                           	bcf	(41/8),(41)&7	;volatile
+  1310  0022  1085               	
+  1311                           i1l68:	
+  1312  0023                     	line	46
+  1313                           ;user.c: 46:     static uint8_t TimeCount = 0;
+  1314                           	btfss	(SetLamps@Lamps),(1)&7
+  1315  0023  1CA0               	goto	u17_21
+  1316  0024  2826               	goto	u17_20
+  1317  0025  2827               u17_21:
+  1318  0026                     	goto	i1l69
+  1319  0026  2829               u17_20:
+  1320  0027                     	line	47
+  1321                           	
+  1322                           i1l745:	
+  1323  0027                     ;user.c: 47:     static uint8_t SequenceIndex = 0;
+  1324                           	bsf	(61/8),(61)&7	;volatile
+  1325  0027  1687               	goto	i1l70
+  1326  0028  282A               	line	48
+  1327                           ;user.c: 48:     const uint8_t Sequence[4] = {0x88, 0x44, 0x22, 0x11};
+  1328                           	
+  1329                           i1l69:	
+  1330  0029                     	line	49
+  1331                           ;user.c: 49: 
+  1332                           	bcf	(61/8),(61)&7	;volatile
+  1333  0029  1287               	
+  1334                           i1l70:	
+  1335  002A                     	line	51
+  1336                           ;user.c: 51:         Debug = (Debug==0) ? 1 : 0;
+  1337                           	btfss	(SetLamps@Lamps),(2)&7
+  1338  002A  1D20               	goto	u18_21
+  1339  002B  282D               	goto	u18_20
+  1340  002C  282E               u18_21:
+  1341  002D                     	goto	i1l71
+  1342  002D  2830               u18_20:
+  1343  002E                     	line	52
+  1344                           	
+  1345                           i1l747:	
+  1346  002E                     ;user.c: 52:         RA0 = Debug;
+  1347                           	bsf	(60/8),(60)&7	;volatile
+  1348  002E  1607               	goto	i1l72
+  1349  002F  2831               	line	53
+  1350                           ;user.c: 53: 
+  1351                           	
+  1352                           i1l71:	
+  1353  0030                     	line	54
+  1354                           ;user.c: 54: 
+  1355                           	bcf	(60/8),(60)&7	;volatile
+  1356  0030  1207               	
+  1357                           i1l72:	
+  1358  0031                     	line	56
+  1359                           ;user.c: 56:     if (TimeCount>=7)
+  1360                           	btfss	(SetLamps@Lamps),(3)&7
+  1361  0031  1DA0               	goto	u19_21
+  1362  0032  2834               	goto	u19_20
+  1363  0033  2835               u19_21:
+  1364  0034                     	goto	i1l73
+  1365  0034  2837               u19_20:
+  1366  0035                     	line	57
+  1367                           	
+  1368                           i1l749:	
+  1369  0035                     ;user.c: 57:     {
+  1370                           	bsf	(59/8),(59)&7	;volatile
+  1371  0035  1587               	goto	i1l74
+  1372  0036  2838               	line	58
+  1373                           ;user.c: 58:         TimeCount = 0;
+  1374                           	
+  1375                           i1l73:	
+  1376  0037                     	line	59
+  1377                           ;user.c: 59: 
+  1378                           	bcf	(59/8),(59)&7	;volatile
+  1379  0037  1187               	
+  1380                           i1l74:	
+  1381  0038                     	line	61
+  1382                           ;user.c: 61:             SequenceIndex = 0;
+  1383                           	btfss	(SetLamps@Lamps),(4)&7
+  1384  0038  1E20               	goto	u20_21
+  1385  0039  283B               	goto	u20_20
+  1386  003A  283C               u20_21:
+  1387  003B                     	goto	i1l75
+  1388  003B  283E               u20_20:
+  1389  003C                     	line	62
+  1390                           	
+  1391                           i1l751:	
+  1392  003C                     ;user.c: 62: 
+  1393                           	bsf	(58/8),(58)&7	;volatile
+  1394  003C  1507               	goto	i1l76
+  1395  003D  283F               	line	63
+  1396                           ;user.c: 63:         SetLamps(Sequence[SequenceIndex]);
+  1397                           	
+  1398                           i1l75:	
+  1399  003E                     	line	64
+  1400                           ;user.c: 64:     }
+  1401                           	bcf	(58/8),(58)&7	;volatile
+  1402  003E  1107               	
+  1403                           i1l76:	
+  1404  003F                     	line	66
+  1405                           ;user.c: 66: }
+  1406                           	btfss	(SetLamps@Lamps),(5)&7
+  1407  003F  1EA0               	goto	u21_21
+  1408  0040  2842               	goto	u21_20
+  1409  0041  2843               u21_21:
+  1410  0042                     	goto	i1l77
+  1411  0042  2845               u21_20:
+  1412  0043                     	line	67
+  1413                           	
+  1414                           i1l753:	
+  1415  0043                     	bsf	(57/8),(57)&7	;volatile
+  1416  0043  1487               	goto	i1l78
+  1417  0044  2846               	line	68
+  1418                           	
+  1419                           i1l77:	
+  1420  0045                     	line	69
+  1421                           	bcf	(57/8),(57)&7	;volatile
+  1422  0045  1087               	
+  1423                           i1l78:	
+  1424  0046                     	line	71
+  1425                           	btfss	(SetLamps@Lamps),(6)&7
+  1426  0046  1F20               	goto	u22_21
+  1427  0047  2849               	goto	u22_20
+  1428  0048  284A               u22_21:
+  1429  0049                     	goto	i1l79
+  1430  0049  284C               u22_20:
+  1431  004A                     	line	72
+  1432                           	
+  1433                           i1l755:	
+  1434  004A                     	bsf	(56/8),(56)&7	;volatile
+  1435  004A  1407               	goto	i1l80
+  1436  004B  284D               	line	73
+  1437                           	
+  1438                           i1l79:	
+  1439  004C                     	line	74
+  1440                           	bcf	(56/8),(56)&7	;volatile
+  1441  004C  1007               	
+  1442                           i1l80:	
+  1443  004D                     	line	76
+  1444                           	btfss	(SetLamps@Lamps),(7)&7
+  1445  004D  1FA0               	goto	u23_21
+  1446  004E  2850               	goto	u23_20
+  1447  004F  2851               u23_21:
+  1448  0050                     	goto	i1l81
+  1449  0050  2853               u23_20:
+  1450  0051                     	line	77
+  1451                           	
+  1452                           i1l757:	
+  1453  0051                     	bsf	(42/8),(42)&7	;volatile
+  1454  0051  1505               	goto	i1l83
+  1455  0052  2855               	line	78
+  1456                           	
+  1457                           i1l81:	
+  1458  0053                     	line	79
+  1459                           	bcf	(42/8),(42)&7	;volatile
+  1460  0053  1105               	goto	i1l83
+  1461  0054  2855               	
+  1462                           i1l82:	
+  1463  0055                     	line	81
+  1464                           	
+  1465                           i1l83:	
+  1466  0055                     	return
+  1467  0055  0008               	opt stack 0
+  1468                           GLOBAL	__end_of_SetLamps
+  1469                           	__end_of_SetLamps:
+  1470  0056                     	signat	_SetLamps,4217
+  1471                           global	___latbits
+  1472                           ___latbits	equ	0
+  1473  0000                     	global	btemp
+  1474                           	btemp set 05Eh
+  1475  005E                     
+  1476                           	DABS	1,94,2	;btemp
+  1477                           	global	wtemp0
+  1478                           	wtemp0 set btemp+0
+  1479  005E                     	end
 
 
 Data Sizes:
@@ -1635,17 +1638,17 @@ DATA                 0      0       9       6        0.0%
 
 
 Microchip Technology PIC Macro Assembler V2.00 build -1524193055 
-Symbol Table                                                                                   Sat Oct 27 20:30:28 2018
+Symbol Table                                                                                   Sat Oct 27 20:35:35 2018
 
                              pc 0002                     __CFG_CP$OFF 0000                              l25 00C3  
                             l26 00C3                              l27 00C4                              l28 00C4  
                             l37 00BD                              l64 00A9                              fsr 0004  
-                 SetLamps@Lamps 0020                             l805 00BE                             l807 00C2  
-                           l771 00B7                             l773 00B9                             l781 00A1  
-                           l775 00BC                             l791 00A6                             l783 00A2  
-                           l769 00B4                             l793 00A7                             l785 00A3  
-                           l777 009C                             l795 00A8                             l787 00A4  
-                           l779 009F                             l789 00A5                             _RA0 0028  
+                 SetLamps@Lamps 0020                             l811 00C2                             l809 00BE  
+                           l773 00B4                             l781 009C                             l775 00B7  
+                           l791 00A4                             l783 009F                             l777 00B9  
+                           l793 00A5                             l785 00A1                             l779 00BC  
+                           l795 00A6                             l787 00A2                             l797 00A7  
+                           l789 00A3                             l799 00A8                             _RA0 0028  
                            _RA1 0029                             _RA2 002A                             _RC0 0038  
                            _RC1 0039                             _RC2 003A                             _RC3 003B  
                            _RC4 003C                             _RC5 003D                    __CFG_CPD$OFF 0000  
@@ -1660,41 +1663,41 @@ Symbol Table                                                                    
                           i1l96 0086                            _TMR0 0001                            _main 00BE  
                           btemp 005E  __end_ofSequenceUpdate@Sequence 00B4                   __CFG_BOREN$ON 0000  
                           start 000F                 __end_of_InitApp 00AA                           ??_isr 0022  
-                         ?_main 0020                   __CFG_WDTE$OFF 0000                           i1l801 008C  
-                         i1l803 008E                           i1l741 0020                           i1l751 0043  
-                         i1l743 0027                           i1l753 004A                           i1l745 002E  
-                         i1l761 0073                           i1l755 0051                           i1l747 0035  
-                         i1l739 001C                           i1l763 0074                           i1l749 003C  
-                         i1l765 007E                           i1l757 0056                           i1l767 0080  
-                         i1l759 0061                           i1l797 0087                           i1l799 008B  
-                         u20_20 003C                           u20_21 003B                           u21_20 0043  
-                         u21_21 0042                           u22_20 004A                           u30_20 008B  
-                         u22_21 0049                           u30_21 008A                           u23_20 0051  
-                         u23_21 0050                           u16_20 0020                           u24_20 005D  
-                         u16_21 001F                           u24_21 005B                           u17_20 0027  
-                         u25_20 005E                           u17_21 0026                           u18_20 002E  
-                         u26_20 0067                           u18_21 002D                           u26_21 0064  
-                         u19_20 0035                           u19_21 0034                           u27_24 0069  
-                         u28_20 0073                           u28_21 0072                           u29_20 007E  
-                         u29_21 007D             _ConfigureOscillator 00B4                           pclath 000A  
-                         status 0003                           wtemp0 005E            ?_ConfigureOscillator 0020  
-                __CFG_MCLRE$OFF 0000                 __initialization 0014                    __end_of_main 00C5  
-                        ??_main 0000                __end_of_SetLamps 0056         __size_of_SequenceUpdate 0031  
-                     ??_InitApp 0000           ??_ConfigureOscillator 0000                  __CFG_PWRTE$OFF 0000  
-                        saved_w 005E         __end_of__initialization 0018                  __pcstackCOMMON 0000  
-                _OPTION_REGbits 0081                      __pbssBANK0 0026                       ?_SetLamps 0020  
-                    __pmaintext 00BE                      __pintentry 0004                  _SequenceUpdate 0056  
-                    __stringtab 00AA                         _InitApp 009C                      ??_SetLamps 0000  
-                     _CMCONbits 0019          __end_of_SequenceUpdate 0087                         __ptext1 009C  
-                       __ptext2 00B4                         __ptext3 0087                         __ptext4 0056  
-                       __ptext5 001A                    __size_of_isr 0015            end_of_initialization 0018  
-       SequenceUpdate@TimeCount 0027                 ?_SequenceUpdate 0020                       _TRISAbits 0085  
-                     _TRISCbits 0087     __end_of_ConfigureOscillator 00BE             start_initialization 0014  
-                   __end_of_isr 009C               __size_of_SetLamps 003C                       ___latbits 0000  
-                 __pcstackBANK0 0020     SequenceUpdate@SequenceIndex 0026                        ?_InitApp 0020  
-                     __pstrings 00AA               interrupt_function 0004                ??_SequenceUpdate 0021  
-        SequenceUpdate@Sequence 00B0                     __stringbase 00AF                        _SetLamps 001A  
-              __size_of_InitApp 000E              __end_of__stringtab 00B0             SequenceUpdate@Debug 0028  
-                 __size_of_main 0007    __size_of_ConfigureOscillator 000A                      _INTCONbits 000B  
-                      intlevel1 0000                       stringcode 00AA                        stringdir 00AA  
-                      stringtab 00AA               __CFG_FOSC$INTRCIO 0000  
+                         ?_main 0020                   __CFG_WDTE$OFF 0000                           i1l801 0087  
+                         i1l803 008B                           i1l741 001C                           i1l805 008C  
+                         i1l751 003C                           i1l743 0020                           i1l807 008E  
+                         i1l753 0043                           i1l745 0027                           i1l761 0061  
+                         i1l755 004A                           i1l747 002E                           i1l771 0080  
+                         i1l763 006D                           i1l757 0051                           i1l749 0035  
+                         i1l765 0073                           i1l767 0074                           i1l759 0056  
+                         i1l769 007E                           u20_20 003C                           u20_21 003B  
+                         u21_20 0043                           u21_21 0042                           u22_20 004A  
+                         u30_20 008B                           u22_21 0049                           u30_21 008A  
+                         u23_20 0051                           u23_21 0050                           u16_20 0020  
+                         u24_20 005D                           u16_21 001F                           u24_21 005B  
+                         u17_20 0027                           u25_20 005E                           u17_21 0026  
+                         u18_20 002E                           u26_20 0067                           u18_21 002D  
+                         u26_21 0064                           u19_20 0035                           u19_21 0034  
+                         u27_24 0069                           u28_20 0073                           u28_21 0072  
+                         u29_20 007E                           u29_21 007D             _ConfigureOscillator 00B4  
+                         pclath 000A                           status 0003                           wtemp0 005E  
+          ?_ConfigureOscillator 0020                  __CFG_MCLRE$OFF 0000                 __initialization 0014  
+                  __end_of_main 00C5                          ??_main 0000                __end_of_SetLamps 0056  
+       __size_of_SequenceUpdate 0031                       ??_InitApp 0000           ??_ConfigureOscillator 0000  
+                __CFG_PWRTE$OFF 0000                          saved_w 005E         __end_of__initialization 0018  
+                __pcstackCOMMON 0000                  _OPTION_REGbits 0081                      __pbssBANK0 0026  
+                     ?_SetLamps 0020                      __pmaintext 00BE                      __pintentry 0004  
+                _SequenceUpdate 0056                      __stringtab 00AA                         _InitApp 009C  
+                    ??_SetLamps 0000                       _CMCONbits 0019          __end_of_SequenceUpdate 0087  
+                       __ptext1 009C                         __ptext2 00B4                         __ptext3 0087  
+                       __ptext4 0056                         __ptext5 001A                    __size_of_isr 0015  
+          end_of_initialization 0018         SequenceUpdate@TimeCount 0027                 ?_SequenceUpdate 0020  
+                     _TRISAbits 0085                       _TRISCbits 0087     __end_of_ConfigureOscillator 00BE  
+           start_initialization 0014                     __end_of_isr 009C               __size_of_SetLamps 003C  
+                     ___latbits 0000                   __pcstackBANK0 0020     SequenceUpdate@SequenceIndex 0026  
+                      ?_InitApp 0020                       __pstrings 00AA               interrupt_function 0004  
+              ??_SequenceUpdate 0021          SequenceUpdate@Sequence 00B0                     __stringbase 00AF  
+                      _SetLamps 001A                __size_of_InitApp 000E              __end_of__stringtab 00B0  
+           SequenceUpdate@Debug 0028                   __size_of_main 0007    __size_of_ConfigureOscillator 000A  
+                    _INTCONbits 000B                        intlevel1 0000                       stringcode 00AA  
+                      stringdir 00AA                        stringtab 00AA               __CFG_FOSC$INTRCIO 0000  

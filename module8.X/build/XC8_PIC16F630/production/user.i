@@ -1101,9 +1101,9 @@ void SequenceUpdate( void)
         RA0 = Debug;
 
 
-    if (++TimeCount>=7)
+    TimeCount++;
+    if (TimeCount>=7)
     {
-
         TimeCount = 0;
 
         if (++SequenceIndex == sizeof(Sequence))
