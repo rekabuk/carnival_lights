@@ -1031,7 +1031,7 @@ void BitDataInit( uint8_t ModeTx);
 # 5 "main.c" 2
 
 
-const uint8_t BOX_ADDRESS = 0;
+const uint8_t BOX_ADDRESS = 3;
 
 
 uint8_t BitCount;
@@ -1116,27 +1116,16 @@ void main(void) {
 
             if (DataState==DATA_SYNC)
             {
-
-
-
-
-                RC4=1;
-                RC4=0;
-
-
-
-
+# 100 "main.c"
+                if ((RxData&0xF)==0x09)
                 {
-                    if ((RxData&0xF)==0x09)
-                    {
 
-                        RC5=1;
-                        RC5=0;
+                    RC5=1;
+                    RC5=0;
 
-                        BitCount = 0;
-                        Addressed = 0;
-                        DataState = DATA_SYNC;
-                    }
+                    BitCount = 0;
+                    Addressed = 0;
+                    DataState = DATA_ADDRESS;
                 }
             }
             else if (DataState==DATA_ADDRESS)
@@ -1149,8 +1138,8 @@ void main(void) {
                     if ((RxData&0x1F)==BOX_ADDRESS)
                     {
                         Addressed = 1;
-
-
+                        RC3=1;
+                        RC3=0;
                     }
                     else
                     {

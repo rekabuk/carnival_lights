@@ -4,7 +4,7 @@
 #include "user.h"
 #include "main.h"
 
-const uint8_t BOX_ADDRESS = 0;
+const uint8_t BOX_ADDRESS = 3;
 
 //uint8_t BitData;
 uint8_t BitCount;
@@ -105,7 +105,7 @@ void main(void) {
 
                     BitCount = 0;
                     Addressed = 0;
-                    DataState = DATA_SYNC;                        
+                    DataState = DATA_ADDRESS;                        
                 }
             }
             else if (DataState==DATA_ADDRESS)	
@@ -118,8 +118,8 @@ void main(void) {
                     if ((RxData&0x1F)==BOX_ADDRESS)
                     {
                         Addressed = 1;
-                        //RC3=1;
-                        //RC3=0;
+                        RC3=1;
+                        RC3=0;
                     }
                     else
                     {

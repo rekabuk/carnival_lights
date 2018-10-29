@@ -1095,8 +1095,8 @@ void EdgeIntr( void)
 void BitIntr( void)
 {
 
-    RC3=1;
-    RC3=0;
+
+
 
 
     IntrData <<= 1;

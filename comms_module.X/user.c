@@ -62,8 +62,8 @@ void  EdgeIntr( void)
 void BitIntr( void)
 {
     // Debug
-    RC3=1;
-    RC3=0;
+    //RC3=1;
+    //RC3=0;
 
     // Shift data and capture new bit
     IntrData <<= 1;

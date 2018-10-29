@@ -56,9 +56,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 "309
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 309: extern volatile INTCONbits_t INTCONbits __attribute__((address(0x00B)));
 [v _INTCONbits `VS11 ~T0 @X0 0 e@11 ]
-"1341
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 1341: extern volatile __bit RC3 __attribute__((address(0x3B)));
-[v _RC3 `Vb ~T0 @X0 0 e@59 ]
 "1314
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 1314: extern volatile __bit RA2 __attribute__((address(0x2A)));
 [v _RA2 `Vb ~T0 @X0 0 e@42 ]
@@ -233,12 +230,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 [e :U _BitIntr ]
 [f ]
-"65
-[; ;user.c: 65:     RC3=1;
-[e = _RC3 -> -> 1 `i `b ]
-"66
-[; ;user.c: 66:     RC3=0;
-[e = _RC3 -> -> 0 `i `b ]
 "69
 [; ;user.c: 69:     IntrData <<= 1;
 [e =<< _IntrData -> -> 1 `i `uc ]
