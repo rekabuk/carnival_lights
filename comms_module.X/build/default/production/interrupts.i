@@ -1030,7 +1030,7 @@ void StartTickTimer( void);
 # 11 "interrupts.c" 2
 
 # 1 "./system.h" 1
-# 18 "./system.h"
+# 19 "./system.h"
 void Initialise( void);
 # 12 "interrupts.c" 2
 
@@ -1039,33 +1039,17 @@ uint8_t TickCount;
 
 void __attribute__((picinterrupt(""))) ISR( void)
 {
-
-    if (PIR1bits.TMR1IF==1)
+# 37 "interrupts.c"
+    if (INTCONbits.INTF)
     {
-        StartTickTimer();
-
-
-        if (TickCount==9)
-        {
-            TickCount = 0;
-            SendModule();
-        }
-        else
-        {
-            TickCount++;
-        }
-    }
-
-
-    if (INTCONbits.RAIF==1)
-    {
+        INTCONbits.INTF = 0;
         EdgeIntr();
     }
 
 
-    if (INTCONbits.T0IF==1)
-    {
-        BitIntr();
-    }
+
+
+
+
 
 }

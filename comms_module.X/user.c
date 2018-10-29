@@ -97,6 +97,7 @@ void BitDataInit( uint8_t ModeTx)
 // Called when rising edge detected on RXD
 void  EdgeIntr( void)
 {
+#if 0
     // Disable edge interrupts
     INTCONbits.RAIE = 0;
     
@@ -108,12 +109,18 @@ void  EdgeIntr( void)
     
     // Next TMR0 interrupt will be a data one
     BitData = 1;
-    
+  
     //Start data timer 30 us   (front porch 20us, data 20us, back porch 20us)
     TMR0 = 106; // 256-150 
     // Clear and enable timer interrupt
     INTCONbits.T0IF = 0;
     INTCONbits.T0IE = 1;    
+#else
+    RC4=1;  // Debug
+    RC4=0;
+    //uint8_t dummy = PORTA;
+    //INTCONbits.RAIE = 1;    
+#endif    
 }
 
 // Called by timer 30us after RXD bit changes state

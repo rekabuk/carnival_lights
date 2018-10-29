@@ -1125,23 +1125,12 @@ void BitDataInit( uint8_t ModeTx)
 
 void EdgeIntr( void)
 {
-
-    INTCONbits.RAIE = 0;
-
+# 119 "user.c"
     RC4=1;
     RC4=0;
 
 
-    EdgeDetect = 0;
 
-
-    BitData = 1;
-
-
-    TMR0 = 106;
-
-    INTCONbits.T0IF = 0;
-    INTCONbits.T0IE = 1;
 }
 
 
@@ -1174,7 +1163,7 @@ void BitIntr( void)
         {
 
             TickCount = 0;
-# 157 "user.c"
+# 164 "user.c"
             if (++BitCount==4)
             {
                  if ((Data&0xF)==0x9)

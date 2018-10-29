@@ -67,15 +67,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 "1344
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 1344: extern volatile __bit RC4 __attribute__((address(0x3C)));
 [v _RC4 `Vb ~T0 @X0 0 e@60 ]
-"59
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 59: extern volatile unsigned char TMR0 __attribute__((address(0x001)));
-[v _TMR0 `Vuc ~T0 @X0 0 e@1 ]
 "1341
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 1341: extern volatile __bit RC3 __attribute__((address(0x3B)));
 [v _RC3 `Vb ~T0 @X0 0 e@59 ]
 "1314
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 1314: extern volatile __bit RA2 __attribute__((address(0x2A)));
 [v _RA2 `Vb ~T0 @X0 0 e@42 ]
+"59
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h: 59: extern volatile unsigned char TMR0 __attribute__((address(0x001)));
+[v _TMR0 `Vuc ~T0 @X0 0 e@1 ]
 "11 ./interrupts.h
 [; ;./interrupts.h: 11: extern uint8_t TickCount;
 [v _TickCount `uc ~T0 @X0 0 e ]
@@ -238,107 +238,76 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = . . _T1CONbits 0 0 -> -> 0 `i `uc ]
 "42
 [; ;user.c: 42:     TMR1H = 0x3C;
-[; ;user.c: 42: 
 [e = _TMR1H -> -> 60 `i `uc ]
 "43
 [; ;user.c: 43:     TMR1L = 0xB0;
-[; ;user.c: 43:     INTCONbits.RAIE = 0;
 [e = _TMR1L -> -> 176 `i `uc ]
 "45
 [; ;user.c: 45:     PIR1bits.TMR1IF = 0;
-[; ;user.c: 45:     RC4=1;
 [e = . . _PIR1bits 0 0 -> -> 0 `i `uc ]
 "47
 [; ;user.c: 47:     T1CONbits.TMR1ON = 1;
-[; ;user.c: 47: 
 [e = . . _T1CONbits 0 0 -> -> 1 `i `uc ]
 "51
 [; ;user.c: 51:     if (++EdgeDetect >= 2)
-[; ;user.c: 51: 
 [e $ ! >= -> =+ _EdgeDetect -> -> 1 `i `uc `i -> 2 `i 57  ]
 "52
 [; ;user.c: 52:         BitDataInit( 0);
-[; ;user.c: 52:     BitData = 1;
 [e ( _BitDataInit (1 -> -> 0 `i `uc ]
 [e :U 57 ]
 "53
 [; ;user.c: 53: }
-[; ;user.c: 53: 
 [e :UE 56 ]
 }
 "56
-[; ;user.c: 56: 
 [p l 1 ]
 "57
-[; ;user.c: 57:     INTCONbits.T0IF = 0;
 [v _BitDataInit `(v ~T0 @X0 1 ef1`uc ]
 "58
-[; ;user.c: 58:     INTCONbits.T0IE = 1;
 {
 [e :U _BitDataInit ]
 "57
-[; ;user.c: 57:     INTCONbits.T0IF = 0;
 [v _ModeTx `uc ~T0 @X0 1 r1 ]
 "58
-[; ;user.c: 58:     INTCONbits.T0IE = 1;
 [f ]
 "59
-[; ;user.c: 59: }
 [v _IntEnable `uc ~T0 @X0 1 a ]
 "60
-[; ;user.c: 60: 
 [v _Dummy `uc ~T0 @X0 1 a ]
 "63
-[; ;user.c: 63: 
 [e = _IntEnable . . _INTCONbits 0 7 ]
 "64
-[; ;user.c: 64: void BitIntr( void)
 [e = . . _INTCONbits 0 7 -> -> 0 `i `uc ]
 "66
-[; ;user.c: 66:     RC3=1;
 [e $ ! == -> _ModeTx `i -> 1 `i 59  ]
 "67
-[; ;user.c: 67:     RC3=0;
 {
 "69
-[; ;user.c: 69: 
 [e = . . _INTCONbits 0 3 -> -> 0 `i `uc ]
 "72
-[; ;user.c: 72: 
 [e = _RC1 -> -> 1 `i `b ]
 "73
-[; ;user.c: 73: 
 }
 [e $U 60  ]
 "74
-[; ;user.c: 74:         Data = (Data<<1) | RA2;
 [e :U 59 ]
 "75
-[; ;user.c: 75: 
 {
 "77
-[; ;user.c: 77: 
 [e = _RC1 -> -> 0 `i `b ]
 "80
-[; ;user.c: 80: 
 [e = _BitData -> -> 1 `i `uc ]
 "81
-[; ;user.c: 81:         INTCONbits.T0IF = 0;
 [e = _DataState . `E480 0 ]
 "82
-[; ;user.c: 82:         INTCONbits.T0IE = 1;
 [e = _Data -> -> 0 `i `uc ]
 "83
-[; ;user.c: 83: 
 [e = _Addressed -> -> 0 `i `uc ]
 "86
-[; ;user.c: 86: 
 [e = _Dummy _PORTA ]
 "89
-[; ;user.c: 89: 
 [e = . . _INTCONbits 0 3 -> -> 1 `i `uc ]
 "90
-[; ;user.c: 90:             TickCount = 0;
 }
 [e :U 60 ]
 "93
@@ -352,243 +321,248 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 [e :U _EdgeIntr ]
 [f ]
-"101
-[e = . . _INTCONbits 0 3 -> -> 0 `i `uc ]
-"103
+"119
+[; ;user.c: 119:     RC4=1;
 [e = _RC4 -> -> 1 `i `b ]
-"104
+"120
+[; ;user.c: 120:     RC4=0;
 [e = _RC4 -> -> 0 `i `b ]
-"107
-[e = _EdgeDetect -> -> 0 `i `uc ]
-"110
-[e = _BitData -> -> 1 `i `uc ]
-"113
-[e = _TMR0 -> -> 106 `i `uc ]
-"115
-[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
-"116
-[e = . . _INTCONbits 0 5 -> -> 1 `i `uc ]
-"117
+"124
+[; ;user.c: 124: }
 [e :UE 61 ]
 }
-"122
+"129
+[; ;user.c: 129: void BitIntr( void)
 [v _BitIntr `(v ~T0 @X0 1 ef ]
-"123
+"130
+[; ;user.c: 130: {
 {
 [e :U _BitIntr ]
 [f ]
-"124
+"131
+[; ;user.c: 131:     RC3=1;
 [e = _RC3 -> -> 1 `i `b ]
-"125
-[e = _RC3 -> -> 0 `i `b ]
-"128
-[e $ ! == -> _BitData `i -> 1 `i 63  ]
-"129
-{
 "132
-[e = _Data -> | << -> _Data `i -> 1 `i -> _RA2 `i `uc ]
-"137
-[e = _TMR0 -> -> 156 `i `uc ]
+[; ;user.c: 132:     RC3=0;
+[e = _RC3 -> -> 0 `i `b ]
+"135
+[; ;user.c: 135:     if (BitData==1)
+[e $ ! == -> _BitData `i -> 1 `i 63  ]
+"136
+[; ;user.c: 136:     {
+{
 "139
-[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
-"140
-[e = . . _INTCONbits 0 5 -> -> 1 `i `uc ]
-"143
-[e = _BitData -> -> 0 `i `uc ]
-"145
-[e $ ! == -> _DataState `ui -> . `E480 0 `ui 64  ]
+[; ;user.c: 139:         Data = (Data<<1) | RA2;
+[e = _Data -> | << -> _Data `i -> 1 `i -> _RA2 `i `uc ]
+"144
+[; ;user.c: 144:         TMR0 = 156;
+[e = _TMR0 -> -> 156 `i `uc ]
 "146
+[; ;user.c: 146:         INTCONbits.T0IF = 0;
+[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
+"147
+[; ;user.c: 147:         INTCONbits.T0IE = 1;
+[e = . . _INTCONbits 0 5 -> -> 1 `i `uc ]
+"150
+[; ;user.c: 150:         BitData = 0;
+[e = _BitData -> -> 0 `i `uc ]
+"152
+[; ;user.c: 152:         if (DataState==DATA_SYNC)
+[e $ ! == -> _DataState `ui -> . `E480 0 `ui 64  ]
+"153
+[; ;user.c: 153:         {
 {
-"148
+"155
+[; ;user.c: 155:             TickCount = 0;
 [e = _TickCount -> -> 0 `i `uc ]
-"157
-[; ;user.c: 157:             if (++BitCount==4)
+"164
+[; ;user.c: 164:             if (++BitCount==4)
 [e $ ! == -> =+ _BitCount -> -> 1 `i `uc `i -> 4 `i 65  ]
-"158
-[; ;user.c: 158:             {
+"165
+[; ;user.c: 165:             {
 {
-"159
-[; ;user.c: 159:                  if ((Data&0xF)==0x9)
+"166
+[; ;user.c: 166:                  if ((Data&0xF)==0x9)
 [e $ ! == & -> _Data `i -> 15 `i -> 9 `i 66  ]
-"160
-[; ;user.c: 160:                  {
+"167
+[; ;user.c: 167:                  {
 {
-"161
-[; ;user.c: 161:                     Data = 0;
+"168
+[; ;user.c: 168:                     Data = 0;
 [e = _Data -> -> 0 `i `uc ]
-"162
-[; ;user.c: 162:                     DataState = DATA_ADDRESS;
+"169
+[; ;user.c: 169:                     DataState = DATA_ADDRESS;
 [e = _DataState . `E480 1 ]
-"163
-[; ;user.c: 163:                  }
+"170
+[; ;user.c: 170:                  }
 }
 [e :U 66 ]
-"164
-[; ;user.c: 164:             }
+"171
+[; ;user.c: 171:             }
 }
 [e :U 65 ]
-"165
-[; ;user.c: 165:         }
+"172
+[; ;user.c: 172:         }
 }
 [e $U 67  ]
-"166
-[; ;user.c: 166:         else if (DataState==DATA_ADDRESS)
+"173
+[; ;user.c: 173:         else if (DataState==DATA_ADDRESS)
 [e :U 64 ]
 [e $ ! == -> _DataState `ui -> . `E480 1 `ui 68  ]
-"167
-[; ;user.c: 167:         {
+"174
+[; ;user.c: 174:         {
 {
-"169
-[; ;user.c: 169:             if (++BitCount==5)
-[e $ ! == -> =+ _BitCount -> -> 1 `i `uc `i -> 5 `i 69  ]
-"170
-[; ;user.c: 170:             {
-{
-"171
-[; ;user.c: 171:                 if (Data==BOX_ADDRESS)
-[e $ ! == -> _Data `i -> _BOX_ADDRESS `i 70  ]
-"172
-[; ;user.c: 172:                 {
-{
-"173
-[; ;user.c: 173:                     Addressed = 1;
-[e = _Addressed -> -> 1 `i `uc ]
 "176
-[; ;user.c: 176:                 }
+[; ;user.c: 176:             if (++BitCount==5)
+[e $ ! == -> =+ _BitCount -> -> 1 `i `uc `i -> 5 `i 69  ]
+"177
+[; ;user.c: 177:             {
+{
+"178
+[; ;user.c: 178:                 if (Data==BOX_ADDRESS)
+[e $ ! == -> _Data `i -> _BOX_ADDRESS `i 70  ]
+"179
+[; ;user.c: 179:                 {
+{
+"180
+[; ;user.c: 180:                     Addressed = 1;
+[e = _Addressed -> -> 1 `i `uc ]
+"183
+[; ;user.c: 183:                 }
 }
 [e $U 71  ]
-"177
-[; ;user.c: 177:                 else
+"184
+[; ;user.c: 184:                 else
 [e :U 70 ]
-"178
-[; ;user.c: 178:                 {
+"185
+[; ;user.c: 185:                 {
 {
-"179
-[; ;user.c: 179:                     Addressed = 0;
+"186
+[; ;user.c: 186:                     Addressed = 0;
 [e = _Addressed -> -> 0 `i `uc ]
-"180
-[; ;user.c: 180:                 }
+"187
+[; ;user.c: 187:                 }
 }
 [e :U 71 ]
-"182
-[; ;user.c: 182:                 DataState = DATA_SIZE;
+"189
+[; ;user.c: 189:                 DataState = DATA_SIZE;
 [e = _DataState . `E480 2 ]
-"183
-[; ;user.c: 183:             }
+"190
+[; ;user.c: 190:             }
 }
 [e :U 69 ]
-"184
-[; ;user.c: 184:         }
+"191
+[; ;user.c: 191:         }
 }
 [e $U 72  ]
-"185
-[; ;user.c: 185:         else if (DataState==DATA_SIZE)
+"192
+[; ;user.c: 192:         else if (DataState==DATA_SIZE)
 [e :U 68 ]
 [e $ ! == -> _DataState `ui -> . `E480 2 `ui 73  ]
-"186
-[; ;user.c: 186:         {
+"193
+[; ;user.c: 193:         {
 {
-"188
-[; ;user.c: 188:             if (++BitCount==5)
+"195
+[; ;user.c: 195:             if (++BitCount==5)
 [e $ ! == -> =+ _BitCount -> -> 1 `i `uc `i -> 5 `i 74  ]
-"189
-[; ;user.c: 189:             {
+"196
+[; ;user.c: 196:             {
 {
-"190
-[; ;user.c: 190:                 if (Data < 31)
+"197
+[; ;user.c: 197:                 if (Data < 31)
 [e $ ! < -> _Data `i -> 31 `i 75  ]
-"191
-[; ;user.c: 191:                     BoxSize = Data;
+"198
+[; ;user.c: 198:                     BoxSize = Data;
 [e = _BoxSize _Data ]
 [e :U 75 ]
-"193
-[; ;user.c: 193:                 DataState = DATA_LAMPS;
+"200
+[; ;user.c: 200:                 DataState = DATA_LAMPS;
 [e = _DataState . `E480 3 ]
-"194
-[; ;user.c: 194:             }
+"201
+[; ;user.c: 201:             }
 }
 [e :U 74 ]
-"195
-[; ;user.c: 195:         }
+"202
+[; ;user.c: 202:         }
 }
 [e $U 76  ]
-"196
-[; ;user.c: 196:         else if (DataState==DATA_LAMPS)
+"203
+[; ;user.c: 203:         else if (DataState==DATA_LAMPS)
 [e :U 73 ]
 [e $ ! == -> _DataState `ui -> . `E480 3 `ui 77  ]
-"197
-[; ;user.c: 197:         {
-{
-"200
-[; ;user.c: 200:             if (Addressed==1)
-[e $ ! == -> _Addressed `i -> 1 `i 78  ]
-"201
-[; ;user.c: 201:             {
-{
-"202
-[; ;user.c: 202:                 Lamps = Data;
-[e = _Lamps _Data ]
-"203
-[; ;user.c: 203:                 RC5=1;
-[e = _RC5 -> -> 1 `i `b ]
 "204
-[; ;user.c: 204:                 RC5=0;
+[; ;user.c: 204:         {
+{
+"207
+[; ;user.c: 207:             if (Addressed==1)
+[e $ ! == -> _Addressed `i -> 1 `i 78  ]
+"208
+[; ;user.c: 208:             {
+{
+"209
+[; ;user.c: 209:                 Lamps = Data;
+[e = _Lamps _Data ]
+"210
+[; ;user.c: 210:                 RC5=1;
+[e = _RC5 -> -> 1 `i `b ]
+"211
+[; ;user.c: 211:                 RC5=0;
 [e = _RC5 -> -> 0 `i `b ]
-"205
-[; ;user.c: 205:             }
+"212
+[; ;user.c: 212:             }
 }
 [e :U 78 ]
-"207
-[; ;user.c: 207:             if (++BitCount==BoxSize)
+"214
+[; ;user.c: 214:             if (++BitCount==BoxSize)
 [e $ ! == -> =+ _BitCount -> -> 1 `i `uc `i -> _BoxSize `i 79  ]
-"208
-[; ;user.c: 208:                 DataState = DATA_ADDRESS;
+"215
+[; ;user.c: 215:                 DataState = DATA_ADDRESS;
 [e = _DataState . `E480 1 ]
 [e :U 79 ]
-"210
-[; ;user.c: 210:         }
+"217
+[; ;user.c: 217:         }
 }
 [e :U 77 ]
 [e :U 76 ]
 [e :U 72 ]
 [e :U 67 ]
-"211
-[; ;user.c: 211:     }
+"218
+[; ;user.c: 218:     }
 }
 [e $U 80  ]
-"213
-[; ;user.c: 213:     else
+"220
+[; ;user.c: 220:     else
 [e :U 63 ]
-"214
-[; ;user.c: 214:     {
+"221
+[; ;user.c: 221:     {
 {
-"216
-[; ;user.c: 216:         BitData = 1;
+"223
+[; ;user.c: 223:         BitData = 1;
 [e = _BitData -> -> 1 `i `uc ]
-"218
-[; ;user.c: 218:         uint8_t Dummy = PORTA;
+"225
+[; ;user.c: 225:         uint8_t Dummy = PORTA;
 [v _Dummy `uc ~T0 @X0 1 a ]
 [e = _Dummy _PORTA ]
-"220
-[; ;user.c: 220:         INTCONbits.RAIE = 0;
+"227
+[; ;user.c: 227:         INTCONbits.RAIE = 0;
 [e = . . _INTCONbits 0 3 -> -> 0 `i `uc ]
-"221
-[; ;user.c: 221:     }
+"228
+[; ;user.c: 228:     }
 }
 [e :U 80 ]
-"222
-[; ;user.c: 222: }
+"229
+[; ;user.c: 229: }
 [e :UE 62 ]
 }
-"226
-[; ;user.c: 226: void SendModule( void)
+"233
+[; ;user.c: 233: void SendModule( void)
 [v _SendModule `(v ~T0 @X0 1 ef ]
-"227
-[; ;user.c: 227: {
+"234
+[; ;user.c: 234: {
 {
 [e :U _SendModule ]
 [f ]
-"229
-[; ;user.c: 229: }
+"236
+[; ;user.c: 236: }
 [e :UE 81 ]
 }

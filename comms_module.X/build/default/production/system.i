@@ -1038,37 +1038,28 @@ void StartTickTimer( void);
 void Initialise( void)
 {
 
-
-    CMCONbits.CM = 7;
-
-    TRISAbits.TRISA2 = 1;
+    CMCON = 0x07;
+    TRISA = 0x3F;
 
 
-
-    TRISCbits.TRISC1 = 0;
-    TRISCbits.TRISC2 = 0;
-    TRISCbits.TRISC3 = 0;
-    TRISCbits.TRISC4 = 0;
-    TRISCbits.TRISC5 = 0;
+    TRISC = 0;
+# 35 "system.c"
+    PIE1bits.TMR1IE = 0;
 
 
-    T1CONbits.TMR1CS = 0;
-    T1CONbits.T1CKPS = 0;
-    T1CONbits.nT1SYNC = 1;
-    T1CONbits.TMR1GE = 0;
-    TMR1H = 0x3C;
-    TMR1L = 0xB0;
-    PIR1bits.TMR1IF = 0;
-    PIE1bits.TMR1IE = 1;
-    T1CONbits.TMR1ON = 1;
 
 
     OPTION_REGbits.T0CS = 0;
     OPTION_REGbits.PSA = 1;
 
 
-    IOCAbits.IOCA2 = 1;
+
+    OPTION_REGbits.INTEDG = 1;
 
 
-    BitDataInit( 0);
+    INTCONbits.INTE = 1;
+
+
+
+
 }
