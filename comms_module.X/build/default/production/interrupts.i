@@ -1019,14 +1019,15 @@ typedef uint16_t uintptr_t;
 # 11 "./user.h" 2
 
 
-
-
-void BitDataInit( uint8_t ModeTx);
 void EdgeIntr( void);
 void BitIntr( void);
 void TickIntr( void);
 void SendModule( void);
 void StartTickTimer( void);
+
+extern uint8_t IntrNewBit;
+extern uint8_t IntrData;
+extern uint8_t RxData;
 # 11 "interrupts.c" 2
 
 # 1 "./system.h" 1
@@ -1039,17 +1040,39 @@ uint8_t TickCount;
 
 void __attribute__((picinterrupt(""))) ISR( void)
 {
-# 37 "interrupts.c"
-    if (INTCONbits.INTF)
+
+
+    if (PIR1bits.TMR1IF==1)
     {
-        INTCONbits.INTF = 0;
-        EdgeIntr();
+        StartTickTimer();
+
+
+        if (TickCount==9)
+        {
+            TickCount = 0;
+            SendModule();
+        }
+        else
+        {
+            TickCount++;
+        }
     }
 
 
 
+    if (INTCONbits.INTF)
+    {
+        INTCONbits.INTF = 0;
+
+        EdgeIntr();
+# 59 "interrupts.c"
+    }
 
 
-
+    if (INTCONbits.T0IF==1)
+    {
+        INTCONbits.T0IF= 0;
+        BitIntr();
+    }
 
 }

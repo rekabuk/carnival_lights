@@ -10,14 +10,15 @@
 
 #include <stdint.h>
 
-#define RX_MODE 0
-#define TX_MODE 1
-void BitDataInit( uint8_t ModeTx);
 void EdgeIntr( void);
 void BitIntr( void);
 void TickIntr( void);
 void SendModule( void);
 void StartTickTimer( void);
+
+extern uint8_t IntrNewBit;
+extern uint8_t IntrData;
+extern uint8_t RxData;
 
 
 #endif	/* USER_H */

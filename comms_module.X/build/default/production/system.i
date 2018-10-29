@@ -1024,14 +1024,15 @@ void Initialise( void);
 # 11 "./user.h" 2
 
 
-
-
-void BitDataInit( uint8_t ModeTx);
 void EdgeIntr( void);
 void BitIntr( void);
 void TickIntr( void);
 void SendModule( void);
 void StartTickTimer( void);
+
+extern uint8_t IntrNewBit;
+extern uint8_t IntrData;
+extern uint8_t RxData;
 # 12 "system.c" 2
 
 
@@ -1040,26 +1041,26 @@ void Initialise( void)
 
     CMCON = 0x07;
     TRISA = 0x3F;
+    OPTION_REGbits.INTEDG = 1;
 
 
     TRISC = 0;
-# 35 "system.c"
-    PIE1bits.TMR1IE = 0;
 
+
+    T1CONbits.TMR1CS = 0;
+    T1CONbits.T1CKPS = 0;
+    T1CONbits.nT1SYNC = 1;
+    T1CONbits.TMR1GE = 0;
+    TMR1H = 0x3C;
+    TMR1L = 0xB0;
+    PIR1bits.TMR1IF = 0;
+    PIE1bits.TMR1IE = 1;
+    T1CONbits.TMR1ON = 1;
+    INTCONbits.PEIE = 1;
 
 
 
     OPTION_REGbits.T0CS = 0;
     OPTION_REGbits.PSA = 1;
-
-
-
-    OPTION_REGbits.INTEDG = 1;
-
-
-    INTCONbits.INTE = 1;
-
-
-
-
+# 48 "system.c"
 }

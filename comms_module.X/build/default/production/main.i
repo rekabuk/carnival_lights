@@ -872,7 +872,7 @@ extern __bank0 __bit __timeout;
 # 2 "main.c" 2
 
 # 1 "./system.h" 1
-# 18 "./system.h"
+# 19 "./system.h"
 void Initialise( void);
 # 3 "main.c" 2
 
@@ -1014,15 +1014,76 @@ typedef uint16_t uintptr_t;
 # 11 "./user.h" 2
 
 
-
-
-void BitDataInit( uint8_t ModeTx);
 void EdgeIntr( void);
 void BitIntr( void);
 void TickIntr( void);
 void SendModule( void);
 void StartTickTimer( void);
+
+extern uint8_t IntrNewBit;
+extern uint8_t IntrData;
+extern uint8_t RxData;
 # 4 "main.c" 2
+
+# 1 "./main.h" 1
+# 38 "./main.h"
+void BitDataInit( uint8_t ModeTx);
+# 5 "main.c" 2
+
+
+const uint8_t BOX_ADDRESS = 0;
+
+
+uint8_t BitCount;
+uint8_t Sync;
+uint8_t Address;
+uint8_t BoxSize;
+uint8_t Lamps;
+
+typedef enum {
+    DATA_SYNC = 0,
+    DATA_ADDRESS = 1,
+    DATA_SIZE = 2,
+    DATA_LAMPS = 3
+} DATA_MC_STATE_T;
+
+DATA_MC_STATE_T DataState;
+uint8_t Addressed;
+
+
+
+#pragma interrupt_level 1
+void BitDataInit( uint8_t ModeTx)
+{
+
+    uint8_t IntEnable = INTCONbits.GIE;
+    INTCONbits.GIE = 0;
+
+    if (ModeTx == 1)
+    {
+
+        INTCONbits.INTE = 0;
+
+
+        RC1 = 1;
+    }
+    else
+    {
+
+        RC1 = 0;
+
+
+        DataState = DATA_SYNC;
+        Addressed = 0;
+        BitCount = 0;
+
+
+        INTCONbits.INTE = 1;
+    }
+
+
+    INTCONbits.GIE = IntEnable;
+}
 
 
 
@@ -1031,11 +1092,102 @@ void main(void) {
     Initialise();
 
 
+    BitDataInit( 0);
+
+
     INTCONbits.GIE = 1;
 
     while(1)
     {
+        if (IntrNewBit==1)
+        {
 
+
+
+
+            INTCONbits.T0IE = 0;
+            RxData = IntrData;
+            IntrNewBit = 0;
+            INTCONbits.T0IE = 0;
+
+
+            BitCount++;
+
+
+            if (DataState==DATA_SYNC)
+            {
+
+
+
+
+                RC4=1;
+                RC4=0;
+
+
+
+
+                {
+                    if ((RxData&0xF)==0x09)
+                    {
+
+                        RC5=1;
+                        RC5=0;
+
+                        BitCount = 0;
+                        Addressed = 0;
+                        DataState = DATA_SYNC;
+                    }
+                }
+            }
+            else if (DataState==DATA_ADDRESS)
+            {
+
+                if (BitCount>=5)
+                {
+                    BitCount = 0;
+
+                    if ((RxData&0x1F)==BOX_ADDRESS)
+                    {
+                        Addressed = 1;
+
+
+                    }
+                    else
+                    {
+                        Addressed = 0;
+                    }
+
+                    DataState = DATA_SIZE;
+                }
+            }
+            else if (DataState==DATA_SIZE)
+            {
+
+                if (BitCount>=5)
+                {
+                    BitCount = 0;
+
+                    BoxSize = RxData&0x1F;
+                    DataState = DATA_LAMPS;
+                }
+            }
+            else if (DataState==DATA_LAMPS)
+            {
+
+
+                if (Addressed==1)
+                {
+                    Lamps = RxData;
+
+
+                }
+
+                if (BitCount>=BoxSize)
+                    BitCount = 0;
+                    DataState = DATA_ADDRESS;
+
+            }
+        }
     }
 
 }

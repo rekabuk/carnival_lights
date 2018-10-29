@@ -14,13 +14,13 @@
 void Initialise( void)
 {
     // Port A    
-    CMCON = 0x07;           // Disable comparator 
-    TRISA = 0x3F;           // All inputs RA2=RXD
-    
+    CMCON = 0x07;               // Disable comparator 
+    TRISA = 0x3F;               // All inputs RA2=RXD
+    OPTION_REGbits.INTEDG = 1;  // Rising edge interrupt enable on RA2
+   
     // Port C bits    
     TRISC = 0;              // All outputs RC1=TEX, RC2= TXD RC3=Test, RC4=Test
     
-#if 0    
     // Initialise TMR1 (Timer Tick))
     T1CONbits.TMR1CS = 0;   // Use Fosc/4
     T1CONbits.T1CKPS = 0;   // Pre-scaler = 1
@@ -30,11 +30,9 @@ void Initialise( void)
     TMR1L = TMR1L_VAL;     
     PIR1bits.TMR1IF = 0;    // Clear interrupt
     PIE1bits.TMR1IE = 1;    // Enable PIE interrupt
-    T1CONbits.TMR1ON = 1;   
-#else
-    PIE1bits.TMR1IE = 0;
-#endif    
-
+    T1CONbits.TMR1ON = 1; 
+    INTCONbits.PEIE = 1;
+    
     
     // TMR0 is for bit timing, use Fosc/4 and no prescaler
     OPTION_REGbits.T0CS = 0;
@@ -42,13 +40,10 @@ void Initialise( void)
 
     // Enable change of state detection on RA2
     //IOCA = 0x04;
-    OPTION_REGbits.INTEDG = 1; // Rising edge interrupt
     
-#if 1        
+#if 0        
     INTCONbits.INTE = 1;    // Enable External interrupt
 #endif    
 
-    // Enable interrupt on RDX bit low-to high
-    //BitDataInit( RX_MODE);    
 }
 

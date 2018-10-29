@@ -1029,37 +1029,29 @@ void Initialise( void);
 # 11 "./user.h" 2
 
 
-
-
-void BitDataInit( uint8_t ModeTx);
 void EdgeIntr( void);
 void BitIntr( void);
 void TickIntr( void);
 void SendModule( void);
 void StartTickTimer( void);
+
+extern uint8_t IntrNewBit;
+extern uint8_t IntrData;
+extern uint8_t RxData;
 # 13 "user.c" 2
 
+# 1 "./main.h" 1
+# 38 "./main.h"
+void BitDataInit( uint8_t ModeTx);
+# 14 "user.c" 2
 
-const uint8_t BOX_ADDRESS = 0;
 
-uint8_t BitData;
-uint8_t BitCount;
-uint8_t Sync;
-uint8_t Address;
-uint8_t BoxSize;
-uint8_t Lamps;
+
+uint8_t IntrNewBit;
+uint8_t IntrData;
+uint8_t RxData;
 uint8_t EdgeDetect;
 
-typedef enum {
-    DATA_SYNC = 0,
-    DATA_ADDRESS = 1,
-    DATA_SIZE = 2,
-    DATA_LAMPS = 3
-} DATA_MC_STATE_T;
-
-uint8_t Data;
-DATA_MC_STATE_T DataState;
-uint8_t Addressed;
 
 
 void StartTickTimer( void)
@@ -1067,10 +1059,10 @@ void StartTickTimer( void)
 
     T1CONbits.TMR1ON = 0;
 
+    PIR1bits.TMR1IF = 0;
+
     TMR1H = 0x3C;
     TMR1L = 0xB0;
-
-    PIR1bits.TMR1IF = 0;
 
     T1CONbits.TMR1ON = 1;
 
@@ -1081,56 +1073,20 @@ void StartTickTimer( void)
 }
 
 
-#pragma interrupt_level 1
-void BitDataInit( uint8_t ModeTx)
-{
-    uint8_t IntEnable;
-    uint8_t Dummy;
-
-
-    IntEnable = INTCONbits.GIE;
-    INTCONbits.GIE = 0;
-
-    if (ModeTx == 1)
-    {
-
-        INTCONbits.RAIE = 0;
-
-
-        RC1 = 1;
-    }
-    else
-    {
-
-        RC1 = 0;
-
-
-        BitData = 1;
-        DataState = DATA_SYNC;
-        Data = 0;
-        Addressed = 0;
-
-
-        Dummy = PORTA;
-
-
-        INTCONbits.RAIE = 1;
-    }
-
-
-    INTCONbits.GIE = IntEnable;
-}
-
-
 
 void EdgeIntr( void)
 {
-# 119 "user.c"
-    RC4=1;
-    RC4=0;
 
 
 
+
+    EdgeDetect = 0;
+
+
+    TMR0 = 175;
+
+    INTCONbits.T0IF = 0;
+    INTCONbits.T0IE = 1;
 }
 
 
@@ -1138,97 +1094,17 @@ void EdgeIntr( void)
 
 void BitIntr( void)
 {
+
     RC3=1;
     RC3=0;
 
 
-    if (BitData==1)
-    {
+    IntrData <<= 1;
+    if (RA2==1)
+        IntrData |= 1;
 
 
-        Data = (Data<<1) | RA2;
-
-
-
-
-        TMR0 = 156;
-
-        INTCONbits.T0IF = 0;
-        INTCONbits.T0IE = 1;
-
-
-        BitData = 0;
-
-        if (DataState==DATA_SYNC)
-        {
-
-            TickCount = 0;
-# 164 "user.c"
-            if (++BitCount==4)
-            {
-                 if ((Data&0xF)==0x9)
-                 {
-                    Data = 0;
-                    DataState = DATA_ADDRESS;
-                 }
-            }
-        }
-        else if (DataState==DATA_ADDRESS)
-        {
-
-            if (++BitCount==5)
-            {
-                if (Data==BOX_ADDRESS)
-                {
-                    Addressed = 1;
-
-
-                }
-                else
-                {
-                    Addressed = 0;
-                }
-
-                DataState = DATA_SIZE;
-            }
-        }
-        else if (DataState==DATA_SIZE)
-        {
-
-            if (++BitCount==5)
-            {
-                if (Data < 31)
-                    BoxSize = Data;
-
-                DataState = DATA_LAMPS;
-            }
-        }
-        else if (DataState==DATA_LAMPS)
-        {
-
-
-            if (Addressed==1)
-            {
-                Lamps = Data;
-                RC5=1;
-                RC5=0;
-            }
-
-            if (++BitCount==BoxSize)
-                DataState = DATA_ADDRESS;
-
-        }
-    }
-
-    else
-    {
-
-        BitData = 1;
-
-        uint8_t Dummy = PORTA;
-
-        INTCONbits.RAIE = 0;
-    }
+    IntrNewBit = 1;
 }
 
 
