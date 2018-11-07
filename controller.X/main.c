@@ -24,6 +24,7 @@ void main(void)
     /* Configure the oscillator for the device */
     Configure();
 
+    // Unit ID, Unit Address, Unit Lamps
     SetUnitConfig( 0, 0, 8);
     SetUnitLamps( 0,0x55);
     

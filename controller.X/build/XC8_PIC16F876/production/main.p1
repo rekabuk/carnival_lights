@@ -198,46 +198,46 @@ Version 4.0 HI-TECH Software Intermediate Code
 "25
 [; ;main.c: 25:     Configure();
 [e ( _Configure ..  ]
-"27
-[; ;main.c: 27:     SetUnitConfig( 0, 0, 8);
-[e ( _SetUnitConfig (3 , , -> -> 0 `i `uc -> -> 0 `i `uc -> -> 8 `i `uc ]
 "28
-[; ;main.c: 28:     SetUnitLamps( 0,0x55);
+[; ;main.c: 28:     SetUnitConfig( 0, 0, 8);
+[e ( _SetUnitConfig (3 , , -> -> 0 `i `uc -> -> 0 `i `uc -> -> 8 `i `uc ]
+"29
+[; ;main.c: 29:     SetUnitLamps( 0,0x55);
 [e ( _SetUnitLamps (2 , -> -> 0 `i `uc -> -> 85 `i `uc ]
-"30
-[; ;main.c: 30:     SetUnitConfig( 1, 1, 8);
-[e ( _SetUnitConfig (3 , , -> -> 1 `i `uc -> -> 1 `i `uc -> -> 8 `i `uc ]
 "31
-[; ;main.c: 31:     SetUnitLamps( 0, 0xAA);
+[; ;main.c: 31:     SetUnitConfig( 1, 1, 8);
+[e ( _SetUnitConfig (3 , , -> -> 1 `i `uc -> -> 1 `i `uc -> -> 8 `i `uc ]
+"32
+[; ;main.c: 32:     SetUnitLamps( 0, 0xAA);
 [e ( _SetUnitLamps (2 , -> -> 0 `i `uc -> -> 170 `i `uc ]
-"33
-[; ;main.c: 33:     SetUnitConfig( 2, 3, 8);
-[e ( _SetUnitConfig (3 , , -> -> 2 `i `uc -> -> 3 `i `uc -> -> 8 `i `uc ]
 "34
-[; ;main.c: 34:     SetUnitLamps( 0, 0x15);
+[; ;main.c: 34:     SetUnitConfig( 2, 3, 8);
+[e ( _SetUnitConfig (3 , , -> -> 2 `i `uc -> -> 3 `i `uc -> -> 8 `i `uc ]
+"35
+[; ;main.c: 35:     SetUnitLamps( 0, 0x15);
 [e ( _SetUnitLamps (2 , -> -> 0 `i `uc -> -> 21 `i `uc ]
-"36
-[; ;main.c: 36:     SetUnitConfig( 3, 3, 8);
-[e ( _SetUnitConfig (3 , , -> -> 3 `i `uc -> -> 3 `i `uc -> -> 8 `i `uc ]
 "37
-[; ;main.c: 37:     SetUnitLamps( 0, 0x4D);
+[; ;main.c: 37:     SetUnitConfig( 3, 3, 8);
+[e ( _SetUnitConfig (3 , , -> -> 3 `i `uc -> -> 3 `i `uc -> -> 8 `i `uc ]
+"38
+[; ;main.c: 38:     SetUnitLamps( 0, 0x4D);
 [e ( _SetUnitLamps (2 , -> -> 0 `i `uc -> -> 77 `i `uc ]
-"41
-[; ;main.c: 41:     INTCONbits. GIE = 1;
+"42
+[; ;main.c: 42:     INTCONbits. GIE = 1;
 [e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
-"44
-[; ;main.c: 44:     while(1)
-[e :U 84 ]
 "45
-[; ;main.c: 45:     {
+[; ;main.c: 45:     while(1)
+[e :U 84 ]
+"46
+[; ;main.c: 46:     {
 {
-"49
-[; ;main.c: 49:     }
+"50
+[; ;main.c: 50:     }
 }
 [e :U 83 ]
 [e $U 84  ]
 [e :U 85 ]
-"51
-[; ;main.c: 51: }
+"52
+[; ;main.c: 52: }
 [e :UE 82 ]
 }

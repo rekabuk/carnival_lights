@@ -1627,6 +1627,7 @@ void main(void)
 
     Configure();
 
+
     SetUnitConfig( 0, 0, 8);
     SetUnitLamps( 0,0x55);
 

@@ -18,14 +18,16 @@ void __interrupt() isr(void)
 {
     if (INTCONbits.T0IF==1)
     {
-        TimeUpdate();
-        INTCONbits.T0IF=0;        
+        TMR0 = 61;                         
+        INTCONbits.T0IF=0;  
+        TimeUpdate();        
     }
 
     if (PIR1bits.TMR2IF==1)
     {
-        BitUpdate();
+        PR2 = 100;
         PIR1bits.TMR2IF=0;        
+        BitUpdate();
     }
 
 }

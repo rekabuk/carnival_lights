@@ -16,6 +16,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 "383
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f876.h: 383: extern volatile INTCONbits_t INTCONbits __attribute__((address(0x00B)));
 [v _INTCONbits `VS13 ~T0 @X0 0 e@11 ]
+"59
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f876.h: 59: extern volatile unsigned char TMR0 __attribute__((address(0x001)));
+[v _TMR0 `Vuc ~T0 @X0 0 e@1 ]
 "6 ./user.h
 [; ;./user.h: 6: void TimeUpdate(void);
 [v _TimeUpdate `(v ~T0 @X0 0 ef ]
@@ -30,6 +33,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 "454
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f876.h: 454: extern volatile PIR1bits_t PIR1bits __attribute__((address(0x00C)));
 [v _PIR1bits `VS16 ~T0 @X0 0 e@12 ]
+"1579
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f876.h: 1579: extern volatile unsigned char PR2 __attribute__((address(0x092)));
+[v _PR2 `Vuc ~T0 @X0 0 e@146 ]
 "7 ./user.h
 [; ;./user.h: 7: void BitUpdate(void);
 [v _BitUpdate `(v ~T0 @X0 0 ef ]
@@ -211,32 +217,38 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;interrupts.c: 20:     {
 {
 "21
-[; ;interrupts.c: 21:         TimeUpdate();
-[e ( _TimeUpdate ..  ]
+[; ;interrupts.c: 21:         TMR0 = 61;
+[e = _TMR0 -> -> 61 `i `uc ]
 "22
 [; ;interrupts.c: 22:         INTCONbits.T0IF=0;
 [e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
 "23
-[; ;interrupts.c: 23:     }
+[; ;interrupts.c: 23:         TimeUpdate();
+[e ( _TimeUpdate ..  ]
+"24
+[; ;interrupts.c: 24:     }
 }
 [e :U 83 ]
-"25
-[; ;interrupts.c: 25:     if (PIR1bits.TMR2IF==1)
-[e $ ! == -> . . _PIR1bits 0 1 `i -> 1 `i 84  ]
 "26
-[; ;interrupts.c: 26:     {
-{
+[; ;interrupts.c: 26:     if (PIR1bits.TMR2IF==1)
+[e $ ! == -> . . _PIR1bits 0 1 `i -> 1 `i 84  ]
 "27
-[; ;interrupts.c: 27:         BitUpdate();
-[e ( _BitUpdate ..  ]
+[; ;interrupts.c: 27:     {
+{
 "28
-[; ;interrupts.c: 28:         PIR1bits.TMR2IF=0;
-[e = . . _PIR1bits 0 1 -> -> 0 `i `uc ]
+[; ;interrupts.c: 28:         PR2 = 100;
+[e = _PR2 -> -> 100 `i `uc ]
 "29
-[; ;interrupts.c: 29:     }
+[; ;interrupts.c: 29:         PIR1bits.TMR2IF=0;
+[e = . . _PIR1bits 0 1 -> -> 0 `i `uc ]
+"30
+[; ;interrupts.c: 30:         BitUpdate();
+[e ( _BitUpdate ..  ]
+"31
+[; ;interrupts.c: 31:     }
 }
 [e :U 84 ]
-"31
-[; ;interrupts.c: 31: }
+"33
+[; ;interrupts.c: 33: }
 [e :UE 82 ]
 }
