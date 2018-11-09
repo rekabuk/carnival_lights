@@ -1632,13 +1632,13 @@ void main(void)
     SetUnitLamps( 0,0x55);
 
     SetUnitConfig( 1, 1, 8);
-    SetUnitLamps( 0, 0xAA);
+    SetUnitLamps( 1, 0xAA);
 
-    SetUnitConfig( 2, 3, 8);
-    SetUnitLamps( 0, 0x15);
+    SetUnitConfig( 2, 2, 8);
+    SetUnitLamps( 2, 0x15);
 
     SetUnitConfig( 3, 3, 8);
-    SetUnitLamps( 0, 0x4D);
+    SetUnitLamps( 3, 0x4D);
 
 
 

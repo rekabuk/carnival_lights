@@ -54,11 +54,12 @@ void TimeUpdate(void)
     }
 }
 
-// This deals with TX and RX
+// This deals with TX and RX - called by 20us Timer interrupt
 void BitUpdate(void)
 {
-    uint8_t DataByte;
-    uint8_t DataMask;
+    static uint8_t DataByte;
+    static uint8_t DataMask;
+    static uint8_t Unit;
     
     if (TxMode == TX_IDLE)
     {
@@ -72,6 +73,7 @@ void BitUpdate(void)
         
         DataMode = DATA_START;
         DataMask = 0;
+        Unit = 0;
         
         TxMode = TX_FRONT_GUARD;
     }
@@ -91,17 +93,18 @@ void BitUpdate(void)
             }
             else if (DataMode == DATA_UNIT_ADDR)
             {
-                // Send 5-Bit Addr
-                DataByte = 0x3;
+                // Send the Uint's data, starting with 5-Bit Addr
+                DataByte = Units[Unit].Address;
                 DataMask = 0x10;
-                
+
                 // Do size next
                 DataMode = DATA_UNIT_SIZE;
+                    
             }        
             else if (DataMode == DATA_UNIT_SIZE)
             {
                 // Send 5-bit Size
-                DataByte = 0x07;      // Number of lamps -1
+                DataByte = Units[Unit].Lamps;      // Number of lamps -1
                 DataMask = 0x10;
                 
                 // Do Lamp Data next
@@ -110,11 +113,29 @@ void BitUpdate(void)
             else if (DataMode == DATA_UNIT_DATA)
             {
                 // Send Data bits
-                DataByte = 0x55;
+                DataByte = Units[Unit].LampData;
                 DataMask = 0x80;
                 
-                DataMode = DATA_FINISH;
+                // Decide what we are going to do once this data is sent
+                Unit++;
+                // Have we got more units to send?
+                if (Unit < (sizeof(Units)/sizeof(UNIT_T)) )                 
+                {
+                     // Next unit - start with address
+                    DataMode = DATA_UNIT_ADDR;
+                }
+                else
+                {
+                    // No more units to send
+                    Unit = 0;
+                    DataMode = DATA_FINISH;                    
+                }
             }
+            // Do nothing - Leaving this code in uses 3-bytes!
+            //else if (DataMode == DATA_FINISH)
+            //{
+            //}
+
         }
         
         if (DataMask != 0)

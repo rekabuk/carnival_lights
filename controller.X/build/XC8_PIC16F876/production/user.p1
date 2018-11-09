@@ -248,320 +248,355 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U _BitUpdate ]
 [f ]
 "60
-[; ;user.c: 60:     uint8_t DataByte;
-[v _DataByte `uc ~T0 @X0 1 a ]
+[; ;user.c: 60:     static uint8_t DataByte;
+[v F766 `uc ~T0 @X0 1 s DataByte ]
 "61
-[; ;user.c: 61:     uint8_t DataMask;
-[v _DataMask `uc ~T0 @X0 1 a ]
-"63
-[; ;user.c: 63:     if (TxMode == 0)
-[e $ ! == -> _TxMode `i -> 0 `i 87  ]
+[; ;user.c: 61:     static uint8_t DataMask;
+[v F767 `uc ~T0 @X0 1 s DataMask ]
+"62
+[; ;user.c: 62:     static uint8_t Unit;
+[v F768 `uc ~T0 @X0 1 s Unit ]
 "64
-[; ;user.c: 64:     {
+[; ;user.c: 64:     if (TxMode == 0)
+[e $ ! == -> _TxMode `i -> 0 `i 87  ]
+"65
+[; ;user.c: 65:     {
 {
-"66
-[; ;user.c: 66:         return;
-[e $UE 86  ]
 "67
-[; ;user.c: 67:     }
+[; ;user.c: 67:         return;
+[e $UE 86  ]
+"68
+[; ;user.c: 68:     }
 }
 [e $U 88  ]
-"68
-[; ;user.c: 68:     else if (TxMode == 1)
+"69
+[; ;user.c: 69:     else if (TxMode == 1)
 [e :U 87 ]
 [e $ ! == -> _TxMode `i -> 1 `i 89  ]
-"69
-[; ;user.c: 69:     {
-{
 "70
-[; ;user.c: 70:         RA0 = 0;
-[e = _RA0 -> -> 0 `i `b ]
+[; ;user.c: 70:     {
+{
 "71
-[; ;user.c: 71:         RC1 = 1;
+[; ;user.c: 71:         RA0 = 0;
+[e = _RA0 -> -> 0 `i `b ]
+"72
+[; ;user.c: 72:         RC1 = 1;
 [e = _RC1 -> -> 1 `i `b ]
-"73
-[; ;user.c: 73:         DataMode = 0;
-[e = _DataMode -> -> 0 `i `uc ]
 "74
-[; ;user.c: 74:         DataMask = 0;
-[e = _DataMask -> -> 0 `i `uc ]
+[; ;user.c: 74:         DataMode = 0;
+[e = _DataMode -> -> 0 `i `uc ]
+"75
+[; ;user.c: 75:         DataMask = 0;
+[e = F767 -> -> 0 `i `uc ]
 "76
-[; ;user.c: 76:         TxMode = 2;
+[; ;user.c: 76:         Unit = 0;
+[e = F768 -> -> 0 `i `uc ]
+"78
+[; ;user.c: 78:         TxMode = 2;
 [e = _TxMode -> -> 2 `i `uc ]
-"77
-[; ;user.c: 77:     }
+"79
+[; ;user.c: 79:     }
 }
 [e $U 90  ]
-"78
-[; ;user.c: 78:     else if (TxMode == 2)
+"80
+[; ;user.c: 80:     else if (TxMode == 2)
 [e :U 89 ]
 [e $ ! == -> _TxMode `i -> 2 `i 91  ]
-"79
-[; ;user.c: 79:     {
-{
 "81
-[; ;user.c: 81:         if (DataMask == 0)
-[e $ ! == -> _DataMask `i -> 0 `i 92  ]
-"82
-[; ;user.c: 82:         {
+[; ;user.c: 81:     {
 {
 "83
-[; ;user.c: 83:             if (DataMode == 0)
-[e $ ! == -> _DataMode `i -> 0 `i 93  ]
+[; ;user.c: 83:         if (DataMask == 0)
+[e $ ! == -> F767 `i -> 0 `i 92  ]
 "84
-[; ;user.c: 84:             {
+[; ;user.c: 84:         {
 {
+"85
+[; ;user.c: 85:             if (DataMode == 0)
+[e $ ! == -> _DataMode `i -> 0 `i 93  ]
 "86
-[; ;user.c: 86:                 DataByte = 0x9;
-[e = _DataByte -> -> 9 `i `uc ]
-"87
-[; ;user.c: 87:                 DataMask = 0x08;
-[e = _DataMask -> -> 8 `i `uc ]
-"90
-[; ;user.c: 90:                 DataMode = 1;
+[; ;user.c: 86:             {
+{
+"88
+[; ;user.c: 88:                 DataByte = 0x9;
+[e = F766 -> -> 9 `i `uc ]
+"89
+[; ;user.c: 89:                 DataMask = 0x08;
+[e = F767 -> -> 8 `i `uc ]
+"92
+[; ;user.c: 92:                 DataMode = 1;
 [e = _DataMode -> -> 1 `i `uc ]
-"91
-[; ;user.c: 91:             }
+"93
+[; ;user.c: 93:             }
 }
 [e $U 94  ]
-"92
-[; ;user.c: 92:             else if (DataMode == 1)
+"94
+[; ;user.c: 94:             else if (DataMode == 1)
 [e :U 93 ]
 [e $ ! == -> _DataMode `i -> 1 `i 95  ]
-"93
-[; ;user.c: 93:             {
-{
 "95
-[; ;user.c: 95:                 DataByte = 0x3;
-[e = _DataByte -> -> 3 `i `uc ]
-"96
-[; ;user.c: 96:                 DataMask = 0x10;
-[e = _DataMask -> -> 16 `i `uc ]
-"99
-[; ;user.c: 99:                 DataMode = 2;
+[; ;user.c: 95:             {
+{
+"97
+[; ;user.c: 97:                 DataByte = Units[Unit].Address;
+[e = F766 . *U + &U _Units * -> F768 `ux -> -> # *U &U _Units `ui `ux 0 ]
+"98
+[; ;user.c: 98:                 DataMask = 0x10;
+[e = F767 -> -> 16 `i `uc ]
+"101
+[; ;user.c: 101:                 DataMode = 2;
 [e = _DataMode -> -> 2 `i `uc ]
-"100
-[; ;user.c: 100:             }
+"103
+[; ;user.c: 103:             }
 }
 [e $U 96  ]
-"101
-[; ;user.c: 101:             else if (DataMode == 2)
+"104
+[; ;user.c: 104:             else if (DataMode == 2)
 [e :U 95 ]
 [e $ ! == -> _DataMode `i -> 2 `i 97  ]
-"102
-[; ;user.c: 102:             {
-{
-"104
-[; ;user.c: 104:                 DataByte = 0x07;
-[e = _DataByte -> -> 7 `i `uc ]
 "105
-[; ;user.c: 105:                 DataMask = 0x10;
-[e = _DataMask -> -> 16 `i `uc ]
+[; ;user.c: 105:             {
+{
+"107
+[; ;user.c: 107:                 DataByte = Units[Unit].Lamps;
+[e = F766 . *U + &U _Units * -> F768 `ux -> -> # *U &U _Units `ui `ux 1 ]
 "108
-[; ;user.c: 108:                 DataMode = 3;
+[; ;user.c: 108:                 DataMask = 0x10;
+[e = F767 -> -> 16 `i `uc ]
+"111
+[; ;user.c: 111:                 DataMode = 3;
 [e = _DataMode -> -> 3 `i `uc ]
-"109
-[; ;user.c: 109:             }
+"112
+[; ;user.c: 112:             }
 }
 [e $U 98  ]
-"110
-[; ;user.c: 110:             else if (DataMode == 3)
+"113
+[; ;user.c: 113:             else if (DataMode == 3)
 [e :U 97 ]
 [e $ ! == -> _DataMode `i -> 3 `i 99  ]
-"111
-[; ;user.c: 111:             {
-{
-"113
-[; ;user.c: 113:                 DataByte = 0x55;
-[e = _DataByte -> -> 85 `i `uc ]
 "114
-[; ;user.c: 114:                 DataMask = 0x80;
-[e = _DataMask -> -> 128 `i `uc ]
+[; ;user.c: 114:             {
+{
 "116
-[; ;user.c: 116:                 DataMode = 4;
-[e = _DataMode -> -> 4 `i `uc ]
+[; ;user.c: 116:                 DataByte = Units[Unit].LampData;
+[e = F766 . *U + &U _Units * -> F768 `ux -> -> # *U &U _Units `ui `ux 2 ]
 "117
-[; ;user.c: 117:             }
+[; ;user.c: 117:                 DataMask = 0x80;
+[e = F767 -> -> 128 `i `uc ]
+"120
+[; ;user.c: 120:                 Unit++;
+[e ++ F768 -> -> 1 `i `uc ]
+"122
+[; ;user.c: 122:                 if (Unit < (sizeof(Units)/sizeof(UNIT_T)) )
+[e $ ! < -> F768 `ui / -> # _Units `ui -> # `S82 `ui 100  ]
+"123
+[; ;user.c: 123:                 {
+{
+"125
+[; ;user.c: 125:                     DataMode = 1;
+[e = _DataMode -> -> 1 `i `uc ]
+"126
+[; ;user.c: 126:                 }
+}
+[e $U 101  ]
+"127
+[; ;user.c: 127:                 else
+[e :U 100 ]
+"128
+[; ;user.c: 128:                 {
+{
+"130
+[; ;user.c: 130:                     Unit = 0;
+[e = F768 -> -> 0 `i `uc ]
+"131
+[; ;user.c: 131:                     DataMode = 4;
+[e = _DataMode -> -> 4 `i `uc ]
+"132
+[; ;user.c: 132:                 }
+}
+[e :U 101 ]
+"133
+[; ;user.c: 133:             }
 }
 [e :U 99 ]
 [e :U 98 ]
 [e :U 96 ]
 [e :U 94 ]
-"118
-[; ;user.c: 118:         }
+"139
+[; ;user.c: 139:         }
 }
 [e :U 92 ]
-"120
-[; ;user.c: 120:         if (DataMask != 0)
-[e $ ! != -> _DataMask `i -> 0 `i 100  ]
-"121
-[; ;user.c: 121:         {
-{
-"122
-[; ;user.c: 122:             RA0 = 1;
-[e = _RA0 -> -> 1 `i `b ]
-"123
-[; ;user.c: 123:             TxMode = 3;
-[e = _TxMode -> -> 3 `i `uc ]
-"124
-[; ;user.c: 124:         }
-}
-[e $U 101  ]
-"125
-[; ;user.c: 125:         else
-[e :U 100 ]
-"126
-[; ;user.c: 126:         {
-{
-"127
-[; ;user.c: 127:             RA0 = 0;
-[e = _RA0 -> -> 0 `i `b ]
-"128
-[; ;user.c: 128:             TxMode = 5;
-[e = _TxMode -> -> 5 `i `uc ]
-"129
-[; ;user.c: 129:         }
-}
-[e :U 101 ]
-"131
-[; ;user.c: 131:     }
-}
-[e $U 102  ]
-"132
-[; ;user.c: 132:     else if (TxMode == 3)
-[e :U 91 ]
-[e $ ! == -> _TxMode `i -> 3 `i 103  ]
-"133
-[; ;user.c: 133:     {
-{
-"135
-[; ;user.c: 135:         if (DataByte & DataMask)
-[e $ ! != & -> _DataByte `i -> _DataMask `i -> 0 `i 104  ]
-"136
-[; ;user.c: 136:             RA0 = 1;
-[e = _RA0 -> -> 1 `i `b ]
-[e $U 105  ]
-"137
-[; ;user.c: 137:         else
-[e :U 104 ]
-"138
-[; ;user.c: 138:             RA0 = 0;
-[e = _RA0 -> -> 0 `i `b ]
-[e :U 105 ]
 "141
-[; ;user.c: 141:         DataMask >>= 1;
-[e =>> _DataMask -> -> 1 `i `uc ]
-"143
-[; ;user.c: 143:         TxMode = 4;
-[e = _TxMode -> -> 4 `i `uc ]
-"144
-[; ;user.c: 144:     }
-}
-[e $U 106  ]
-"145
-[; ;user.c: 145:     else if (TxMode == 4)
-[e :U 103 ]
-[e $ ! == -> _TxMode `i -> 4 `i 107  ]
-"146
-[; ;user.c: 146:     {
+[; ;user.c: 141:         if (DataMask != 0)
+[e $ ! != -> F767 `i -> 0 `i 102  ]
+"142
+[; ;user.c: 142:         {
 {
+"143
+[; ;user.c: 143:             RA0 = 1;
+[e = _RA0 -> -> 1 `i `b ]
+"144
+[; ;user.c: 144:             TxMode = 3;
+[e = _TxMode -> -> 3 `i `uc ]
+"145
+[; ;user.c: 145:         }
+}
+[e $U 103  ]
+"146
+[; ;user.c: 146:         else
+[e :U 102 ]
 "147
-[; ;user.c: 147:         RA0 = 0;
-[e = _RA0 -> -> 0 `i `b ]
+[; ;user.c: 147:         {
+{
 "148
-[; ;user.c: 148:         TxMode = 2;
-[e = _TxMode -> -> 2 `i `uc ]
+[; ;user.c: 148:             RA0 = 0;
+[e = _RA0 -> -> 0 `i `b ]
 "149
-[; ;user.c: 149:     }
+[; ;user.c: 149:             TxMode = 5;
+[e = _TxMode -> -> 5 `i `uc ]
+"150
+[; ;user.c: 150:         }
+}
+[e :U 103 ]
+"152
+[; ;user.c: 152:     }
+}
+[e $U 104  ]
+"153
+[; ;user.c: 153:     else if (TxMode == 3)
+[e :U 91 ]
+[e $ ! == -> _TxMode `i -> 3 `i 105  ]
+"154
+[; ;user.c: 154:     {
+{
+"156
+[; ;user.c: 156:         if (DataByte & DataMask)
+[e $ ! != & -> F766 `i -> F767 `i -> 0 `i 106  ]
+"157
+[; ;user.c: 157:             RA0 = 1;
+[e = _RA0 -> -> 1 `i `b ]
+[e $U 107  ]
+"158
+[; ;user.c: 158:         else
+[e :U 106 ]
+"159
+[; ;user.c: 159:             RA0 = 0;
+[e = _RA0 -> -> 0 `i `b ]
+[e :U 107 ]
+"162
+[; ;user.c: 162:         DataMask >>= 1;
+[e =>> F767 -> -> 1 `i `uc ]
+"164
+[; ;user.c: 164:         TxMode = 4;
+[e = _TxMode -> -> 4 `i `uc ]
+"165
+[; ;user.c: 165:     }
 }
 [e $U 108  ]
-"150
-[; ;user.c: 150:     else if (TxMode == 5)
-[e :U 107 ]
-[e $ ! == -> _TxMode `i -> 5 `i 109  ]
-"151
-[; ;user.c: 151:     {
+"166
+[; ;user.c: 166:     else if (TxMode == 4)
+[e :U 105 ]
+[e $ ! == -> _TxMode `i -> 4 `i 109  ]
+"167
+[; ;user.c: 167:     {
 {
-"152
-[; ;user.c: 152:         RC1 = 0;
-[e = _RC1 -> -> 0 `i `b ]
-"153
-[; ;user.c: 153:         TxMode = 0;
-[e = _TxMode -> -> 0 `i `uc ]
-"154
-[; ;user.c: 154:     }
+"168
+[; ;user.c: 168:         RA0 = 0;
+[e = _RA0 -> -> 0 `i `b ]
+"169
+[; ;user.c: 169:         TxMode = 2;
+[e = _TxMode -> -> 2 `i `uc ]
+"170
+[; ;user.c: 170:     }
 }
+[e $U 110  ]
+"171
+[; ;user.c: 171:     else if (TxMode == 5)
 [e :U 109 ]
+[e $ ! == -> _TxMode `i -> 5 `i 111  ]
+"172
+[; ;user.c: 172:     {
+{
+"173
+[; ;user.c: 173:         RC1 = 0;
+[e = _RC1 -> -> 0 `i `b ]
+"174
+[; ;user.c: 174:         TxMode = 0;
+[e = _TxMode -> -> 0 `i `uc ]
+"175
+[; ;user.c: 175:     }
+}
+[e :U 111 ]
+[e :U 110 ]
 [e :U 108 ]
-[e :U 106 ]
-[e :U 102 ]
+[e :U 104 ]
 [e :U 90 ]
 [e :U 88 ]
-"155
-[; ;user.c: 155: }
+"176
+[; ;user.c: 176: }
 [e :UE 86 ]
 }
-"157
-[; ;user.c: 157: void SetUnitConfig(uint8_t Unit, uint8_t Address, uint8_t Lamps )
+"178
+[; ;user.c: 178: void SetUnitConfig(uint8_t Unit, uint8_t Address, uint8_t Lamps )
 [v _SetUnitConfig `(v ~T0 @X0 1 ef3`uc`uc`uc ]
-"158
-[; ;user.c: 158: {
+"179
+[; ;user.c: 179: {
 {
 [e :U _SetUnitConfig ]
-"157
-[; ;user.c: 157: void SetUnitConfig(uint8_t Unit, uint8_t Address, uint8_t Lamps )
+"178
+[; ;user.c: 178: void SetUnitConfig(uint8_t Unit, uint8_t Address, uint8_t Lamps )
 [v _Unit `uc ~T0 @X0 1 r1 ]
 [v _Address `uc ~T0 @X0 1 r2 ]
 [v _Lamps `uc ~T0 @X0 1 r3 ]
-"158
-[; ;user.c: 158: {
+"179
+[; ;user.c: 179: {
 [f ]
-"159
-[; ;user.c: 159:     Units[Unit].Address = Address;
+"180
+[; ;user.c: 180:     Units[Unit].Address = Address;
 [e = . *U + &U _Units * -> _Unit `ux -> -> # *U &U _Units `ui `ux 0 _Address ]
-"160
-[; ;user.c: 160:     Units[Unit].Lamps = Lamps;
+"181
+[; ;user.c: 181:     Units[Unit].Lamps = Lamps;
 [e = . *U + &U _Units * -> _Unit `ux -> -> # *U &U _Units `ui `ux 1 _Lamps ]
-"161
-[; ;user.c: 161: }
-[e :UE 110 ]
+"182
+[; ;user.c: 182: }
+[e :UE 112 ]
 }
-"163
-[; ;user.c: 163: void SetUnitLamps(uint8_t Unit, uint8_t LampData )
+"184
+[; ;user.c: 184: void SetUnitLamps(uint8_t Unit, uint8_t LampData )
 [v _SetUnitLamps `(v ~T0 @X0 1 ef2`uc`uc ]
-"164
-[; ;user.c: 164: {
+"185
+[; ;user.c: 185: {
 {
 [e :U _SetUnitLamps ]
-"163
-[; ;user.c: 163: void SetUnitLamps(uint8_t Unit, uint8_t LampData )
+"184
+[; ;user.c: 184: void SetUnitLamps(uint8_t Unit, uint8_t LampData )
 [v _Unit `uc ~T0 @X0 1 r1 ]
 [v _LampData `uc ~T0 @X0 1 r2 ]
-"164
-[; ;user.c: 164: {
+"185
+[; ;user.c: 185: {
 [f ]
-"165
-[; ;user.c: 165:     Units[Unit].LampData = LampData;
+"186
+[; ;user.c: 186:     Units[Unit].LampData = LampData;
 [e = . *U + &U _Units * -> _Unit `ux -> -> # *U &U _Units `ui `ux 2 _LampData ]
-"166
-[; ;user.c: 166: }
-[e :UE 111 ]
+"187
+[; ;user.c: 187: }
+[e :UE 113 ]
 }
-"169
-[; ;user.c: 169: void StartTx( void)
+"190
+[; ;user.c: 190: void StartTx( void)
 [v _StartTx `(v ~T0 @X0 1 ef ]
-"170
-[; ;user.c: 170: {
+"191
+[; ;user.c: 191: {
 {
 [e :U _StartTx ]
 [f ]
-"174
-[; ;user.c: 174:     SerialModeTx = 1;
+"195
+[; ;user.c: 195:     SerialModeTx = 1;
 [e = _SerialModeTx -> -> 1 `i `uc ]
-"175
-[; ;user.c: 175:     TxMode = 1;
+"196
+[; ;user.c: 196:     TxMode = 1;
 [e = _TxMode -> -> 1 `i `uc ]
-"179
-[; ;user.c: 179: }
-[e :UE 112 ]
+"200
+[; ;user.c: 200: }
+[e :UE 114 ]
 }

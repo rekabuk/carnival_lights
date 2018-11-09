@@ -1669,8 +1669,9 @@ void TimeUpdate(void)
 
 void BitUpdate(void)
 {
-    uint8_t DataByte;
-    uint8_t DataMask;
+    static uint8_t DataByte;
+    static uint8_t DataMask;
+    static uint8_t Unit;
 
     if (TxMode == 0)
     {
@@ -1684,6 +1685,7 @@ void BitUpdate(void)
 
         DataMode = 0;
         DataMask = 0;
+        Unit = 0;
 
         TxMode = 2;
     }
@@ -1704,16 +1706,17 @@ void BitUpdate(void)
             else if (DataMode == 1)
             {
 
-                DataByte = 0x3;
+                DataByte = Units[Unit].Address;
                 DataMask = 0x10;
 
 
                 DataMode = 2;
+
             }
             else if (DataMode == 2)
             {
 
-                DataByte = 0x07;
+                DataByte = Units[Unit].Lamps;
                 DataMask = 0x10;
 
 
@@ -1722,11 +1725,29 @@ void BitUpdate(void)
             else if (DataMode == 3)
             {
 
-                DataByte = 0x55;
+                DataByte = Units[Unit].LampData;
                 DataMask = 0x80;
 
-                DataMode = 4;
+
+                Unit++;
+
+                if (Unit < (sizeof(Units)/sizeof(UNIT_T)) )
+                {
+
+                    DataMode = 1;
+                }
+                else
+                {
+
+                    Unit = 0;
+                    DataMode = 4;
+                }
             }
+
+
+
+
+
         }
 
         if (DataMask != 0)

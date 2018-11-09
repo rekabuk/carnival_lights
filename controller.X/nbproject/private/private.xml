@@ -5,6 +5,8 @@
         <group>
             <file>file:/C:/Users/abaker/Documents/carnival/lights/controller.X/user.c</file>
             <file>file:/C:/Users/abaker/Documents/carnival/lights/controller.X/main.c</file>
+            <file>file:/C:/Users/abaker/Documents/carnival/lights/controller.X/system.c</file>
+            <file>file:/C:/Users/abaker/Documents/carnival/lights/controller.X/interrupts.c</file>
         </group>
     </open-files>
 </project-private>
