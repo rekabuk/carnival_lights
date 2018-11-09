@@ -1,0 +1,2537 @@
+
+
+Microchip Technology PIC LITE Macro Assembler V2.00 build -1524193055 
+                                                                                               Fri Nov 09 10:44:05 2018
+
+Microchip Technology Omniscient Code Generator v2.00 (Free mode) build 20180527130849
+     1  0000                     
+      + 0000                     
+     2                           ; Version 2.00
+     3                           ; Generated 27/05/2018 GMT
+     4                           
+     5                           ; 
+     6                           ; Copyright © 2018, Microchip Technology Inc. and its subsidiaries ("Microchip")
+     7                           ; All rights reserved.
+     8                           ; 
+     9                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+                                 ip").
+    10                           ; 
+    11                           ; Redistribution and use in source and binary forms, with or without modification, are
+    12                           ; permitted provided that the following conditions are met:
+    13                           ; 
+    14                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+                                 t of
+    15                           ;        conditions and the following disclaimer.
+    16                           ; 
+    17                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+                                 list
+    18                           ;        of conditions and the following disclaimer in the documentation and/or other
+    19                           ;        materials provided with the distribution.
+    20                           ; 
+    21                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+                                 is
+    22                           ;        software without specific prior written permission.
+    23                           ; 
+    24                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+
+    25                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+                                 OR
+    26                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+                                 T,
+    27                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+                                 
+    28                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+                                 
+    29                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+                                 RICT
+    30                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+                                 SE OF
+    31                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    32                           ; 
+    33                           
+    34                           
+    35                           ; 
+    36                           ; Code-generator required, PIC16F630 Definitions
+    37                           ; 
+    38  0004                     fsr0 equ 04h
+    39  0004                     indf equ 00h
+    40  0000                     indf0 equ 00h
+    41  0000                     pc equ 02h
+    42  0002                     pcl equ 02h
+    43  0002                     pclath equ 0Ah
+    44  000A                     status equ 03h
+    45  0003                     
+     2                           opt pagewidth 120
+     3  0000                     byte0	macro	val
+     4                           	(getbyte(val,0))
+     5                           endm
+     6  0000                     byte1	macro	val
+     7                           	(getbyte(val,1))
+     8                           endm
+     9  0000                     byte2	macro	val
+    10                           	(getbyte(val,2))
+    11                           endm
+    12  0000                     byte3	macro	val
+    13                           	(getbyte(val,3))
+    14                           endm
+    15  0000                     byte4	macro	val
+    16                           	(getbyte(val,4))
+    17                           endm
+    18  0000                     byte5	macro	val
+    19                           	(getbyte(val,5))
+    20                           endm
+    21  0000                     byte6	macro	val
+    22                           	(getbyte(val,6))
+    23                           endm
+    24  0000                     byte7	macro	val
+    25                           	(getbyte(val,7))
+    26                           endm
+    27  0000                     getword	macro	val,pos
+    28                           	(((val) >> (8 * pos)) and 0xffff)
+    29                           endm
+    30  0000                     word0	macro	val
+    31                           	(getword(val,0))
+    32                           endm
+    33  0000                     word1	macro	val
+    34                           	(getword(val,2))
+    35                           endm
+    36  0000                     word2	macro	val
+    37                           	(getword(val,4))
+    38                           endm
+    39  0000                     word3	macro	val
+    40                           	(getword(val,6))
+    41                           endm
+    42  0000                     gettword	macro	val,pos
+    43                           	(((val) >> (8 * pos)) and 0xffffff)
+    44                           endm
+    45  0000                     tword0	macro	val
+    46                           	(gettword(val,0))
+    47                           endm
+    48  0000                     tword1	macro	val
+    49                           	(gettword(val,3))
+    50                           endm
+    51  0000                     tword2	macro	val
+    52                           	(gettword(val,6))
+    53                           endm
+    54  0000                     getdword	macro	val,pos
+    55                           	(((val) >> (8 * pos)) and 0xffffffff)
+    56                           endm
+    57  0000                     dword0	macro	val
+    58                           	(getdword(val,0))
+    59                           endm
+    60  0000                     dword1	macro	val
+    61                           	(getdword(val,4))
+    62                           endm
+    63  0000                     clrc	macro
+    64                           	bcf	3,0
+    65                           	endm
+    66  0000                     clrz	macro
+    67                           	bcf	3,2
+    68                           	endm
+    69  0000                     setc	macro
+    70                           	bsf	3,0
+    71                           	endm
+    72  0000                     setz	macro
+    73                           	bsf	3,2
+    74                           	endm
+    75  0000                     skipc	macro
+    76                           	btfss	3,0
+    77                           	endm
+    78  0000                     skipz	macro
+    79                           	btfss	3,2
+    80                           	endm
+    81  0000                     skipnc	macro
+    82                           	btfsc	3,0
+    83                           	endm
+    84  0000                     skipnz	macro
+    85                           	btfsc	3,2
+    86                           	endm
+    87  0000                     # 54 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+    88                           INDF equ 00h ;# 
+    89  0000                     # 61 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+    90                           TMR0 equ 01h ;# 
+    91  0001                     # 68 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+    92                           PCL equ 02h ;# 
+    93  0002                     # 75 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+    94                           STATUS equ 03h ;# 
+    95  0003                     # 161 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+    96                           FSR equ 04h ;# 
+    97  0004                     # 168 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+    98                           PORTA equ 05h ;# 
+    99  0005                     # 218 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   100                           PORTC equ 07h ;# 
+   101  0007                     # 268 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   102                           PCLATH equ 0Ah ;# 
+   103  000A                     # 288 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   104                           INTCON equ 0Bh ;# 
+   105  000B                     # 366 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   106                           PIR1 equ 0Ch ;# 
+   107  000C                     # 408 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   108                           TMR1 equ 0Eh ;# 
+   109  000E                     # 415 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   110                           TMR1L equ 0Eh ;# 
+   111  000E                     # 422 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   112                           TMR1H equ 0Fh ;# 
+   113  000F                     # 429 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   114                           T1CON equ 010h ;# 
+   115  0010                     # 494 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   116                           CMCON equ 019h ;# 
+   117  0019                     # 553 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   118                           OPTION_REG equ 081h ;# 
+   119  0081                     # 630 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   120                           TRISA equ 085h ;# 
+   121  0085                     # 680 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   122                           TRISC equ 087h ;# 
+   123  0087                     # 730 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   124                           PIE1 equ 08Ch ;# 
+   125  008C                     # 772 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   126                           PCON equ 08Eh ;# 
+   127  008E                     # 806 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   128                           OSCCAL equ 090h ;# 
+   129  0090                     # 866 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   130                           WPUA equ 095h ;# 
+   131  0095                     # 871 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   132                           WPU equ 095h ;# 
+   133  0095                     # 954 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   134                           IOCA equ 096h ;# 
+   135  0096                     # 959 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   136                           IOC equ 096h ;# 
+   137  0096                     # 1052 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   138                           VRCON equ 099h ;# 
+   139  0099                     # 1112 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   140                           EEDAT equ 09Ah ;# 
+   141  009A                     # 1117 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   142                           EEDATA equ 09Ah ;# 
+   143  009A                     # 1150 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   144                           EEADR equ 09Bh ;# 
+   145  009B                     # 1157 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   146                           EECON1 equ 09Ch ;# 
+   147  009C                     # 1195 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   148                           EECON2 equ 09Dh ;# 
+   149  009D                     # 54 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   150                           INDF equ 00h ;# 
+   151  0000                     # 61 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   152                           TMR0 equ 01h ;# 
+   153  0001                     # 68 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   154                           PCL equ 02h ;# 
+   155  0002                     # 75 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   156                           STATUS equ 03h ;# 
+   157  0003                     # 161 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   158                           FSR equ 04h ;# 
+   159  0004                     # 168 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   160                           PORTA equ 05h ;# 
+   161  0005                     # 218 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   162                           PORTC equ 07h ;# 
+   163  0007                     # 268 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   164                           PCLATH equ 0Ah ;# 
+   165  000A                     # 288 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   166                           INTCON equ 0Bh ;# 
+   167  000B                     # 366 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   168                           PIR1 equ 0Ch ;# 
+   169  000C                     # 408 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   170                           TMR1 equ 0Eh ;# 
+   171  000E                     # 415 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   172                           TMR1L equ 0Eh ;# 
+   173  000E                     # 422 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   174                           TMR1H equ 0Fh ;# 
+   175  000F                     # 429 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   176                           T1CON equ 010h ;# 
+   177  0010                     # 494 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   178                           CMCON equ 019h ;# 
+   179  0019                     # 553 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   180                           OPTION_REG equ 081h ;# 
+   181  0081                     # 630 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   182                           TRISA equ 085h ;# 
+   183  0085                     # 680 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   184                           TRISC equ 087h ;# 
+   185  0087                     # 730 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   186                           PIE1 equ 08Ch ;# 
+   187  008C                     # 772 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   188                           PCON equ 08Eh ;# 
+   189  008E                     # 806 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   190                           OSCCAL equ 090h ;# 
+   191  0090                     # 866 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   192                           WPUA equ 095h ;# 
+   193  0095                     # 871 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   194                           WPU equ 095h ;# 
+   195  0095                     # 954 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   196                           IOCA equ 096h ;# 
+   197  0096                     # 959 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   198                           IOC equ 096h ;# 
+   199  0096                     # 1052 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   200                           VRCON equ 099h ;# 
+   201  0099                     # 1112 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   202                           EEDAT equ 09Ah ;# 
+   203  009A                     # 1117 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   204                           EEDATA equ 09Ah ;# 
+   205  009A                     # 1150 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   206                           EEADR equ 09Bh ;# 
+   207  009B                     # 1157 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   208                           EECON1 equ 09Ch ;# 
+   209  009C                     # 1195 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   210                           EECON2 equ 09Dh ;# 
+   211  009D                     # 54 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   212                           INDF equ 00h ;# 
+   213  0000                     # 61 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   214                           TMR0 equ 01h ;# 
+   215  0001                     # 68 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   216                           PCL equ 02h ;# 
+   217  0002                     # 75 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   218                           STATUS equ 03h ;# 
+   219  0003                     # 161 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   220                           FSR equ 04h ;# 
+   221  0004                     # 168 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   222                           PORTA equ 05h ;# 
+   223  0005                     # 218 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   224                           PORTC equ 07h ;# 
+   225  0007                     # 268 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   226                           PCLATH equ 0Ah ;# 
+   227  000A                     # 288 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   228                           INTCON equ 0Bh ;# 
+   229  000B                     # 366 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   230                           PIR1 equ 0Ch ;# 
+   231  000C                     # 408 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   232                           TMR1 equ 0Eh ;# 
+   233  000E                     # 415 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   234                           TMR1L equ 0Eh ;# 
+   235  000E                     # 422 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   236                           TMR1H equ 0Fh ;# 
+   237  000F                     # 429 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   238                           T1CON equ 010h ;# 
+   239  0010                     # 494 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   240                           CMCON equ 019h ;# 
+   241  0019                     # 553 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   242                           OPTION_REG equ 081h ;# 
+   243  0081                     # 630 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   244                           TRISA equ 085h ;# 
+   245  0085                     # 680 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   246                           TRISC equ 087h ;# 
+   247  0087                     # 730 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   248                           PIE1 equ 08Ch ;# 
+   249  008C                     # 772 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   250                           PCON equ 08Eh ;# 
+   251  008E                     # 806 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   252                           OSCCAL equ 090h ;# 
+   253  0090                     # 866 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   254                           WPUA equ 095h ;# 
+   255  0095                     # 871 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   256                           WPU equ 095h ;# 
+   257  0095                     # 954 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   258                           IOCA equ 096h ;# 
+   259  0096                     # 959 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   260                           IOC equ 096h ;# 
+   261  0096                     # 1052 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   262                           VRCON equ 099h ;# 
+   263  0099                     # 1112 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   264                           EEDAT equ 09Ah ;# 
+   265  009A                     # 1117 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   266                           EEDATA equ 09Ah ;# 
+   267  009A                     # 1150 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   268                           EEADR equ 09Bh ;# 
+   269  009B                     # 1157 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   270                           EECON1 equ 09Ch ;# 
+   271  009C                     # 1195 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   272                           EECON2 equ 09Dh ;# 
+   273  009D                     # 54 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   274                           INDF equ 00h ;# 
+   275  0000                     # 61 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   276                           TMR0 equ 01h ;# 
+   277  0001                     # 68 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   278                           PCL equ 02h ;# 
+   279  0002                     # 75 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   280                           STATUS equ 03h ;# 
+   281  0003                     # 161 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   282                           FSR equ 04h ;# 
+   283  0004                     # 168 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   284                           PORTA equ 05h ;# 
+   285  0005                     # 218 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   286                           PORTC equ 07h ;# 
+   287  0007                     # 268 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   288                           PCLATH equ 0Ah ;# 
+   289  000A                     # 288 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   290                           INTCON equ 0Bh ;# 
+   291  000B                     # 366 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   292                           PIR1 equ 0Ch ;# 
+   293  000C                     # 408 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   294                           TMR1 equ 0Eh ;# 
+   295  000E                     # 415 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   296                           TMR1L equ 0Eh ;# 
+   297  000E                     # 422 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   298                           TMR1H equ 0Fh ;# 
+   299  000F                     # 429 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   300                           T1CON equ 010h ;# 
+   301  0010                     # 494 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   302                           CMCON equ 019h ;# 
+   303  0019                     # 553 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   304                           OPTION_REG equ 081h ;# 
+   305  0081                     # 630 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   306                           TRISA equ 085h ;# 
+   307  0085                     # 680 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   308                           TRISC equ 087h ;# 
+   309  0087                     # 730 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   310                           PIE1 equ 08Ch ;# 
+   311  008C                     # 772 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   312                           PCON equ 08Eh ;# 
+   313  008E                     # 806 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   314                           OSCCAL equ 090h ;# 
+   315  0090                     # 866 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   316                           WPUA equ 095h ;# 
+   317  0095                     # 871 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   318                           WPU equ 095h ;# 
+   319  0095                     # 954 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   320                           IOCA equ 096h ;# 
+   321  0096                     # 959 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   322                           IOC equ 096h ;# 
+   323  0096                     # 1052 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   324                           VRCON equ 099h ;# 
+   325  0099                     # 1112 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   326                           EEDAT equ 09Ah ;# 
+   327  009A                     # 1117 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   328                           EEDATA equ 09Ah ;# 
+   329  009A                     # 1150 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   330                           EEADR equ 09Bh ;# 
+   331  009B                     # 1157 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   332                           EECON1 equ 09Ch ;# 
+   333  009C                     # 1195 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   334                           EECON2 equ 09Dh ;# 
+   335  009D                     # 54 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   336                           INDF equ 00h ;# 
+   337  0000                     # 61 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   338                           TMR0 equ 01h ;# 
+   339  0001                     # 68 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   340                           PCL equ 02h ;# 
+   341  0002                     # 75 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   342                           STATUS equ 03h ;# 
+   343  0003                     # 161 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   344                           FSR equ 04h ;# 
+   345  0004                     # 168 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   346                           PORTA equ 05h ;# 
+   347  0005                     # 218 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   348                           PORTC equ 07h ;# 
+   349  0007                     # 268 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   350                           PCLATH equ 0Ah ;# 
+   351  000A                     # 288 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   352                           INTCON equ 0Bh ;# 
+   353  000B                     # 366 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   354                           PIR1 equ 0Ch ;# 
+   355  000C                     # 408 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   356                           TMR1 equ 0Eh ;# 
+   357  000E                     # 415 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   358                           TMR1L equ 0Eh ;# 
+   359  000E                     # 422 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   360                           TMR1H equ 0Fh ;# 
+   361  000F                     # 429 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   362                           T1CON equ 010h ;# 
+   363  0010                     # 494 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   364                           CMCON equ 019h ;# 
+   365  0019                     # 553 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   366                           OPTION_REG equ 081h ;# 
+   367  0081                     # 630 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   368                           TRISA equ 085h ;# 
+   369  0085                     # 680 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   370                           TRISC equ 087h ;# 
+   371  0087                     # 730 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   372                           PIE1 equ 08Ch ;# 
+   373  008C                     # 772 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   374                           PCON equ 08Eh ;# 
+   375  008E                     # 806 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   376                           OSCCAL equ 090h ;# 
+   377  0090                     # 866 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   378                           WPUA equ 095h ;# 
+   379  0095                     # 871 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   380                           WPU equ 095h ;# 
+   381  0095                     # 954 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   382                           IOCA equ 096h ;# 
+   383  0096                     # 959 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   384                           IOC equ 096h ;# 
+   385  0096                     # 1052 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   386                           VRCON equ 099h ;# 
+   387  0099                     # 1112 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   388                           EEDAT equ 09Ah ;# 
+   389  009A                     # 1117 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   390                           EEDATA equ 09Ah ;# 
+   391  009A                     # 1150 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   392                           EEADR equ 09Bh ;# 
+   393  009B                     # 1157 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   394                           EECON1 equ 09Ch ;# 
+   395  009C                     # 1195 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   396                           EECON2 equ 09Dh ;# 
+   397  009D                     # 54 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   398                           INDF equ 00h ;# 
+   399  0000                     # 61 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   400                           TMR0 equ 01h ;# 
+   401  0001                     # 68 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   402                           PCL equ 02h ;# 
+   403  0002                     # 75 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   404                           STATUS equ 03h ;# 
+   405  0003                     # 161 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   406                           FSR equ 04h ;# 
+   407  0004                     # 168 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   408                           PORTA equ 05h ;# 
+   409  0005                     # 218 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   410                           PORTC equ 07h ;# 
+   411  0007                     # 268 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   412                           PCLATH equ 0Ah ;# 
+   413  000A                     # 288 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   414                           INTCON equ 0Bh ;# 
+   415  000B                     # 366 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   416                           PIR1 equ 0Ch ;# 
+   417  000C                     # 408 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   418                           TMR1 equ 0Eh ;# 
+   419  000E                     # 415 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   420                           TMR1L equ 0Eh ;# 
+   421  000E                     # 422 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   422                           TMR1H equ 0Fh ;# 
+   423  000F                     # 429 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   424                           T1CON equ 010h ;# 
+   425  0010                     # 494 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   426                           CMCON equ 019h ;# 
+   427  0019                     # 553 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   428                           OPTION_REG equ 081h ;# 
+   429  0081                     # 630 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   430                           TRISA equ 085h ;# 
+   431  0085                     # 680 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   432                           TRISC equ 087h ;# 
+   433  0087                     # 730 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   434                           PIE1 equ 08Ch ;# 
+   435  008C                     # 772 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   436                           PCON equ 08Eh ;# 
+   437  008E                     # 806 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   438                           OSCCAL equ 090h ;# 
+   439  0090                     # 866 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   440                           WPUA equ 095h ;# 
+   441  0095                     # 871 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   442                           WPU equ 095h ;# 
+   443  0095                     # 954 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   444                           IOCA equ 096h ;# 
+   445  0096                     # 959 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   446                           IOC equ 096h ;# 
+   447  0096                     # 1052 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   448                           VRCON equ 099h ;# 
+   449  0099                     # 1112 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   450                           EEDAT equ 09Ah ;# 
+   451  009A                     # 1117 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   452                           EEDATA equ 09Ah ;# 
+   453  009A                     # 1150 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   454                           EEADR equ 09Bh ;# 
+   455  009B                     # 1157 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   456                           EECON1 equ 09Ch ;# 
+   457  009C                     # 1195 "C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f630.h"
+   458                           EECON2 equ 09Dh ;# 
+   459  009D                     	FNCALL	_main,_BitDataInit
+   460                           	FNCALL	_main,_Initialise
+   461                           	FNCALL	_main,_StartTickTimer
+   462                           	FNCALL	_main,_UARTSend
+   463                           	FNCALL	_StartTickTimer,_BitDataInit
+   464                           	FNCALL	_Initialise,_UARTInit
+   465                           	FNROOT	_main
+   466                           	FNCALL	_ISR,_BitIntr
+   467                           	FNCALL	_ISR,_EdgeIntr
+   468                           	FNCALL	_ISR,_StartTickTimer
+   469                           	FNCALL	_StartTickTimer,_BitDataInit
+   470                           	FNCALL	intlevel1,_ISR
+   471                           	global	intlevel1
+   472                           	FNROOT	intlevel1
+   473                           	global	_EdgeDetect
+   474                           	global	_DataState
+   475                           	global	_Addressed
+   476                           	global	_OneWireMode
+   477                           	global	_DoneSend
+   478                           	global	_Lamps
+   479                           	global	_BoxSize
+   480                           	global	_BitCount
+   481                           	global	_TickCount
+   482                           	global	_IntrData
+   483                           	global	_RxData
+   484                           	global	_IntrNewBit
+   485                           	global	_TMR0
+   486                           _TMR0	set	0x1
+   487  0001                     	global	_PIR1bits
+   488                           _PIR1bits	set	0xC
+   489  000C                     	global	_TMR1L
+   490                           _TMR1L	set	0xE
+   491  000E                     	global	_TMR1H
+   492                           _TMR1H	set	0xF
+   493  000F                     	global	_T1CONbits
+   494                           _T1CONbits	set	0x10
+   495  0010                     	global	_CMCON
+   496                           _CMCON	set	0x19
+   497  0019                     	global	_INTCONbits
+   498                           _INTCONbits	set	0xB
+   499  000B                     	global	_RA0
+   500                           _RA0	set	0x28
+   501  0028                     	global	_RA2
+   502                           _RA2	set	0x2A
+   503  002A                     	global	_RC4
+   504                           _RC4	set	0x3C
+   505  003C                     	global	_RC3
+   506                           _RC3	set	0x3B
+   507  003B                     	global	_RC5
+   508                           _RC5	set	0x3D
+   509  003D                     	global	_RC1
+   510                           _RC1	set	0x39
+   511  0039                     	global	_TRISAbits
+   512                           _TRISAbits	set	0x85
+   513  0085                     	global	_PIE1bits
+   514                           _PIE1bits	set	0x8C
+   515  008C                     	global	_TRISC
+   516                           _TRISC	set	0x87
+   517  0087                     	global	_OPTION_REGbits
+   518                           _OPTION_REGbits	set	0x81
+   519  0081                     	global	_TRISA
+   520                           _TRISA	set	0x85
+   521  0085                     ; #config settings
+   522                           global __CFG_FOSC$EC
+   523                           __CFG_FOSC$EC equ 0x0
+   524  0000                     global __CFG_WDTE$OFF
+   525                           __CFG_WDTE$OFF equ 0x0
+   526  0000                     global __CFG_PWRTE$OFF
+   527                           __CFG_PWRTE$OFF equ 0x0
+   528  0000                     global __CFG_MCLRE$OFF
+   529                           __CFG_MCLRE$OFF equ 0x0
+   530  0000                     global __CFG_BOREN$OFF
+   531                           __CFG_BOREN$OFF equ 0x0
+   532  0000                     global __CFG_CP$OFF
+   533                           __CFG_CP$OFF equ 0x0
+   534  0000                     global __CFG_CPD$OFF
+   535                           __CFG_CPD$OFF equ 0x0
+   536  0000                     	file	"C:\Users\abaker\AppData\Local\Temp\sn58."
+   537                           	line	#
+   538                           psect cinit,class=CODE,delta=2
+   539                           global start_initialization
+   540                           start_initialization:
+   541  000C                     
+   542                           global __initialization
+   543                           __initialization:
+   544  000C                     psect	bssBANK0,class=BANK0,space=1,noexec
+   545                           global __pbssBANK0
+   546                           __pbssBANK0:
+   547  0020                     _EdgeDetect:
+   548  0020                            ds      1
+   549  0020                     
+   550                           _DataState:
+   551  0021                            ds      1
+   552  0021                     
+   553                           _Addressed:
+   554  0022                            ds      1
+   555  0022                     
+   556                           _OneWireMode:
+   557  0023                            ds      1
+   558  0023                     
+   559                           _DoneSend:
+   560  0024                            ds      1
+   561  0024                     
+   562                           _Lamps:
+   563  0025                            ds      1
+   564  0025                     
+   565                           _BoxSize:
+   566  0026                            ds      1
+   567  0026                     
+   568                           _BitCount:
+   569  0027                            ds      1
+   570  0027                     
+   571                           _TickCount:
+   572  0028                            ds      1
+   573  0028                     
+   574                           _IntrData:
+   575  0029                            ds      1
+   576  0029                     
+   577                           _RxData:
+   578  002A                            ds      1
+   579  002A                     
+   580                           _IntrNewBit:
+   581  002B                            ds      1
+   582  002B                     
+   583                           	file	"C:\Users\abaker\AppData\Local\Temp\sn58."
+   584                           	line	#
+   585                           psect clrtext,class=CODE,delta=2
+   586                           global clear_ram0
+   587                           ;	Called with FSR containing the base address, and
+   588                           ;	W with the last address+1
+   589                           clear_ram0:
+   590  018A                     	clrwdt			;clear the watchdog before getting into this loop
+   591  018A  0064               clrloop0:
+   592  018B                     	clrf	indf		;clear RAM location pointed to by FSR
+   593  018B  0180               	incf	fsr,f		;increment pointer
+   594  018C  0A84               	xorwf	fsr,w		;XOR with final address
+   595  018D  0604               	btfsc	status,2	;have we reached the end yet?
+   596  018E  1903               	retlw	0		;all done for this memory range, return
+   597  018F  3400               	xorwf	fsr,w		;XOR again to restore value
+   598  0190  0604               	goto	clrloop0		;do the next byte
+   599  0191  298B               
+   600                           ; Clear objects allocated to BANK0
+   601                           psect cinit,class=CODE,delta=2,merge=1
+   602                           	bcf	status, 7	;select IRP bank0
+   603  000C  1383               	movlw	low(__pbssBANK0)
+   604  000D  3020               	movwf	fsr
+   605  000E  0084               	movlw	low((__pbssBANK0)+0Ch)
+   606  000F  302C               	fcall	clear_ram0
+   607  0010  218A               psect cinit,class=CODE,delta=2,merge=1
+   608                           global end_of_initialization,__end_of__initialization
+   609                           
+   610                           ;End of C runtime variable initialization code
+   611                           
+   612                           end_of_initialization:
+   613  0011                     __end_of__initialization:
+   614  0011                     clrf status
+   615  0011  0183               ljmp _main	;jump to C main() function
+   616  0012  2813               psect	cstackCOMMON,class=COMMON,space=1,noexec
+   617                           global __pcstackCOMMON
+   618                           __pcstackCOMMON:
+   619  0000                     ??_Initialise:	; 1 bytes @ 0x0
+   620  0000                     ??_UARTInit:	; 1 bytes @ 0x0
+   621  0000                     ??_BitDataInit:	; 1 bytes @ 0x0
+   622  0000                     ??_EdgeIntr:	; 1 bytes @ 0x0
+   623  0000                     ??_BitIntr:	; 1 bytes @ 0x0
+   624  0000                     psect	cstackBANK0,class=BANK0,space=1,noexec
+   625                           global __pcstackBANK0
+   626                           __pcstackBANK0:
+   627  002C                     ?_Initialise:	; 1 bytes @ 0x0
+   628  002C                     ?_StartTickTimer:	; 1 bytes @ 0x0
+   629  002C                     ?_UARTSend:	; 1 bytes @ 0x0
+   630  002C                     ?_UARTInit:	; 1 bytes @ 0x0
+   631  002C                     ?_BitDataInit:	; 1 bytes @ 0x0
+   632  002C                     ?_main:	; 1 bytes @ 0x0
+   633  002C                     ?_EdgeIntr:	; 1 bytes @ 0x0
+   634  002C                     ?_BitIntr:	; 1 bytes @ 0x0
+   635  002C                     ?_ISR:	; 1 bytes @ 0x0
+   636  002C                     	global	BitDataInit@ModeTx
+   637                           BitDataInit@ModeTx:	; 1 bytes @ 0x0
+   638  002C                     	ds	1
+   639  002C                     	global	BitDataInit@IntEnable
+   640                           BitDataInit@IntEnable:	; 1 bytes @ 0x1
+   641  002D                     	ds	1
+   642  002D                     ??_StartTickTimer:	; 1 bytes @ 0x2
+   643  002E                     	ds	1
+   644  002E                     	global	StartTickTimer@ReSync
+   645                           StartTickTimer@ReSync:	; 1 bytes @ 0x3
+   646  002F                     	ds	1
+   647  002F                     ??_ISR:	; 1 bytes @ 0x4
+   648  0030                     	ds	2
+   649  0030                     ??_UARTSend:	; 1 bytes @ 0x6
+   650  0032                     	ds	2
+   651  0032                     	global	UARTSend@DataValue
+   652                           UARTSend@DataValue:	; 1 bytes @ 0x8
+   653  0034                     	ds	1
+   654  0034                     	global	UARTSend@i
+   655                           UARTSend@i:	; 1 bytes @ 0x9
+   656  0035                     	ds	1
+   657  0035                     ??_main:	; 1 bytes @ 0xA
+   658  0036                     	ds	1
+   659  0036                     ;!
+   660                           ;!Data Sizes:
+   661                           ;!    Strings     0
+   662                           ;!    Constant    0
+   663                           ;!    Data        0
+   664                           ;!    BSS         12
+   665                           ;!    Persistent  0
+   666                           ;!    Stack       0
+   667                           ;!
+   668                           ;!Auto Spaces:
+   669                           ;!    Space          Size  Autos    Used
+   670                           ;!    COMMON            0      0       0
+   671                           ;!    BANK0            62     11      23
+   672                           
+   673                           ;!
+   674                           ;!Pointer List with Targets:
+   675                           ;!
+   676                           ;!    None.
+   677                           
+   678                           
+   679                           ;!
+   680                           ;!Critical Paths under _main in COMMON
+   681                           ;!
+   682                           ;!    None.
+   683                           ;!
+   684                           ;!Critical Paths under _ISR in COMMON
+   685                           ;!
+   686                           ;!    None.
+   687                           ;!
+   688                           ;!Critical Paths under _main in BANK0
+   689                           ;!
+   690                           ;!    _main->_UARTSend
+   691                           ;!
+   692                           ;!Critical Paths under _ISR in BANK0
+   693                           ;!
+   694                           ;!    None.
+   695                           
+   696 ;;
+   697 ;;Main: autosize = 0, tempsize = 1, incstack = 0, save=0
+   698 ;;
+   699                           
+   700                           ;!
+   701                           ;!Call Graph Tables:
+   702                           ;!
+   703                           ;! ---------------------------------------------------------------------------------
+   704                           ;! (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   705                           ;! ---------------------------------------------------------------------------------
+   706                           ;! (0) _main                                                 1     1      0     203
+   707                           ;!                                             10 BANK0      1     1      0
+   708                           ;!                        _BitDataInit
+   709                           ;!                         _Initialise
+   710                           ;!                     _StartTickTimer
+   711                           ;!                           _UARTSend
+   712                           ;! ---------------------------------------------------------------------------------
+   713                           ;! (1) _UARTSend                                             4     4      0      69
+   714                           ;!                                              6 BANK0      4     4      0
+   715                           ;! ---------------------------------------------------------------------------------
+   716                           ;! (4) _StartTickTimer                                       2     2      0      89
+   717                           ;!                        _BitDataInit
+   718                           ;! ---------------------------------------------------------------------------------
+   719                           ;! (5) _BitDataInit                                          2     2      0      45
+   720                           ;! ---------------------------------------------------------------------------------
+   721                           ;! (1) _Initialise                                           0     0      0       0
+   722                           ;!                           _UARTInit
+   723                           ;! ---------------------------------------------------------------------------------
+   724                           ;! (2) _UARTInit                                             0     0      0       0
+   725                           ;! ---------------------------------------------------------------------------------
+   726                           ;! Estimated maximum stack depth 5
+   727                           ;! ---------------------------------------------------------------------------------
+   728                           ;! (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   729                           ;! ---------------------------------------------------------------------------------
+   730                           ;! (3) _ISR                                                  2     2      0      89
+   731                           ;!                                              4 BANK0      2     2      0
+   732                           ;!                            _BitIntr
+   733                           ;!                           _EdgeIntr
+   734                           ;!                     _StartTickTimer
+   735                           ;! ---------------------------------------------------------------------------------
+   736                           ;! (4) _StartTickTimer                                       2     2      0      89
+   737                           ;!                        _BitDataInit
+   738                           ;! ---------------------------------------------------------------------------------
+   739                           ;! (5) _BitDataInit                                          2     2      0      45
+   740                           ;! ---------------------------------------------------------------------------------
+   741                           ;! (4) _EdgeIntr                                             0     0      0       0
+   742                           ;! ---------------------------------------------------------------------------------
+   743                           ;! (4) _BitIntr                                              0     0      0       0
+   744                           ;! ---------------------------------------------------------------------------------
+   745                           ;! Estimated maximum stack depth 5
+   746                           ;! ---------------------------------------------------------------------------------
+   747                           ;!
+   748                           ;! Call Graph Graphs:
+   749                           ;!
+   750                           ;! _main (ROOT)
+   751                           ;!   _BitDataInit
+   752                           ;!   _Initialise
+   753                           ;!     _UARTInit
+   754                           ;!   _StartTickTimer
+   755                           ;!     _BitDataInit
+   756                           ;!   _UARTSend
+   757                           ;!
+   758                           ;! _ISR (ROOT)
+   759                           ;!   _BitIntr
+   760                           ;!   _EdgeIntr
+   761                           ;!   _StartTickTimer
+   762                           ;!     _BitDataInit
+   763                           ;!
+   764                           
+   765                           ;! Address spaces:
+   766                           
+   767                           ;!Name               Size   Autos  Total    Cost      Usage
+   768                           ;!BITCOMMON            0      0       0       0        0.0%
+   769                           ;!EEDATA              80      0       0       0        0.0%
+   770                           ;!NULL                 0      0       0       0        0.0%
+   771                           ;!CODE                 0      0       0       0        0.0%
+   772                           ;!BITSFR0              0      0       0       1        0.0%
+   773                           ;!SFR0                 0      0       0       1        0.0%
+   774                           ;!COMMON               0      0       0       1        0.0%
+   775                           ;!BITSFR1              0      0       0       2        0.0%
+   776                           ;!SFR1                 0      0       0       2        0.0%
+   777                           ;!STACK                0      0       0       2        0.0%
+   778                           ;!BITBANK0            3E      0       0       3        0.0%
+   779                           ;!BANK0               3E      B      17       4       37.1%
+   780                           ;!ABS                  0      0      17       5        0.0%
+   781                           ;!DATA                 0      0      17       6        0.0%
+   782                           
+   783                           	global	_main
+   784                           
+   785 ;; *************** function _main *****************
+   786 ;; Defined at:
+   787 ;;		line 75 in file "main.c"
+   788 ;; Parameters:    Size  Location     Type
+   789 ;;		None
+   790 ;; Auto vars:     Size  Location     Type
+   791 ;;		None
+   792 ;; Return value:  Size  Location     Type
+   793 ;;                  1    wreg      void 
+   794 ;; Registers used:
+   795 ;;		wreg, status,2, status,0, pclath, cstack
+   796 ;; Tracked objects:
+   797 ;;		On entry : B00/0
+   798 ;;		On exit  : 0/0
+   799 ;;		Unchanged: 0/0
+   800 ;; Data sizes:     COMMON   BANK0
+   801 ;;      Params:         0       0
+   802 ;;      Locals:         0       0
+   803 ;;      Temps:          0       1
+   804 ;;      Totals:         0       1
+   805 ;;Total ram usage:        1 bytes
+   806 ;; Hardware stack levels required when called:    5
+   807 ;; This function calls:
+   808 ;;		_BitDataInit
+   809 ;;		_Initialise
+   810 ;;		_StartTickTimer
+   811 ;;		_UARTSend
+   812 ;; This function is called by:
+   813 ;;		Startup code after reset
+   814 ;; This function uses a non-reentrant model
+   815 ;;
+   816                           psect	maintext,global,class=CODE,delta=2,split=1,group=0
+   817                           	file	"main.c"
+   818                           	line	75
+   819                           global __pmaintext
+   820                           __pmaintext:	;psect for function _main
+   821  0013                     psect	maintext
+   822                           	file	"main.c"
+   823                           	line	75
+   824                           	global	__size_of_main
+   825                           	__size_of_main	equ	__end_of_main-_main
+   826  00A3                     	
+   827                           _main:	
+   828  0013                     ;incstack = 0
+   829                           	opt	stack 3
+   830                           ; Regs used in _main: [wreg+status,2+status,0+pclath+cstack]
+   831                           	line	77
+   832                           	
+   833                           l1031:	
+   834  0013                     ;main.c: 77: 
+   835                           	fcall	_Initialise
+   836  0013  212A               	line	80
+   837                           ;main.c: 80:                     INTCONbits.GIE = 1;
+   838                           	movlw	low(0)
+   839  0014  3000               	fcall	_BitDataInit
+   840  0015  2164               	line	82
+   841                           	
+   842                           l1033:	
+   843  0016                     ;main.c: 82:             }
+   844                           	bcf	status, 5	;RP0=0, select bank0
+   845  0016  1283               	clrf	(_DoneSend)
+   846  0017  01A4               	line	85
+   847                           	
+   848                           l1035:	
+   849  0018                     ;main.c: 85: 
+   850                           	bsf	(11),7	;volatile
+   851  0018  178B               	goto	l1037
+   852  0019  281A               	line	87
+   853                           ;main.c: 87:                 {
+   854                           	
+   855                           l48:	
+   856  001A                     	line	89
+   857                           	
+   858                           l1037:	
+   859  001A                     ;main.c: 88:                     BitCount = 0;;main.c: 89: 
+   860                           		decf	((_IntrNewBit)),w
+   861  001A  032B               	btfss	status,2
+   862  001B  1D03               	goto	u361
+   863  001C  281E               	goto	u360
+   864  001D  281F               u361:
+   865  001E                     	goto	l1101
+   866  001E  289F               u360:
+   867  001F                     	line	95
+   868                           	
+   869                           l1039:	
+   870  001F                     ;main.c: 90:                     if ((RxData&0x1F)==3);main.c: 95:                      
+                                    RC3=0;
+   871                           	bcf	(11),5	;volatile
+   872  001F  128B               	line	96
+   873                           	
+   874                           l1041:	
+   875  0020                     ;main.c: 96: 
+   876                           	movf	(_IntrData),w
+   877  0020  0829               	movwf	(??_main+0)+0
+   878  0021  00B6               	movf	(??_main+0)+0,w
+   879  0022  0836               	movwf	(_RxData)
+   880  0023  00AA               	line	97
+   881                           	
+   882                           l1043:	
+   883  0024                     ;main.c: 97:                     }
+   884                           	clrf	(_IntrNewBit)
+   885  0024  01AB               	line	98
+   886                           	
+   887                           l1045:	
+   888  0025                     ;main.c: 98:                     else
+   889                           	bcf	(11),5	;volatile
+   890  0025  128B               	line	101
+   891                           	
+   892                           l1047:	
+   893  0026                     ;main.c: 101:                     }
+   894                           	movlw	low(01h)
+   895  0026  3001               	movwf	(??_main+0)+0
+   896  0027  00B6               	movf	(??_main+0)+0,w
+   897  0028  0836               	addwf	(_BitCount),f
+   898  0029  07A7               	line	104
+   899                           	
+   900                           l1049:	
+   901  002A                     ;main.c: 104:                 }
+   902                           	movf	((_DataState)),w
+   903  002A  0821               	btfss	status,2
+   904  002B  1D03               	goto	u371
+   905  002C  282E               	goto	u370
+   906  002D  282F               u371:
+   907  002E                     	goto	l1065
+   908  002E  2844               u370:
+   909  002F                     	line	107
+   910                           	
+   911                           l1051:	
+   912  002F                     ;main.c: 105:             };main.c: 107:             {
+   913                           	movlw	low(0Fh)
+   914  002F  300F               	andwf	(_RxData),w
+   915  0030  052A               	movwf	(??_main+0)+0
+   916  0031  00B6               		movlw	9
+   917  0032  3009               	xorwf	((??_main+0)+0),w
+   918  0033  0636               	btfss	status,2
+   919  0034  1D03               	goto	u381
+   920  0035  2837               	goto	u380
+   921  0036  2838               u381:
+   922  0037                     	goto	l1101
+   923  0037  289F               u380:
+   924  0038                     	line	111
+   925                           	
+   926                           l1053:	
+   927  0038                     ;main.c: 108: ;main.c: 111:                     BitCount = 0;
+   928                           	bsf	(61/8),(61)&7	;volatile
+   929  0038  1687               	line	112
+   930                           ;main.c: 112: 
+   931                           	bcf	(61/8),(61)&7	;volatile
+   932  0039  1287               	line	115
+   933                           	
+   934                           l1055:	
+   935  003A                     ;main.c: 115:                 }
+   936                           	clrf	(_BitCount)
+   937  003A  01A7               	line	116
+   938                           ;main.c: 116:             }
+   939                           	clrf	(_Addressed)
+   940  003B  01A2               	line	117
+   941                           	
+   942                           l1057:	
+   943  003C                     ;main.c: 117:             else if (DataState==DATA_LAMPS)
+   944                           	clrf	(_DataState)
+   945  003C  01A1               	incf	(_DataState),f
+   946  003D  0AA1               	line	120
+   947                           	
+   948                           l1059:	
+   949  003E                     ;main.c: 120: 
+   950                           	bcf	(11),7	;volatile
+   951  003E  138B               	line	121
+   952                           	
+   953                           l1061:	
+   954  003F                     ;main.c: 121:                 if (Addressed==1)
+   955                           	movlw	low(01h)
+   956  003F  3001               	fcall	_StartTickTimer
+   957  0040  20F5               	line	122
+   958                           	
+   959                           l1063:	
+   960  0041                     ;main.c: 122:                 {
+   961                           	bsf	(11),7	;volatile
+   962  0041  178B               	goto	l1101
+   963  0042  289F               	line	123
+   964                           ;main.c: 123: 
+   965                           	
+   966                           l51:	
+   967  0043                     	line	124
+   968                           ;main.c: 124: 
+   969                           	goto	l1101
+   970  0043  289F               	line	125
+   971                           ;main.c: 125:                     Lamps = RxData;
+   972                           	
+   973                           l50:	
+   974  0044                     	
+   975                           l1065:	
+   976  0044                     	bcf	status, 5	;RP0=0, select bank0
+   977  0044  1283               		decf	((_DataState)),w
+   978  0045  0321               	btfss	status,2
+   979  0046  1D03               	goto	u391
+   980  0047  2849               	goto	u390
+   981  0048  284A               u391:
+   982  0049                     	goto	l1079
+   983  0049  2867               u390:
+   984  004A                     	line	128
+   985                           	
+   986                           l1067:	
+   987  004A                     ;main.c: 126: ;main.c: 128:                     RC4=0;
+   988                           	movlw	low(05h)
+   989  004A  3005               	subwf	(_BitCount),w
+   990  004B  0227               	skipc
+   991  004C  1C03               	goto	u401
+   992  004D  284F               	goto	u400
+   993  004E  2850               u401:
+   994  004F                     	goto	l1101
+   995  004F  289F               u400:
+   996  0050                     	line	130
+   997                           	
+   998                           l1069:	
+   999  0050                     ;main.c: 129: ;main.c: 130:                 }
+  1000                           	clrf	(_BitCount)
+  1001  0050  01A7               	line	132
+  1002                           	
+  1003                           l1071:	
+  1004  0051                     ;main.c: 132:                 if (BitCount>=BoxSize)
+  1005                           	movlw	low(01Fh)
+  1006  0051  301F               	andwf	(_RxData),w
+  1007  0052  052A               	movwf	(??_main+0)+0
+  1008  0053  00B6               		movlw	3
+  1009  0054  3003               	xorwf	((??_main+0)+0),w
+  1010  0055  0636               	btfss	status,2
+  1011  0056  1D03               	goto	u411
+  1012  0057  2859               	goto	u410
+  1013  0058  285A               u411:
+  1014  0059                     	goto	l1075
+  1015  0059  285F               u410:
+  1016  005A                     	line	134
+  1017                           	
+  1018                           l1073:	
+  1019  005A                     ;main.c: 133:                 {;main.c: 134:                     BitCount = 0;
+  1020                           	clrf	(_Addressed)
+  1021  005A  01A2               	incf	(_Addressed),f
+  1022  005B  0AA2               	line	136
+  1023                           ;main.c: 136:                 }
+  1024                           	bsf	(59/8),(59)&7	;volatile
+  1025  005C  1587               	line	137
+  1026                           ;main.c: 137:             }
+  1027                           	bcf	(59/8),(59)&7	;volatile
+  1028  005D  1187               	line	139
+  1029                           ;main.c: 139: 
+  1030                           	goto	l1077
+  1031  005E  2861               	line	140
+  1032                           ;main.c: 140: 
+  1033                           	
+  1034                           l55:	
+  1035  005F                     	line	142
+  1036                           	
+  1037                           l1075:	
+  1038  005F                     ;main.c: 141:         if ((TickCount==8) && (DoneSend==0));main.c: 142:         {
+  1039                           	clrf	(_Addressed)
+  1040  005F  01A2               	goto	l1077
+  1041  0060  2861               	line	143
+  1042                           ;main.c: 143:             UARTSend( Lamps);
+  1043                           	
+  1044                           l56:	
+  1045  0061                     	line	145
+  1046                           	
+  1047                           l1077:	
+  1048  0061                     ;main.c: 145:         }
+  1049                           	movlw	low(02h)
+  1050  0061  3002               	movwf	(??_main+0)+0
+  1051  0062  00B6               	movf	(??_main+0)+0,w
+  1052  0063  0836               	movwf	(_DataState)
+  1053  0064  00A1               	goto	l1101
+  1054  0065  289F               	line	146
+  1055                           ;main.c: 146:         else
+  1056                           	
+  1057                           l54:	
+  1058  0066                     	line	147
+  1059                           ;main.c: 147:         {
+  1060                           	goto	l1101
+  1061  0066  289F               	line	148
+  1062                           ;main.c: 148:             DoneSend = 0;
+  1063                           	
+  1064                           l53:	
+  1065  0067                     	
+  1066                           l1079:	
+  1067  0067                     		movlw	2
+  1068  0067  3002               	xorwf	((_DataState)),w
+  1069  0068  0621               	btfss	status,2
+  1070  0069  1D03               	goto	u421
+  1071  006A  286C               	goto	u420
+  1072  006B  286D               u421:
+  1073  006C                     	goto	l1087
+  1074  006C  287F               u420:
+  1075  006D                     	line	151
+  1076                           	
+  1077                           l1081:	
+  1078  006D                     ;main.c: 149:         };main.c: 151: 
+  1079                           	movlw	low(05h)
+  1080  006D  3005               	subwf	(_BitCount),w
+  1081  006E  0227               	skipc
+  1082  006F  1C03               	goto	u431
+  1083  0070  2872               	goto	u430
+  1084  0071  2873               u431:
+  1085  0072                     	goto	l1101
+  1086  0072  289F               u430:
+  1087  0073                     	line	153
+  1088                           	
+  1089                           l1083:	
+  1090  0073                     ;main.c: 152: }
+  1091                           	clrf	(_BitCount)
+  1092  0073  01A7               	line	155
+  1093                           	
+  1094                           l1085:	
+  1095  0074                     	movf	(_RxData),w
+  1096  0074  082A               	andlw	01Fh
+  1097  0075  391F               	movwf	(??_main+0)+0
+  1098  0076  00B6               	movf	(??_main+0)+0,w
+  1099  0077  0836               	movwf	(_BoxSize)
+  1100  0078  00A6               	line	156
+  1101                           	movlw	low(03h)
+  1102  0079  3003               	movwf	(??_main+0)+0
+  1103  007A  00B6               	movf	(??_main+0)+0,w
+  1104  007B  0836               	movwf	(_DataState)
+  1105  007C  00A1               	goto	l1101
+  1106  007D  289F               	line	157
+  1107                           	
+  1108                           l59:	
+  1109  007E                     	line	158
+  1110                           	goto	l1101
+  1111  007E  289F               	line	159
+  1112                           	
+  1113                           l58:	
+  1114  007F                     	
+  1115                           l1087:	
+  1116  007F                     		movlw	3
+  1117  007F  3003               	xorwf	((_DataState)),w
+  1118  0080  0621               	btfss	status,2
+  1119  0081  1D03               	goto	u441
+  1120  0082  2884               	goto	u440
+  1121  0083  2885               u441:
+  1122  0084                     	goto	l1101
+  1123  0084  289F               u440:
+  1124  0085                     	line	163
+  1125                           	
+  1126                           l1089:	
+  1127  0085                     		decf	((_Addressed)),w
+  1128  0085  0322               	btfss	status,2
+  1129  0086  1D03               	goto	u451
+  1130  0087  2889               	goto	u450
+  1131  0088  288A               u451:
+  1132  0089                     	goto	l62
+  1133  0089  2890               u450:
+  1134  008A                     	line	167
+  1135                           	
+  1136                           l1091:	
+  1137  008A                     	movf	(_RxData),w
+  1138  008A  082A               	movwf	(??_main+0)+0
+  1139  008B  00B6               	movf	(??_main+0)+0,w
+  1140  008C  0836               	movwf	(_Lamps)
+  1141  008D  00A5               	line	169
+  1142                           	
+  1143                           l1093:	
+  1144  008E                     	bsf	(60/8),(60)&7	;volatile
+  1145  008E  1607               	line	170
+  1146                           	
+  1147                           l1095:	
+  1148  008F                     	bcf	(60/8),(60)&7	;volatile
+  1149  008F  1207               	line	172
+  1150                           	
+  1151                           l62:	
+  1152  0090                     	line	174
+  1153                           	movf	(_BoxSize),w
+  1154  0090  0826               	subwf	(_BitCount),w
+  1155  0091  0227               	skipc
+  1156  0092  1C03               	goto	u461
+  1157  0093  2895               	goto	u460
+  1158  0094  2896               u461:
+  1159  0095                     	goto	l1101
+  1160  0095  289F               u460:
+  1161  0096                     	line	176
+  1162                           	
+  1163                           l1097:	
+  1164  0096                     	clrf	(_BitCount)
+  1165  0096  01A7               	line	177
+  1166                           	
+  1167                           l1099:	
+  1168  0097                     	clrf	(_DataState)
+  1169  0097  01A1               	incf	(_DataState),f
+  1170  0098  0AA1               	goto	l1101
+  1171  0099  289F               	line	178
+  1172                           	
+  1173                           l63:	
+  1174  009A                     	goto	l1101
+  1175  009A  289F               	line	179
+  1176                           	
+  1177                           l61:	
+  1178  009B                     	goto	l1101
+  1179  009B  289F               	
+  1180                           l60:	
+  1181  009C                     	goto	l1101
+  1182  009C  289F               	
+  1183                           l57:	
+  1184  009D                     	goto	l1101
+  1185  009D  289F               	
+  1186                           l52:	
+  1187  009E                     	goto	l1101
+  1188  009E  289F               	line	180
+  1189                           	
+  1190                           l49:	
+  1191  009F                     	line	183
+  1192                           	
+  1193                           l1101:	
+  1194  009F                     		movlw	8
+  1195  009F  3008               	bcf	status, 5	;RP0=0, select bank0
+  1196  00A0  1283               	xorwf	((_TickCount)),w
+  1197  00A1  0628               	btfss	status,2
+  1198  00A2  1D03               	goto	u471
+  1199  00A3  28A5               	goto	u470
+  1200  00A4  28A6               u471:
+  1201  00A5                     	goto	l1109
+  1202  00A5  28B1               u470:
+  1203  00A6                     	
+  1204                           l1103:	
+  1205  00A6                     	movf	((_DoneSend)),w
+  1206  00A6  0824               	btfss	status,2
+  1207  00A7  1D03               	goto	u481
+  1208  00A8  28AA               	goto	u480
+  1209  00A9  28AB               u481:
+  1210  00AA                     	goto	l1109
+  1211  00AA  28B1               u480:
+  1212  00AB                     	line	185
+  1213                           	
+  1214                           l1105:	
+  1215  00AB                     	movf	(_Lamps),w
+  1216  00AB  0825               	fcall	_UARTSend
+  1217  00AC  20B6               	line	186
+  1218                           	
+  1219                           l1107:	
+  1220  00AD                     	bcf	status, 5	;RP0=0, select bank0
+  1221  00AD  1283               	clrf	(_DoneSend)
+  1222  00AE  01A4               	incf	(_DoneSend),f
+  1223  00AF  0AA4               	line	187
+  1224                           	goto	l1037
+  1225  00B0  281A               	line	188
+  1226                           	
+  1227                           l64:	
+  1228  00B1                     	line	190
+  1229                           	
+  1230                           l1109:	
+  1231  00B1                     	clrf	(_DoneSend)
+  1232  00B1  01A4               	goto	l1037
+  1233  00B2  281A               	line	191
+  1234                           	
+  1235                           l65:	
+  1236  00B3                     	goto	l1037
+  1237  00B3  281A               	line	192
+  1238                           	
+  1239                           l66:	
+  1240  00B4                     	goto	l1037
+  1241  00B4  281A               	
+  1242                           l67:	
+  1243  00B5                     	line	194
+  1244                           	
+  1245                           l68:	
+  1246  00B5                     	global	start
+  1247                           	ljmp	start
+  1248  00B5  280B               	opt stack 0
+  1249                           GLOBAL	__end_of_main
+  1250                           	__end_of_main:
+  1251  00B6                     	signat	_main,89
+  1252                           	global	_UARTSend
+  1253                           
+  1254 ;; *************** function _UARTSend *****************
+  1255 ;; Defined at:
+  1256 ;;		line 96 in file "user.c"
+  1257 ;; Parameters:    Size  Location     Type
+  1258 ;;  DataValue       1    wreg     unsigned char 
+  1259 ;; Auto vars:     Size  Location     Type
+  1260 ;;  DataValue       1    8[BANK0 ] unsigned char 
+  1261 ;;  i               1    9[BANK0 ] unsigned char 
+  1262 ;; Return value:  Size  Location     Type
+  1263 ;;                  1    wreg      void 
+  1264 ;; Registers used:
+  1265 ;;		wreg, status,2, status,0
+  1266 ;; Tracked objects:
+  1267 ;;		On entry : 0/0
+  1268 ;;		On exit  : 0/0
+  1269 ;;		Unchanged: 0/0
+  1270 ;; Data sizes:     COMMON   BANK0
+  1271 ;;      Params:         0       0
+  1272 ;;      Locals:         0       2
+  1273 ;;      Temps:          0       2
+  1274 ;;      Totals:         0       4
+  1275 ;;Total ram usage:        4 bytes
+  1276 ;; Hardware stack levels used:    1
+  1277 ;; Hardware stack levels required when called:    3
+  1278 ;; This function calls:
+  1279 ;;		Nothing
+  1280 ;; This function is called by:
+  1281 ;;		_main
+  1282 ;; This function uses a non-reentrant model
+  1283 ;;
+  1284                           psect	text1,local,class=CODE,delta=2,merge=1,group=0
+  1285                           	file	"user.c"
+  1286                           	line	96
+  1287                           global __ptext1
+  1288                           __ptext1:	;psect for function _UARTSend
+  1289  00B6                     psect	text1
+  1290                           	file	"user.c"
+  1291                           	line	96
+  1292                           	global	__size_of_UARTSend
+  1293                           	__size_of_UARTSend	equ	__end_of_UARTSend-_UARTSend
+  1294  003F                     	
+  1295                           _UARTSend:	
+  1296  00B6                     ;incstack = 0
+  1297                           	opt	stack 4
+  1298                           ; Regs used in _UARTSend: [wreg+status,2+status,0]
+  1299                           ;UARTSend@DataValue stored from wreg
+  1300                           	bcf	status, 5	;RP0=0, select bank0
+  1301  00B6  1283               	movwf	(UARTSend@DataValue)
+  1302  00B7  00B4               	line	99
+  1303                           	
+  1304                           l999:	
+  1305  00B8                     ;user.c: 96: void UARTSend( uint8_t DataValue);user.c: 97: {;user.c: 99:  RA0 = 0;
+  1306                           	bcf	(40/8),(40)&7	;volatile
+  1307  00B8  1005               	line	100
+  1308                           	
+  1309                           l1001:	
+  1310  00B9                     ;user.c: 100:  _delay((unsigned long)(((1000000/2400))*(20000000/4000000.0)));
+  1311                           	opt asmopt_push
+  1312                           opt asmopt_off
+  1313                           movlw	3
+  1314  00B9  3003               movwf	((??_UARTSend+0)+0+1),f
+  1315  00BA  00B3               	movlw	178
+  1316  00BB  30B2               movwf	((??_UARTSend+0)+0),f
+  1317  00BC  00B2               	u567:
+  1318  00BD                     decfsz	((??_UARTSend+0)+0),f
+  1319  00BD  0BB2               	goto	u567
+  1320  00BE  28BD               	decfsz	((??_UARTSend+0)+0+1),f
+  1321  00BF  0BB3               	goto	u567
+  1322  00C0  28BD               	nop
+  1323  00C1  0000               opt asmopt_pop
+  1324                           
+  1325                           	line	102
+  1326                           	
+  1327                           l1003:	
+  1328  00C2                     ;user.c: 102:  for ( uint8_t i = 0; i < 8; i++ )
+  1329                           	bcf	status, 5	;RP0=0, select bank0
+  1330  00C2  1283               	clrf	(UARTSend@i)
+  1331  00C3  01B5               	
+  1332                           l1005:	
+  1333  00C4                     	movlw	low(08h)
+  1334  00C4  3008               	subwf	(UARTSend@i),w
+  1335  00C5  0235               	skipc
+  1336  00C6  1C03               	goto	u311
+  1337  00C7  28C9               	goto	u310
+  1338  00C8  28CA               u311:
+  1339  00C9                     	goto	l148
+  1340  00C9  28CC               u310:
+  1341  00CA                     	goto	l149
+  1342  00CA  28EA               	
+  1343                           l1007:	
+  1344  00CB                     	goto	l149
+  1345  00CB  28EA               	
+  1346                           l148:	
+  1347  00CC                     	line	105
+  1348                           ;user.c: 103:  {;user.c: 105:   RA0 = (DataValue&0x1) ? 1 : 0;
+  1349                           	btfsc	(UARTSend@DataValue),(0)&7
+  1350  00CC  1834               	goto	u321
+  1351  00CD  28CF               	goto	u320
+  1352  00CE  28D2               	
+  1353                           u321:
+  1354  00CF                     	bcf	status, 5	;RP0=0, select bank0
+  1355  00CF  1283               	bsf	(40/8),(40)&7	;volatile
+  1356  00D0  1405               	goto	u334
+  1357  00D1  28D4               u320:
+  1358  00D2                     	bcf	status, 5	;RP0=0, select bank0
+  1359  00D2  1283               	bcf	(40/8),(40)&7	;volatile
+  1360  00D3  1005               u334:
+  1361  00D4                     	line	106
+  1362                           	
+  1363                           l1009:	
+  1364  00D4                     ;user.c: 106:         DataValue >>= 1;
+  1365                           	clrc
+  1366  00D4  1003               	rrf	(UARTSend@DataValue),f
+  1367  00D5  0CB4               
+  1368                           	line	107
+  1369                           ;user.c: 107:      _delay((unsigned long)(((1000000/2400))*(20000000/4000000.0)));
+  1370                           	opt asmopt_push
+  1371                           opt asmopt_off
+  1372                           movlw	3
+  1373  00D6  3003               movwf	((??_UARTSend+0)+0+1),f
+  1374  00D7  00B3               	movlw	178
+  1375  00D8  30B2               movwf	((??_UARTSend+0)+0),f
+  1376  00D9  00B2               	u577:
+  1377  00DA                     decfsz	((??_UARTSend+0)+0),f
+  1378  00DA  0BB2               	goto	u577
+  1379  00DB  28DA               	decfsz	((??_UARTSend+0)+0+1),f
+  1380  00DC  0BB3               	goto	u577
+  1381  00DD  28DA               	nop
+  1382  00DE  0000               opt asmopt_pop
+  1383                           
+  1384                           	line	108
+  1385                           	
+  1386                           l1011:	
+  1387  00DF                     ;user.c: 108:  }
+  1388                           	movlw	low(01h)
+  1389  00DF  3001               	bcf	status, 5	;RP0=0, select bank0
+  1390  00E0  1283               	movwf	(??_UARTSend+0)+0
+  1391  00E1  00B2               	movf	(??_UARTSend+0)+0,w
+  1392  00E2  0832               	addwf	(UARTSend@i),f
+  1393  00E3  07B5               	
+  1394                           l1013:	
+  1395  00E4                     	movlw	low(08h)
+  1396  00E4  3008               	subwf	(UARTSend@i),w
+  1397  00E5  0235               	skipc
+  1398  00E6  1C03               	goto	u341
+  1399  00E7  28E9               	goto	u340
+  1400  00E8  28EA               u341:
+  1401  00E9                     	goto	l148
+  1402  00E9  28CC               u340:
+  1403  00EA                     	
+  1404                           l149:	
+  1405  00EA                     	line	111
+  1406                           ;user.c: 111:  RA0 = 1;
+  1407                           	bsf	(40/8),(40)&7	;volatile
+  1408  00EA  1405               	line	112
+  1409                           	
+  1410                           l1015:	
+  1411  00EB                     ;user.c: 112:  _delay((unsigned long)(((1000000/2400))*(20000000/4000000.0)));
+  1412                           	opt asmopt_push
+  1413                           opt asmopt_off
+  1414                           movlw	3
+  1415  00EB  3003               movwf	((??_UARTSend+0)+0+1),f
+  1416  00EC  00B3               	movlw	178
+  1417  00ED  30B2               movwf	((??_UARTSend+0)+0),f
+  1418  00EE  00B2               	u587:
+  1419  00EF                     decfsz	((??_UARTSend+0)+0),f
+  1420  00EF  0BB2               	goto	u587
+  1421  00F0  28EF               	decfsz	((??_UARTSend+0)+0+1),f
+  1422  00F1  0BB3               	goto	u587
+  1423  00F2  28EF               	nop
+  1424  00F3  0000               opt asmopt_pop
+  1425                           
+  1426                           	line	113
+  1427                           	
+  1428                           l150:	
+  1429  00F4                     	return
+  1430  00F4  0008               	opt stack 0
+  1431                           GLOBAL	__end_of_UARTSend
+  1432                           	__end_of_UARTSend:
+  1433  00F5                     	signat	_UARTSend,4217
+  1434                           	global	_Initialise
+  1435                           
+  1436 ;; *************** function _Initialise *****************
+  1437 ;; Defined at:
+  1438 ;;		line 14 in file "system.c"
+  1439 ;; Parameters:    Size  Location     Type
+  1440 ;;		None
+  1441 ;; Auto vars:     Size  Location     Type
+  1442 ;;		None
+  1443 ;; Return value:  Size  Location     Type
+  1444 ;;                  1    wreg      void 
+  1445 ;; Registers used:
+  1446 ;;		wreg, status,2, status,0, pclath, cstack
+  1447 ;; Tracked objects:
+  1448 ;;		On entry : 0/0
+  1449 ;;		On exit  : 0/0
+  1450 ;;		Unchanged: 0/0
+  1451 ;; Data sizes:     COMMON   BANK0
+  1452 ;;      Params:         0       0
+  1453 ;;      Locals:         0       0
+  1454 ;;      Temps:          0       0
+  1455 ;;      Totals:         0       0
+  1456 ;;Total ram usage:        0 bytes
+  1457 ;; Hardware stack levels used:    1
+  1458 ;; Hardware stack levels required when called:    4
+  1459 ;; This function calls:
+  1460 ;;		_UARTInit
+  1461 ;; This function is called by:
+  1462 ;;		_main
+  1463 ;; This function uses a non-reentrant model
+  1464 ;;
+  1465                           psect	text2,local,class=CODE,delta=2,merge=1,group=0
+  1466                           	file	"system.c"
+  1467                           	line	14
+  1468                           global __ptext2
+  1469                           __ptext2:	;psect for function _Initialise
+  1470  012A                     psect	text2
+  1471                           	file	"system.c"
+  1472                           	line	14
+  1473                           	global	__size_of_Initialise
+  1474                           	__size_of_Initialise	equ	__end_of_Initialise-_Initialise
+  1475  001D                     	
+  1476                           _Initialise:	
+  1477  012A                     ;incstack = 0
+  1478                           	opt	stack 3
+  1479                           ; Regs used in _Initialise: [wreg+status,2+status,0+pclath+cstack]
+  1480                           	line	17
+  1481                           	
+  1482                           l945:	
+  1483  012A                     ;system.c: 17:     CMCON = 0x07;
+  1484                           	movlw	low(07h)
+  1485  012A  3007               	bcf	status, 5	;RP0=0, select bank0
+  1486  012B  1283               	movwf	(25)	;volatile
+  1487  012C  0099               	line	18
+  1488                           ;system.c: 18:     TRISA = 0x3F;
+  1489                           	movlw	low(03Fh)
+  1490  012D  303F               	bsf	status, 5	;RP0=1, select bank1
+  1491  012E  1683               	movwf	(133)^080h	;volatile
+  1492  012F  0085               	line	19
+  1493                           	
+  1494                           l947:	
+  1495  0130                     ;system.c: 19:     OPTION_REGbits.INTEDG = 1;
+  1496                           	bsf	(129)^080h,6	;volatile
+  1497  0130  1701               	line	22
+  1498                           	
+  1499                           l949:	
+  1500  0131                     ;system.c: 22:     TRISC = 0;
+  1501                           	clrf	(135)^080h	;volatile
+  1502  0131  0187               	line	25
+  1503                           	
+  1504                           l951:	
+  1505  0132                     ;system.c: 25:     T1CONbits.TMR1CS = 0;
+  1506                           	bcf	status, 5	;RP0=0, select bank0
+  1507  0132  1283               	bcf	(16),1	;volatile
+  1508  0133  1090               	line	26
+  1509                           	
+  1510                           l953:	
+  1511  0134                     ;system.c: 26:     T1CONbits.T1CKPS = 0;
+  1512                           	movlw	((0 & ((1<<2)-1))<<4)|not (((1<<2)-1)<<4)
+  1513  0134  30CF               	andwf	(16),f	;volatile
+  1514  0135  0590               	line	27
+  1515                           	
+  1516                           l955:	
+  1517  0136                     ;system.c: 27:     T1CONbits.nT1SYNC = 1;
+  1518                           	bsf	(16),2	;volatile
+  1519  0136  1510               	line	28
+  1520                           	
+  1521                           l957:	
+  1522  0137                     ;system.c: 28:     T1CONbits.TMR1GE = 0;
+  1523                           	bcf	(16),6	;volatile
+  1524  0137  1310               	line	29
+  1525                           	
+  1526                           l959:	
+  1527  0138                     ;system.c: 29:     TMR1H = 0x3C;
+  1528                           	movlw	low(03Ch)
+  1529  0138  303C               	movwf	(15)	;volatile
+  1530  0139  008F               	line	30
+  1531                           	
+  1532                           l961:	
+  1533  013A                     ;system.c: 30:     TMR1L = 0xB0;
+  1534                           	movlw	low(0B0h)
+  1535  013A  30B0               	movwf	(14)	;volatile
+  1536  013B  008E               	line	31
+  1537                           	
+  1538                           l963:	
+  1539  013C                     ;system.c: 31:     PIR1bits.TMR1IF = 0;
+  1540                           	bcf	(12),0	;volatile
+  1541  013C  100C               	line	32
+  1542                           	
+  1543                           l965:	
+  1544  013D                     ;system.c: 32:     PIE1bits.TMR1IE = 1;
+  1545                           	bsf	status, 5	;RP0=1, select bank1
+  1546  013D  1683               	bsf	(140)^080h,0	;volatile
+  1547  013E  140C               	line	33
+  1548                           	
+  1549                           l967:	
+  1550  013F                     ;system.c: 33:     T1CONbits.TMR1ON = 1;
+  1551                           	bcf	status, 5	;RP0=0, select bank0
+  1552  013F  1283               	bsf	(16),0	;volatile
+  1553  0140  1410               	line	34
+  1554                           	
+  1555                           l969:	
+  1556  0141                     ;system.c: 34:     INTCONbits.PEIE = 1;
+  1557                           	bsf	(11),6	;volatile
+  1558  0141  170B               	line	37
+  1559                           	
+  1560                           l971:	
+  1561  0142                     ;system.c: 37:     OPTION_REGbits.T0CS = 0;
+  1562                           	bsf	status, 5	;RP0=1, select bank1
+  1563  0142  1683               	bcf	(129)^080h,5	;volatile
+  1564  0143  1281               	line	38
+  1565                           	
+  1566                           l973:	
+  1567  0144                     ;system.c: 38:     OPTION_REGbits.PSA = 1;
+  1568                           	bsf	(129)^080h,3	;volatile
+  1569  0144  1581               	line	47
+  1570                           	
+  1571                           l975:	
+  1572  0145                     ;system.c: 47:     UARTInit();
+  1573                           	fcall	_UARTInit
+  1574  0145  2199               	line	48
+  1575                           	
+  1576                           l93:	
+  1577  0146                     	return
+  1578  0146  0008               	opt stack 0
+  1579                           GLOBAL	__end_of_Initialise
+  1580                           	__end_of_Initialise:
+  1581  0147                     	signat	_Initialise,89
+  1582                           	global	_UARTInit
+  1583                           
+  1584 ;; *************** function _UARTInit *****************
+  1585 ;; Defined at:
+  1586 ;;		line 86 in file "user.c"
+  1587 ;; Parameters:    Size  Location     Type
+  1588 ;;		None
+  1589 ;; Auto vars:     Size  Location     Type
+  1590 ;;		None
+  1591 ;; Return value:  Size  Location     Type
+  1592 ;;                  1    wreg      void 
+  1593 ;; Registers used:
+  1594 ;;		None
+  1595 ;; Tracked objects:
+  1596 ;;		On entry : 0/0
+  1597 ;;		On exit  : 0/0
+  1598 ;;		Unchanged: 0/0
+  1599 ;; Data sizes:     COMMON   BANK0
+  1600 ;;      Params:         0       0
+  1601 ;;      Locals:         0       0
+  1602 ;;      Temps:          0       0
+  1603 ;;      Totals:         0       0
+  1604 ;;Total ram usage:        0 bytes
+  1605 ;; Hardware stack levels used:    1
+  1606 ;; Hardware stack levels required when called:    3
+  1607 ;; This function calls:
+  1608 ;;		Nothing
+  1609 ;; This function is called by:
+  1610 ;;		_Initialise
+  1611 ;; This function uses a non-reentrant model
+  1612 ;;
+  1613                           psect	text3,local,class=CODE,delta=2,merge=1,group=0
+  1614                           	file	"user.c"
+  1615                           	line	86
+  1616                           global __ptext3
+  1617                           __ptext3:	;psect for function _UARTInit
+  1618  0199                     psect	text3
+  1619                           	file	"user.c"
+  1620                           	line	86
+  1621                           	global	__size_of_UARTInit
+  1622                           	__size_of_UARTInit	equ	__end_of_UARTInit-_UARTInit
+  1623  0006                     	
+  1624                           _UARTInit:	
+  1625  0199                     ;incstack = 0
+  1626                           	opt	stack 3
+  1627                           ; Regs used in _UARTInit: []
+  1628                           	line	88
+  1629                           	
+  1630                           l943:	
+  1631  0199                     ;user.c: 88:  RA0 = 1;
+  1632                           	bcf	status, 5	;RP0=0, select bank0
+  1633  0199  1283               	bsf	(40/8),(40)&7	;volatile
+  1634  019A  1405               	line	90
+  1635                           ;user.c: 90:  TRISAbits.TRISA1 = 1;
+  1636                           	bsf	status, 5	;RP0=1, select bank1
+  1637  019B  1683               	bsf	(133)^080h,1	;volatile
+  1638  019C  1485               	line	91
+  1639                           ;user.c: 91:  TRISAbits.TRISA0 = 0;
+  1640                           	bcf	(133)^080h,0	;volatile
+  1641  019D  1005               	line	92
+  1642                           	
+  1643                           l145:	
+  1644  019E                     	return
+  1645  019E  0008               	opt stack 0
+  1646                           GLOBAL	__end_of_UARTInit
+  1647                           	__end_of_UARTInit:
+  1648  019F                     	signat	_UARTInit,89
+  1649                           	global	_ISR
+  1650                           
+  1651 ;; *************** function _ISR *****************
+  1652 ;; Defined at:
+  1653 ;;		line 15 in file "interrupts.c"
+  1654 ;; Parameters:    Size  Location     Type
+  1655 ;;		None
+  1656 ;; Auto vars:     Size  Location     Type
+  1657 ;;		None
+  1658 ;; Return value:  Size  Location     Type
+  1659 ;;                  1    wreg      void 
+  1660 ;; Registers used:
+  1661 ;;		wreg, status,2, status,0, pclath, cstack
+  1662 ;; Tracked objects:
+  1663 ;;		On entry : 0/0
+  1664 ;;		On exit  : 0/0
+  1665 ;;		Unchanged: 0/0
+  1666 ;; Data sizes:     COMMON   BANK0
+  1667 ;;      Params:         0       0
+  1668 ;;      Locals:         0       0
+  1669 ;;      Temps:          0       2
+  1670 ;;      Totals:         0       2
+  1671 ;;Total ram usage:        2 bytes
+  1672 ;; Hardware stack levels used:    1
+  1673 ;; Hardware stack levels required when called:    2
+  1674 ;; This function calls:
+  1675 ;;		_BitIntr
+  1676 ;;		_EdgeIntr
+  1677 ;;		_StartTickTimer
+  1678 ;; This function is called by:
+  1679 ;;		Interrupt level 1
+  1680 ;; This function uses a non-reentrant model
+  1681 ;;
+  1682                           psect	text4,local,class=CODE,delta=2,merge=1,group=0
+  1683                           	file	"interrupts.c"
+  1684                           	line	15
+  1685                           global __ptext4
+  1686                           __ptext4:	;psect for function _ISR
+  1687  0147                     psect	text4
+  1688                           	file	"interrupts.c"
+  1689                           	line	15
+  1690                           	global	__size_of_ISR
+  1691                           	__size_of_ISR	equ	__end_of_ISR-_ISR
+  1692  001D                     	
+  1693                           _ISR:	
+  1694  0147                     ;incstack = 0
+  1695                           	opt	stack 3
+  1696                           ; Regs used in _ISR: [wreg+status,2+status,0+pclath+cstack]
+  1697                           psect	intentry,class=CODE,delta=2
+  1698                           global __pintentry
+  1699                           __pintentry:
+  1700  0004                     global interrupt_function
+  1701                           interrupt_function:
+  1702  0004                     	global saved_w
+  1703                           	saved_w	set	btemp+0
+  1704  005E                     	movwf	saved_w
+  1705  0004  00DE               	swapf	status,w
+  1706  0005  0E03               	bcf	status, 5	;RP0=0, select bank0
+  1707  0006  1283               	movwf	(??_ISR+0)
+  1708  0007  00B0               	movf	pclath,w
+  1709  0008  080A               	movwf	(??_ISR+1)
+  1710  0009  00B1               	ljmp	_ISR
+  1711  000A  2947               psect	text4
+  1712                           	line	18
+  1713                           	
+  1714                           i1l1133:	
+  1715  0147                     ;interrupts.c: 18:     if (PIR1bits.TMR1IF==1)
+  1716                           	btfss	(12),0	;volatile
+  1717  0147  1C0C               	goto	u53_21
+  1718  0148  294A               	goto	u53_20
+  1719  0149  294B               u53_21:
+  1720  014A                     	goto	i1l1137
+  1721  014A  294E               u53_20:
+  1722  014B                     	line	19
+  1723                           	
+  1724                           i1l1135:	
+  1725  014B                     ;interrupts.c: 19:         StartTickTimer( 0);
+  1726                           	movlw	low(0)
+  1727  014B  3000               	fcall	_StartTickTimer
+  1728  014C  20F5               	goto	i1l1137
+  1729  014D  294E               	
+  1730                           i1l165:	
+  1731  014E                     	line	22
+  1732                           	
+  1733                           i1l1137:	
+  1734  014E                     ;interrupts.c: 22:     if (INTCONbits.INTF)
+  1735                           	btfss	(11),1	;volatile
+  1736  014E  1C8B               	goto	u54_21
+  1737  014F  2951               	goto	u54_20
+  1738  0150  2952               u54_21:
+  1739  0151                     	goto	i1l1143
+  1740  0151  2955               u54_20:
+  1741  0152                     	line	24
+  1742                           	
+  1743                           i1l1139:	
+  1744  0152                     ;interrupts.c: 23:     {;interrupts.c: 24:         INTCONbits.INTF = 0;
+  1745                           	bcf	(11),1	;volatile
+  1746  0152  108B               	line	25
+  1747                           	
+  1748                           i1l1141:	
+  1749  0153                     ;interrupts.c: 25:         EdgeIntr();
+  1750                           	fcall	_EdgeIntr
+  1751  0153  2192               	goto	i1l1143
+  1752  0154  2955               	line	26
+  1753                           ;interrupts.c: 26:     }
+  1754                           	
+  1755                           i1l166:	
+  1756  0155                     	line	29
+  1757                           	
+  1758                           i1l1143:	
+  1759  0155                     ;interrupts.c: 29:     if (INTCONbits.T0IF==1)
+  1760                           	btfss	(11),2	;volatile
+  1761  0155  1D0B               	goto	u55_21
+  1762  0156  2958               	goto	u55_20
+  1763  0157  2959               u55_21:
+  1764  0158                     	goto	i1l168
+  1765  0158  295C               u55_20:
+  1766  0159                     	line	31
+  1767                           	
+  1768                           i1l1145:	
+  1769  0159                     ;interrupts.c: 30:     {;interrupts.c: 31:         INTCONbits.T0IF= 0;
+  1770                           	bcf	(11),2	;volatile
+  1771  0159  110B               	line	32
+  1772                           	
+  1773                           i1l1147:	
+  1774  015A                     ;interrupts.c: 32:         BitIntr();
+  1775                           	fcall	_BitIntr
+  1776  015A  217F               	goto	i1l168
+  1777  015B  295C               	line	33
+  1778                           ;interrupts.c: 33:     }
+  1779                           	
+  1780                           i1l167:	
+  1781  015C                     	line	35
+  1782                           	
+  1783                           i1l168:	
+  1784  015C                     	bcf	status, 5	;RP0=0, select bank0
+  1785  015C  1283               	movf	(??_ISR+1),w
+  1786  015D  0831               	movwf	pclath
+  1787  015E  008A               	swapf	(??_ISR+0)^00h,w
+  1788  015F  0E30               	movwf	status
+  1789  0160  0083               	swapf	saved_w,f
+  1790  0161  0EDE               	swapf	saved_w,w
+  1791  0162  0E5E               	retfie
+  1792  0163  0009               	opt stack 0
+  1793                           GLOBAL	__end_of_ISR
+  1794                           	__end_of_ISR:
+  1795  0164                     	signat	_ISR,89
+  1796                           	global	_StartTickTimer
+  1797                           
+  1798 ;; *************** function _StartTickTimer *****************
+  1799 ;; Defined at:
+  1800 ;;		line 22 in file "user.c"
+  1801 ;; Parameters:    Size  Location     Type
+  1802 ;;  ReSync          1    wreg     unsigned char 
+  1803 ;; Auto vars:     Size  Location     Type
+  1804 ;;  ReSync          1    3[BANK0 ] unsigned char 
+  1805 ;; Return value:  Size  Location     Type
+  1806 ;;                  1    wreg      void 
+  1807 ;; Registers used:
+  1808 ;;		wreg, status,2, status,0, pclath, cstack
+  1809 ;; Tracked objects:
+  1810 ;;		On entry : 0/0
+  1811 ;;		On exit  : 0/0
+  1812 ;;		Unchanged: 0/0
+  1813 ;; Data sizes:     COMMON   BANK0
+  1814 ;;      Params:         0       0
+  1815 ;;      Locals:         0       0
+  1816 ;;      Temps:          0       0
+  1817 ;;      Totals:         0       0
+  1818 ;;Total ram usage:        0 bytes
+  1819 ;; Hardware stack levels used:    1
+  1820 ;; Hardware stack levels required when called:    4
+  1821 ;; This function calls:
+  1822 ;;		_BitDataInit
+  1823 ;; This function is called by:
+  1824 ;;		_main
+  1825 ;;		_ISR
+  1826 ;; This function uses a non-reentrant model
+  1827 ;;
+  1828                           psect	text5,local,class=CODE,delta=2,merge=1,group=0
+  1829                           	file	"user.c"
+  1830                           	line	22
+  1831                           global __ptext5
+  1832                           __ptext5:	;psect for function _StartTickTimer
+  1833  00F5                     psect	text5
+  1834                           	file	"user.c"
+  1835                           	line	22
+  1836                           	global	__size_of_StartTickTimer
+  1837                           	__size_of_StartTickTimer	equ	__end_of_StartTickTimer-_StartTickTimer
+  1838  0035                     	
+  1839                           _StartTickTimer:	
+  1840  00F5                     ;incstack = 0
+  1841                           	opt	stack 0
+  1842                           ; Regs used in _StartTickTimer: [wreg+status,2+status,0+pclath+cstack]
+  1843                           ;StartTickTimer@ReSync stored from wreg
+  1844                           	bcf	status, 5	;RP0=0, select bank0
+  1845  00F5  1283               	movwf	(StartTickTimer@ReSync)
+  1846  00F6  00AF               	line	25
+  1847                           	
+  1848                           i1l977:	
+  1849  00F7                     	bcf	(16),0	;volatile
+  1850  00F7  1010               	line	27
+  1851                           	bcf	(12),0	;volatile
+  1852  00F8  100C               	line	29
+  1853                           	
+  1854                           i1l979:	
+  1855  00F9                     	movlw	low(03Ch)
+  1856  00F9  303C               	movwf	(15)	;volatile
+  1857  00FA  008F               	line	30
+  1858                           	movlw	low(0B0h)
+  1859  00FB  30B0               	movwf	(14)	;volatile
+  1860  00FC  008E               	line	32
+  1861                           	
+  1862                           i1l981:	
+  1863  00FD                     	bsf	(16),0	;volatile
+  1864  00FD  1410               	line	37
+  1865                           	
+  1866                           i1l983:	
+  1867  00FE                     	movlw	low(01h)
+  1868  00FE  3001               	movwf	(??_StartTickTimer+0)+0
+  1869  00FF  00AE               	movf	(??_StartTickTimer+0)+0,w
+  1870  0100  082E               	addwf	(_EdgeDetect),f
+  1871  0101  07A0               	movlw	low(02h)
+  1872  0102  3002               	subwf	((_EdgeDetect)),w
+  1873  0103  0220               	skipc
+  1874  0104  1C03               	goto	u26_21
+  1875  0105  2907               	goto	u26_20
+  1876  0106  2908               u26_21:
+  1877  0107                     	goto	i1l991
+  1878  0107  2915               u26_20:
+  1879  0108                     	
+  1880                           i1l985:	
+  1881  0108                     	movf	((StartTickTimer@ReSync)),w
+  1882  0108  082F               	btfss	status,2
+  1883  0109  1D03               	goto	u27_21
+  1884  010A  290C               	goto	u27_20
+  1885  010B  290D               u27_21:
+  1886  010C                     	goto	i1l991
+  1887  010C  2915               u27_20:
+  1888  010D                     	
+  1889                           i1l987:	
+  1890  010D                     	movf	((_OneWireMode)),w
+  1891  010D  0823               	btfss	status,2
+  1892  010E  1D03               	goto	u28_21
+  1893  010F  2911               	goto	u28_20
+  1894  0110  2912               u28_21:
+  1895  0111                     	goto	i1l991
+  1896  0111  2915               u28_20:
+  1897  0112                     	line	38
+  1898                           	
+  1899                           i1l989:	
+  1900  0112                     	movlw	low(0)
+  1901  0112  3000               	fcall	_BitDataInit
+  1902  0113  2164               	goto	i1l991
+  1903  0114  2915               	
+  1904                           i1l130:	
+  1905  0115                     	line	41
+  1906                           	
+  1907                           i1l991:	
+  1908  0115                     	movlw	low(09h)
+  1909  0115  3009               	bcf	status, 5	;RP0=0, select bank0
+  1910  0116  1283               	subwf	(_TickCount),w
+  1911  0117  0228               	skipnc
+  1912  0118  1803               	goto	u29_21
+  1913  0119  291B               	goto	u29_20
+  1914  011A  291C               u29_21:
+  1915  011B                     	goto	i1l995
+  1916  011B  2922               u29_20:
+  1917  011C                     	
+  1918                           i1l993:	
+  1919  011C                     	movf	((StartTickTimer@ReSync)),w
+  1920  011C  082F               	btfsc	status,2
+  1921  011D  1903               	goto	u30_21
+  1922  011E  2920               	goto	u30_20
+  1923  011F  2921               u30_21:
+  1924  0120                     	goto	i1l997
+  1925  0120  2924               u30_20:
+  1926  0121                     	goto	i1l995
+  1927  0121  2922               	
+  1928                           i1l133:	
+  1929  0122                     	line	42
+  1930                           	
+  1931                           i1l995:	
+  1932  0122                     	clrf	(_TickCount)
+  1933  0122  01A8               	goto	i1l135
+  1934  0123  2929               	line	43
+  1935                           	
+  1936                           i1l131:	
+  1937  0124                     	line	44
+  1938                           	
+  1939                           i1l997:	
+  1940  0124                     	movlw	low(01h)
+  1941  0124  3001               	movwf	(??_StartTickTimer+0)+0
+  1942  0125  00AE               	movf	(??_StartTickTimer+0)+0,w
+  1943  0126  082E               	addwf	(_TickCount),f
+  1944  0127  07A8               	goto	i1l135
+  1945  0128  2929               	
+  1946                           i1l134:	
+  1947  0129                     	line	53
+  1948                           	
+  1949                           i1l135:	
+  1950  0129                     	return
+  1951  0129  0008               	opt stack 0
+  1952                           GLOBAL	__end_of_StartTickTimer
+  1953                           	__end_of_StartTickTimer:
+  1954  012A                     	signat	_StartTickTimer,4217
+  1955                           	global	_BitDataInit
+  1956                           
+  1957 ;; *************** function _BitDataInit *****************
+  1958 ;; Defined at:
+  1959 ;;		line 41 in file "main.c"
+  1960 ;; Parameters:    Size  Location     Type
+  1961 ;;  ModeTx          1    wreg     unsigned char 
+  1962 ;; Auto vars:     Size  Location     Type
+  1963 ;;  ModeTx          1    0[BANK0 ] unsigned char 
+  1964 ;;  IntEnable       1    1[BANK0 ] unsigned char 
+  1965 ;; Return value:  Size  Location     Type
+  1966 ;;                  1    wreg      void 
+  1967 ;; Registers used:
+  1968 ;;		wreg, status,2, status,0
+  1969 ;; Tracked objects:
+  1970 ;;		On entry : 0/0
+  1971 ;;		On exit  : 0/0
+  1972 ;;		Unchanged: 0/0
+  1973 ;; Data sizes:     COMMON   BANK0
+  1974 ;;      Params:         0       0
+  1975 ;;      Locals:         0       0
+  1976 ;;      Temps:          0       0
+  1977 ;;      Totals:         0       0
+  1978 ;;Total ram usage:        0 bytes
+  1979 ;; Hardware stack levels used:    1
+  1980 ;; Hardware stack levels required when called:    3
+  1981 ;; This function calls:
+  1982 ;;		Nothing
+  1983 ;; This function is called by:
+  1984 ;;		_main
+  1985 ;;		_StartTickTimer
+  1986 ;; This function uses a non-reentrant model
+  1987 ;;
+  1988                           psect	text6,local,class=CODE,delta=2,merge=1,group=0
+  1989                           	file	"main.c"
+  1990                           	line	41
+  1991                           global __ptext6
+  1992                           __ptext6:	;psect for function _BitDataInit
+  1993  0164                     psect	text6
+  1994                           	file	"main.c"
+  1995                           	line	41
+  1996                           	global	__size_of_BitDataInit
+  1997                           	__size_of_BitDataInit	equ	__end_of_BitDataInit-_BitDataInit
+  1998  001B                     	
+  1999                           _BitDataInit:	
+  2000  0164                     ;incstack = 0
+  2001                           	opt	stack 0
+  2002                           ; Regs used in _BitDataInit: [wreg+status,2+status,0]
+  2003                           ;BitDataInit@ModeTx stored from wreg
+  2004                           	bcf	status, 5	;RP0=0, select bank0
+  2005  0164  1283               	movwf	(BitDataInit@ModeTx)
+  2006  0165  00AC               	line	44
+  2007                           	
+  2008                           i1l929:	
+  2009  0166                     ;main.c: 41: ;main.c: 42: ;main.c: 44: 
+  2010                           	movlw	0
+  2011  0166  3000               	btfsc	(11),7	;volatile
+  2012  0167  1B8B               	movlw	1
+  2013  0168  3001               	movwf	(BitDataInit@IntEnable)
+  2014  0169  00AD               	line	45
+  2015                           	
+  2016                           i1l931:	
+  2017  016A                     ;main.c: 45:     while(1)
+  2018                           	bcf	(11),7	;volatile
+  2019  016A  138B               	line	47
+  2020                           	
+  2021                           i1l933:	
+  2022  016B                     ;main.c: 47:         if (IntrNewBit==1)
+  2023                           		decf	((BitDataInit@ModeTx)),w
+  2024  016B  032C               	btfss	status,2
+  2025  016C  1D03               	goto	u25_21
+  2026  016D  296F               	goto	u25_20
+  2027  016E  2970               u25_21:
+  2028  016F                     	goto	i1l41
+  2029  016F  2973               u25_20:
+  2030  0170                     	line	50
+  2031                           	
+  2032                           i1l935:	
+  2033  0170                     ;main.c: 48:         {;main.c: 50: 
+  2034                           	bcf	(11),4	;volatile
+  2035  0170  120B               	line	53
+  2036                           ;main.c: 53:             INTCONbits.T0IE = 0;
+  2037                           	bsf	(57/8),(57)&7	;volatile
+  2038  0171  1487               	line	54
+  2039                           ;main.c: 54:             RxData = IntrData;
+  2040                           	goto	i1l941
+  2041  0172  2979               	line	55
+  2042                           ;main.c: 55:             IntrNewBit = 0;
+  2043                           	
+  2044                           i1l41:	
+  2045  0173                     	line	58
+  2046                           ;main.c: 56:             INTCONbits.T0IE = 0;;main.c: 58: 
+  2047                           	bcf	(57/8),(57)&7	;volatile
+  2048  0173  1087               	line	61
+  2049                           	
+  2050                           i1l937:	
+  2051  0174                     ;main.c: 61: 
+  2052                           	clrf	(_DataState)
+  2053  0174  01A1               	line	62
+  2054                           ;main.c: 62:             if (DataState==DATA_SYNC)
+  2055                           	clrf	(_Addressed)
+  2056  0175  01A2               	line	63
+  2057                           ;main.c: 63:             {
+  2058                           	clrf	(_BitCount)
+  2059  0176  01A7               	line	66
+  2060                           	
+  2061                           i1l939:	
+  2062  0177                     ;main.c: 66:                 {
+  2063                           	bsf	(11),4	;volatile
+  2064  0177  160B               	goto	i1l941
+  2065  0178  2979               	line	67
+  2066                           ;main.c: 67: 
+  2067                           	
+  2068                           i1l42:	
+  2069  0179                     	line	70
+  2070                           	
+  2071                           i1l941:	
+  2072  0179                     ;main.c: 70:                     RC5=0;
+  2073                           	rrf	(BitDataInit@IntEnable),w
+  2074  0179  0C2D               	skipc
+  2075  017A  1C03               	bcf	(11),7	;volatile
+  2076  017B  138B               	skipnc
+  2077  017C  1803               	bsf	(11),7	;volatile
+  2078  017D  178B               	line	71
+  2079                           	
+  2080                           i1l43:	
+  2081  017E                     	return
+  2082  017E  0008               	opt stack 0
+  2083                           GLOBAL	__end_of_BitDataInit
+  2084                           	__end_of_BitDataInit:
+  2085  017F                     	signat	_BitDataInit,4217
+  2086                           	global	_EdgeIntr
+  2087                           
+  2088 ;; *************** function _EdgeIntr *****************
+  2089 ;; Defined at:
+  2090 ;;		line 57 in file "user.c"
+  2091 ;; Parameters:    Size  Location     Type
+  2092 ;;		None
+  2093 ;; Auto vars:     Size  Location     Type
+  2094 ;;		None
+  2095 ;; Return value:  Size  Location     Type
+  2096 ;;                  1    wreg      void 
+  2097 ;; Registers used:
+  2098 ;;		wreg, status,2
+  2099 ;; Tracked objects:
+  2100 ;;		On entry : 0/0
+  2101 ;;		On exit  : 0/0
+  2102 ;;		Unchanged: 0/0
+  2103 ;; Data sizes:     COMMON   BANK0
+  2104 ;;      Params:         0       0
+  2105 ;;      Locals:         0       0
+  2106 ;;      Temps:          0       0
+  2107 ;;      Totals:         0       0
+  2108 ;;Total ram usage:        0 bytes
+  2109 ;; Hardware stack levels used:    1
+  2110 ;; This function calls:
+  2111 ;;		Nothing
+  2112 ;; This function is called by:
+  2113 ;;		_ISR
+  2114 ;; This function uses a non-reentrant model
+  2115 ;;
+  2116                           psect	text7,local,class=CODE,delta=2,merge=1,group=0
+  2117                           	file	"user.c"
+  2118                           	line	57
+  2119                           global __ptext7
+  2120                           __ptext7:	;psect for function _EdgeIntr
+  2121  0192                     psect	text7
+  2122                           	file	"user.c"
+  2123                           	line	57
+  2124                           	global	__size_of_EdgeIntr
+  2125                           	__size_of_EdgeIntr	equ	__end_of_EdgeIntr-_EdgeIntr
+  2126  0007                     	
+  2127                           _EdgeIntr:	
+  2128  0192                     ;incstack = 0
+  2129                           	opt	stack 4
+  2130                           ; Regs used in _EdgeIntr: [wreg+status,2]
+  2131                           	line	60
+  2132                           	
+  2133                           i1l1017:	
+  2134  0192                     ;user.c: 60:     EdgeDetect = 0;
+  2135                           	bcf	status, 5	;RP0=0, select bank0
+  2136  0192  1283               	clrf	(_EdgeDetect)
+  2137  0193  01A0               	line	63
+  2138                           	
+  2139                           i1l1019:	
+  2140  0194                     ;user.c: 63:     TMR0 = 175;
+  2141                           	movlw	low(0AFh)
+  2142  0194  30AF               	movwf	(1)	;volatile
+  2143  0195  0081               	line	65
+  2144                           	
+  2145                           i1l1021:	
+  2146  0196                     ;user.c: 65:     INTCONbits.T0IF = 0;
+  2147                           	bcf	(11),2	;volatile
+  2148  0196  110B               	line	66
+  2149                           	
+  2150                           i1l1023:	
+  2151  0197                     ;user.c: 66:     INTCONbits.T0IE = 1;
+  2152                           	bsf	(11),5	;volatile
+  2153  0197  168B               	line	67
+  2154                           	
+  2155                           i1l138:	
+  2156  0198                     	return
+  2157  0198  0008               	opt stack 0
+  2158                           GLOBAL	__end_of_EdgeIntr
+  2159                           	__end_of_EdgeIntr:
+  2160  0199                     	signat	_EdgeIntr,89
+  2161                           	global	_BitIntr
+  2162                           
+  2163 ;; *************** function _BitIntr *****************
+  2164 ;; Defined at:
+  2165 ;;		line 73 in file "user.c"
+  2166 ;; Parameters:    Size  Location     Type
+  2167 ;;		None
+  2168 ;; Auto vars:     Size  Location     Type
+  2169 ;;		None
+  2170 ;; Return value:  Size  Location     Type
+  2171 ;;                  1    wreg      void 
+  2172 ;; Registers used:
+  2173 ;;		wreg
+  2174 ;; Tracked objects:
+  2175 ;;		On entry : 0/0
+  2176 ;;		On exit  : 0/0
+  2177 ;;		Unchanged: 0/0
+  2178 ;; Data sizes:     COMMON   BANK0
+  2179 ;;      Params:         0       0
+  2180 ;;      Locals:         0       0
+  2181 ;;      Temps:          0       0
+  2182 ;;      Totals:         0       0
+  2183 ;;Total ram usage:        0 bytes
+  2184 ;; Hardware stack levels used:    1
+  2185 ;; This function calls:
+  2186 ;;		Nothing
+  2187 ;; This function is called by:
+  2188 ;;		_ISR
+  2189 ;; This function uses a non-reentrant model
+  2190 ;;
+  2191                           psect	text8,local,class=CODE,delta=2,merge=1,group=0
+  2192                           	line	73
+  2193                           global __ptext8
+  2194                           __ptext8:	;psect for function _BitIntr
+  2195  017F                     psect	text8
+  2196                           	file	"user.c"
+  2197                           	line	73
+  2198                           	global	__size_of_BitIntr
+  2199                           	__size_of_BitIntr	equ	__end_of_BitIntr-_BitIntr
+  2200  000B                     	
+  2201                           _BitIntr:	
+  2202  017F                     ;incstack = 0
+  2203                           	opt	stack 4
+  2204                           ; Regs used in _BitIntr: [wreg]
+  2205                           	line	76
+  2206                           	
+  2207                           i1l1127:	
+  2208  017F                     ;user.c: 76:     IntrData <<= 1;
+  2209                           	clrc
+  2210  017F  1003               	bcf	status, 5	;RP0=0, select bank0
+  2211  0180  1283               	rlf	(_IntrData),f
+  2212  0181  0DA9               
+  2213                           	line	77
+  2214                           	
+  2215                           i1l1129:	
+  2216  0182                     ;user.c: 77:     if (RA2==1)
+  2217                           	btfss	(42/8),(42)&7	;volatile
+  2218  0182  1D05               	goto	u52_21
+  2219  0183  2985               	goto	u52_20
+  2220  0184  2986               u52_21:
+  2221  0185                     	goto	i1l141
+  2222  0185  2987               u52_20:
+  2223  0186                     	line	78
+  2224                           	
+  2225                           i1l1131:	
+  2226  0186                     ;user.c: 78:         IntrData |= 1;
+  2227                           	bsf	(_IntrData)+(0/8),(0)&7
+  2228  0186  1429               	
+  2229                           i1l141:	
+  2230  0187                     	line	81
+  2231                           ;user.c: 81:     IntrNewBit = 1;
+  2232                           	clrf	(_IntrNewBit)
+  2233  0187  01AB               	incf	(_IntrNewBit),f
+  2234  0188  0AAB               	line	82
+  2235                           	
+  2236                           i1l142:	
+  2237  0189                     	return
+  2238  0189  0008               	opt stack 0
+  2239                           GLOBAL	__end_of_BitIntr
+  2240                           	__end_of_BitIntr:
+  2241  018A                     	signat	_BitIntr,89
+  2242                           global	___latbits
+  2243                           ___latbits	equ	0
+  2244  0000                     	global	btemp
+  2245                           	btemp set 05Eh
+  2246  005E                     
+  2247                           	DABS	1,94,2	;btemp
+  2248                           	global	wtemp0
+  2249                           	wtemp0 set btemp+0
+  2250  005E                     	end
+
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        0
+    BSS         12
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMMON            0      0       0
+    BANK0            62     11      23
+
+Pointer List with Targets:
+
+    None.
+
+Critical Paths under _main in COMMON
+
+    None.
+
+Critical Paths under _ISR in COMMON
+
+    None.
+
+Critical Paths under _main in BANK0
+
+    _main->_UARTSend
+
+Critical Paths under _ISR in BANK0
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 1     1      0     203
+                                             10 BANK0      1     1      0
+                        _BitDataInit
+                         _Initialise
+                     _StartTickTimer
+                           _UARTSend
+ ---------------------------------------------------------------------------------
+ (1) _UARTSend                                             4     4      0      69
+                                              6 BANK0      4     4      0
+ ---------------------------------------------------------------------------------
+ (4) _StartTickTimer                                       2     2      0      89
+                        _BitDataInit
+ ---------------------------------------------------------------------------------
+ (5) _BitDataInit                                          2     2      0      45
+ ---------------------------------------------------------------------------------
+ (1) _Initialise                                           0     0      0       0
+                           _UARTInit
+ ---------------------------------------------------------------------------------
+ (2) _UARTInit                                             0     0      0       0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 5
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (3) _ISR                                                  2     2      0      89
+                                              4 BANK0      2     2      0
+                            _BitIntr
+                           _EdgeIntr
+                     _StartTickTimer
+ ---------------------------------------------------------------------------------
+ (4) _StartTickTimer                                       2     2      0      89
+                        _BitDataInit
+ ---------------------------------------------------------------------------------
+ (5) _BitDataInit                                          2     2      0      45
+ ---------------------------------------------------------------------------------
+ (4) _EdgeIntr                                             0     0      0       0
+ ---------------------------------------------------------------------------------
+ (4) _BitIntr                                              0     0      0       0
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 5
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _BitDataInit
+   _Initialise
+     _UARTInit
+   _StartTickTimer
+     _BitDataInit
+   _UARTSend
+
+ _ISR (ROOT)
+   _BitIntr
+   _EdgeIntr
+   _StartTickTimer
+     _BitDataInit
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BITCOMMON            0      0       0       0        0.0%
+EEDATA              80      0       0       0        0.0%
+NULL                 0      0       0       0        0.0%
+CODE                 0      0       0       0        0.0%
+BITSFR0              0      0       0       1        0.0%
+SFR0                 0      0       0       1        0.0%
+COMMON               0      0       0       1        0.0%
+BITSFR1              0      0       0       2        0.0%
+SFR1                 0      0       0       2        0.0%
+STACK                0      0       0       2        0.0%
+BITBANK0            3E      0       0       3        0.0%
+BANK0               3E      B      17       4       37.1%
+ABS                  0      0      17       5        0.0%
+DATA                 0      0      17       6        0.0%
+
+
+Microchip Technology PIC Macro Assembler V2.00 build -1524193055 
+Symbol Table                                                                                   Fri Nov 09 10:44:05 2018
+
+            __CFG_CP$OFF 0000                       l50 0044                       l51 0043  
+                     l52 009E                       l60 009C                       l61 009B  
+                     l53 0067                       l62 0090                       l54 0066  
+                     l63 009A                       l55 005F                       l64 00B1  
+                     l56 0061                       l48 001A                       l65 00B3  
+                     l49 009F                       l57 009D                       l66 00B4  
+                     l58 007F                       l67 00B5                       l59 007E  
+                     l68 00B5                       l93 0146                       fsr 0004  
+                    l150 00F4                      l145 019E                      l148 00CC  
+                    l149 00EA                      l943 0199                      l951 0132  
+                    l961 013A                      l953 0134                      l945 012A  
+                    l971 0142                      l963 013C                      l955 0136  
+                    l947 0130                      l973 0144                      l965 013D  
+                    l957 0137                      l949 0131                      l975 0145  
+                    l967 013F                      l959 0138                      l969 0141  
+                    l999 00B8                      _RA0 0028                      _RA2 002A  
+                    _RC1 0039                      _RC3 003B                      _RC4 003C  
+                    _RC5 003D                      u310 00CA                      u311 00C9  
+                    u320 00D2                      u400 0050                      u321 00CF  
+                    u401 004F                      u410 005A                      u411 0059  
+                    u340 00EA                      u420 006D                      u341 00E9  
+                    u421 006C                      u334 00D4                      u430 0073  
+                    u431 0072                      u440 0085                      u360 001F  
+                    u441 0084                      u361 001E                      u450 008A  
+                    u370 002F             __CFG_CPD$OFF 0000                      u451 0089  
+                    u371 002E                      u460 0096                      u380 0038  
+                    _ISR 0147                      u461 0095                      u381 0037  
+                    u470 00A6                      u390 004A                      u471 00A5  
+                    u391 0049                      u480 00AB                      u481 00AA  
+                    u567 00BD                      u577 00DA                      u587 00EF  
+                    indf 0000             __CFG_FOSC$EC 0000               _EdgeDetect 0020  
+                   ?_ISR 002C                     l1001 00B9                     l1011 00DF  
+                   l1003 00C2                     l1013 00E4                     l1005 00C4  
+                   l1101 009F                     l1015 00EB                     l1007 00CB  
+                   l1103 00A6                     l1031 0013                     l1009 00D4  
+                   l1105 00AB                     l1041 0020                     l1033 0016  
+                   l1107 00AD                     l1051 002F                     l1043 0024  
+                   l1035 0018                     l1109 00B1                     l1061 003F  
+                   l1053 0038                     l1045 0025                     l1037 001A  
+                   l1071 0051                     l1063 0041                     l1055 003A  
+                   l1047 0026                     l1039 001F                     l1081 006D  
+                   l1073 005A                     l1057 003C                     l1065 0044  
+                   l1049 002A                     l1091 008A                     l1083 0073  
+                   l1075 005F                     l1067 004A                     l1059 003E  
+                   l1093 008E                     l1085 0074                     l1077 0061  
+                   l1069 0050                     l1095 008F                     l1087 007F  
+                   l1079 0067                     l1097 0096                     l1089 0085  
+                   l1099 0097                     i1l41 0173                     i1l42 0179  
+                   i1l43 017E                     _TMR0 0001                     _main 0013  
+                   btemp 005E                     start 000B          __end_of_BitIntr 018A  
+   StartTickTimer@ReSync 002F              _BitDataInit 0164                    ??_ISR 0030  
+                  ?_main 002C            __CFG_WDTE$OFF 0000                    _CMCON 0019  
+                  i1l130 0115                    i1l131 0124                    i1l141 0187  
+                  i1l133 0122                    i1l142 0189                    i1l134 0129  
+                  i1l135 0129                    i1l138 0198                    i1l165 014E  
+                  i1l166 0155                    i1l167 015C                    i1l168 015C  
+                  i1l931 016A                    i1l941 0179                    i1l933 016B  
+                  i1l935 0170                    i1l937 0174                    i1l929 0166  
+                  i1l939 0177                    i1l981 00FD                    i1l991 0115  
+                  i1l983 00FE                    i1l993 011C                    i1l985 0108  
+                  i1l977 00F7                    i1l995 0122                    i1l987 010D  
+                  i1l979 00F9                    i1l997 0124                    i1l989 0112  
+                  u30_20 0121                    u30_21 0120                    u25_20 0170  
+                  u25_21 016F                    _TMR1H 000F                    _TMR1L 000E  
+                  u26_20 0108                    u26_21 0107                    u27_20 010D  
+                  u27_21 010C                    u52_20 0186                    u28_20 0112  
+                  u52_21 0185                    u28_21 0111                    u29_20 011C  
+                  u53_20 014B                    u29_21 011B                    u53_21 014A  
+                  u54_20 0152                    u54_21 0151                    u55_20 0159  
+                  u55_21 0158                    _TRISA 0085                    _TRISC 0087  
+                  _Lamps 0025         __end_of_UARTInit 019F         __end_of_UARTSend 00F5  
+         __CFG_BOREN$OFF 0000                    pclath 000A                    status 0003  
+       __end_of_EdgeIntr 0199                    wtemp0 005E           __CFG_MCLRE$OFF 0000  
+        __initialization 000C             __end_of_main 00B6               _Initialise 012A  
+             _IntrNewBit 002B                   ??_main 0036                   i1l1021 0196  
+                 i1l1023 0197                   i1l1017 0192                   i1l1131 0186  
+                 i1l1019 0194                   i1l1141 0153                   i1l1133 0147  
+                 i1l1127 017F                   i1l1143 0155                   i1l1135 014B  
+                 i1l1129 0182                   i1l1145 0159                   i1l1137 014E  
+                 i1l1147 015A                   i1l1139 0152                ??_BitIntr 0000  
+       ??_StartTickTimer 002E           __CFG_PWRTE$OFF 0000                   _RxData 002A  
+                 saved_w 005E  __end_of__initialization 0011           __pcstackCOMMON 0000  
+              ?_UARTInit 002C                ?_UARTSend 002C              ?_Initialise 002C  
+              ?_EdgeIntr 002C           _OPTION_REGbits 0081        BitDataInit@ModeTx 002C  
+             __pbssBANK0 0020              _OneWireMode 0023               __pmaintext 0013  
+           ?_BitDataInit 002C               ??_UARTInit 0000               ??_UARTSend 0032  
+             __pintentry 0004                UARTSend@i 0035               ??_EdgeIntr 0000  
+                _BitIntr 017F      __size_of_Initialise 001D                  _BoxSize 0026  
+                __ptext1 00B6                  __ptext2 012A                  __ptext3 0199  
+                __ptext4 0147                  __ptext5 00F5                  __ptext6 0164  
+                __ptext7 0192                  __ptext8 017F     BitDataInit@IntEnable 002D  
+           __size_of_ISR 001D                _T1CONbits 0010                  clrloop0 018B  
+   end_of_initialization 0011                _TRISAbits 0085                _Addressed 0022  
+      UARTSend@DataValue 0034                _DataState 0021             ??_Initialise 0000  
+   __size_of_BitDataInit 001B        __size_of_UARTInit 0006        __size_of_UARTSend 003F  
+    start_initialization 000C              __end_of_ISR 0164        __size_of_EdgeIntr 0007  
+     __end_of_Initialise 0147                _TickCount 0028  __size_of_StartTickTimer 0035  
+              ___latbits 0000            __pcstackBANK0 002C                 ?_BitIntr 002C  
+      interrupt_function 0004                clear_ram0 018A                 _PIE1bits 008C  
+               _PIR1bits 000C                 _UARTInit 0199                 _UARTSend 00B6  
+               _EdgeIntr 0192                 _BitCount 0027                 _DoneSend 0024  
+       __size_of_BitIntr 000B                 _IntrData 0029           _StartTickTimer 00F5  
+          __size_of_main 00A3   __end_of_StartTickTimer 012A            ??_BitDataInit 0000  
+             _INTCONbits 000B                 intlevel1 0000          ?_StartTickTimer 002C  
+    __end_of_BitDataInit 017F  

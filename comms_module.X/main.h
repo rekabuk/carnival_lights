@@ -37,6 +37,8 @@
 #define TX_MODE 1
 void BitDataInit( uint8_t ModeTx);
 
+extern uint8_t TickCount;
+extern uint8_t OneWireMode; 
 
 #endif	/* MAIN_H */
 

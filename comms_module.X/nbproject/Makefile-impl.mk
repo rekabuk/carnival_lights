@@ -27,11 +27,11 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=comms_module.X
 
 # Active Configuration
-DEFAULTCONF=default
+DEFAULTCONF=ProdBuild
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=default 
+ALLCONFS=ProdBuild DebugBuild 
 
 
 # build
@@ -45,13 +45,15 @@ ALLCONFS=default
 
 # clobber
 .clobber-impl: .clobber-pre .depcheck-impl
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=default clean
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=ProdBuild clean
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=DebugBuild clean
 
 
 
 # all
 .all-impl: .all-pre .depcheck-impl
-	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=default build
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=ProdBuild build
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=DebugBuild build
 
 
 

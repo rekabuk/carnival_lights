@@ -8,7 +8,6 @@
 #ifndef INTERRUPTS_H
 #define	INTERRUPTS_H
 
-extern uint8_t TickCount;
 
 #endif	/* INTERRUPTS_H */
 

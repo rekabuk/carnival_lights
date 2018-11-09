@@ -19,20 +19,19 @@ void Initialise( void)
     OPTION_REGbits.INTEDG = 1;  // Rising edge interrupt enable on RA2
    
     // Port C bits    
-    TRISC = 0;              // All outputs RC1=TEX, RC2= TXD RC3=Test, RC4=Test
+    TRISC = 0;                  // All outputs RC1=TEX, RC2= TXD RC3=Test, RC4=Test
     
     // Initialise TMR1 (Timer Tick))
-    T1CONbits.TMR1CS = 0;   // Use Fosc/4
-    T1CONbits.T1CKPS = 0;   // Pre-scaler = 1
-    T1CONbits.nT1SYNC = 1;  // No sync required
-    T1CONbits.TMR1GE = 0;   // TMR1 Run
+    T1CONbits.TMR1CS = 0;       // Use Fosc/4
+    T1CONbits.T1CKPS = 0;       // Pre-scaler = 1
+    T1CONbits.nT1SYNC = 1;      // No sync required
+    T1CONbits.TMR1GE = 0;       // TMR1 Run
     TMR1H = TMR1H_VAL;
     TMR1L = TMR1L_VAL;     
-    PIR1bits.TMR1IF = 0;    // Clear interrupt
-    PIE1bits.TMR1IE = 1;    // Enable PIE interrupt
+    PIR1bits.TMR1IF = 0;        // Clear interrupt
+    PIE1bits.TMR1IE = 1;        // Enable PIE interrupt
     T1CONbits.TMR1ON = 1; 
     INTCONbits.PEIE = 1;
-    
     
     // TMR0 is for bit timing, use Fosc/4 and no prescaler
     OPTION_REGbits.T0CS = 0;
@@ -45,5 +44,6 @@ void Initialise( void)
     INTCONbits.INTE = 1;    // Enable External interrupt
 #endif    
 
+    UARTInit();
 }
 
