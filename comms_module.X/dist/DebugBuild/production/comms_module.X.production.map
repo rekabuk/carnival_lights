@@ -5,7 +5,7 @@ Linker command line:
 -W-3 --edf=C:\Program Files (x86)\Microchip\xc8\v2.00\pic\dat\en_msgs.txt \
   -cs -h+dist/DebugBuild/production\comms_module.X.production.sym \
   --cmf=dist/DebugBuild/production\comms_module.X.production.cmf -z \
-  -Q16F630 -oC:\Users\abaker\AppData\Local\Temp\sn58.2 \
+  -Q16F630 -oC:\Users\abaker\AppData\Local\Temp\sokg.2 \
   --defsym=__MPLAB_BUILD=1 \
   -Mdist/DebugBuild/production/comms_module.X.production.map -E1 -ver=XC8 \
   --acfsm=1493 -ASTACK=037h-05dh -pstack=STACK -ACODE=00h-03FEh \
@@ -18,7 +18,7 @@ Linker command line:
   -AIDLOC=02000h-02003h -pidloc=IDLOC -DIDLOC=2 -AEEDATA=00h-07Fh/02100h \
   -peeprom_data=EEDATA -DEEDATA=2 -posccal=03FFh -DCODE=2 -DSTRCODE=2 \
   -DSTRING=2 -DCONST=2 -DENTRY=2 -k \
-  C:\Users\abaker\AppData\Local\Temp\sn58.o \
+  C:\Users\abaker\AppData\Local\Temp\sokg.o \
   dist/DebugBuild/production\comms_module.X.production.o 
 
 Object code version is 3.11
@@ -28,7 +28,7 @@ Machine type is 16F630
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\abaker\AppData\Local\Temp\sn58.o
+C:\Users\abaker\AppData\Local\Temp\sokg.o
                 end_init                              B        B        1        8       0
                 reset_vec                             0        0        1        0       0
                 config                             2007     2007        1     400E       0

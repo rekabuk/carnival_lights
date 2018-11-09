@@ -27,7 +27,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=comms_module.X
 
 # Active Configuration
-DEFAULTCONF=ProdBuild
+DEFAULTCONF=DebugBuild
 CONF=${DEFAULTCONF}
 
 # All Configurations

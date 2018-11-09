@@ -11,7 +11,7 @@
 # All addresses and the length are given in unqualified hexadecimal
 # in delta units.  Any other numeric values are decimal.
 %PSECTS
-$C:\Users\abaker\AppData\Local\Temp\sn58.o
+$C:\Users\abaker\AppData\Local\Temp\sokg.o
 reset_vec CODE 0 0 0 1 2
 end_init CODE 0 B B 1 2
 config CONFIG 0 2007 2007 1 2
@@ -67,16 +67,16 @@ STRING 19F-3FE 2
 # All other numeric values are in decimal.
 %LINETAB
 $dist/DebugBuild/production\comms_module.X.production.o
-C cinit CODE >541:C:\Users\abaker\AppData\Local\Temp\sn58.
-C cinit CODE >544:C:\Users\abaker\AppData\Local\Temp\sn58.
-C cinit CODE >603:C:\Users\abaker\AppData\Local\Temp\sn58.
-D cinit CODE >604:C:\Users\abaker\AppData\Local\Temp\sn58.
-E cinit CODE >605:C:\Users\abaker\AppData\Local\Temp\sn58.
-F cinit CODE >606:C:\Users\abaker\AppData\Local\Temp\sn58.
-10 cinit CODE >607:C:\Users\abaker\AppData\Local\Temp\sn58.
-11 cinit CODE >613:C:\Users\abaker\AppData\Local\Temp\sn58.
-11 cinit CODE >615:C:\Users\abaker\AppData\Local\Temp\sn58.
-12 cinit CODE >616:C:\Users\abaker\AppData\Local\Temp\sn58.
+C cinit CODE >541:C:\Users\abaker\AppData\Local\Temp\sokg.
+C cinit CODE >544:C:\Users\abaker\AppData\Local\Temp\sokg.
+C cinit CODE >603:C:\Users\abaker\AppData\Local\Temp\sokg.
+D cinit CODE >604:C:\Users\abaker\AppData\Local\Temp\sokg.
+E cinit CODE >605:C:\Users\abaker\AppData\Local\Temp\sokg.
+F cinit CODE >606:C:\Users\abaker\AppData\Local\Temp\sokg.
+10 cinit CODE >607:C:\Users\abaker\AppData\Local\Temp\sokg.
+11 cinit CODE >613:C:\Users\abaker\AppData\Local\Temp\sokg.
+11 cinit CODE >615:C:\Users\abaker\AppData\Local\Temp\sokg.
+12 cinit CODE >616:C:\Users\abaker\AppData\Local\Temp\sokg.
 4 intentry CODE >15:C:\Users\abaker\Documents\carnival\lights\comms_module.X\interrupts.c
 17F text8 CODE >73:C:\Users\abaker\Documents\carnival\lights\comms_module.X\user.c
 17F text8 CODE >76:C:\Users\abaker\Documents\carnival\lights\comms_module.X\user.c
@@ -169,79 +169,80 @@ F4 text1 CODE >113:C:\Users\abaker\Documents\carnival\lights\comms_module.X\user
 13 maintext CODE >75:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
 13 maintext CODE >77:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
 14 maintext CODE >80:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-16 maintext CODE >82:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+16 maintext CODE >83:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
 18 maintext CODE >85:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-1A maintext CODE >87:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-1A maintext CODE >89:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-1F maintext CODE >95:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-20 maintext CODE >96:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-24 maintext CODE >97:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-25 maintext CODE >98:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-26 maintext CODE >101:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-2A maintext CODE >104:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-2F maintext CODE >107:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-38 maintext CODE >111:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-39 maintext CODE >112:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-3A maintext CODE >115:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-3B maintext CODE >116:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-3C maintext CODE >117:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-3E maintext CODE >120:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-3F maintext CODE >121:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-41 maintext CODE >122:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+18 maintext CODE >87:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+1E maintext CODE >93:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+1F maintext CODE >94:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+23 maintext CODE >95:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+24 maintext CODE >96:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+25 maintext CODE >99:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+29 maintext CODE >102:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+2E maintext CODE >105:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+37 maintext CODE >109:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+38 maintext CODE >110:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+39 maintext CODE >113:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+3A maintext CODE >114:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+3B maintext CODE >115:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+3D maintext CODE >118:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+3E maintext CODE >119:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+40 maintext CODE >120:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+42 maintext CODE >121:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+42 maintext CODE >122:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
 43 maintext CODE >123:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-43 maintext CODE >124:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-44 maintext CODE >125:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-4A maintext CODE >128:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+49 maintext CODE >126:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+4F maintext CODE >128:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
 50 maintext CODE >130:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-51 maintext CODE >132:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-5A maintext CODE >134:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-5C maintext CODE >136:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+59 maintext CODE >132:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+5B maintext CODE >134:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+5C maintext CODE >135:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
 5D maintext CODE >137:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-5E maintext CODE >139:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-5F maintext CODE >140:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-5F maintext CODE >142:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-61 maintext CODE >143:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-61 maintext CODE >145:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+5E maintext CODE >138:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+5E maintext CODE >140:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+60 maintext CODE >141:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+60 maintext CODE >143:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+65 maintext CODE >144:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+65 maintext CODE >145:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
 66 maintext CODE >146:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-66 maintext CODE >147:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-67 maintext CODE >148:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-6D maintext CODE >151:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+6C maintext CODE >149:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+72 maintext CODE >151:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
 73 maintext CODE >153:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-74 maintext CODE >155:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-79 maintext CODE >156:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+78 maintext CODE >154:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+7D maintext CODE >155:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+7D maintext CODE >156:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
 7E maintext CODE >157:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-7E maintext CODE >158:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-7F maintext CODE >159:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-85 maintext CODE >163:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-8A maintext CODE >167:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-8E maintext CODE >169:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+84 maintext CODE >161:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+89 maintext CODE >165:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+8D maintext CODE >167:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+8E maintext CODE >168:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
 8F maintext CODE >170:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-90 maintext CODE >172:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-90 maintext CODE >174:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-96 maintext CODE >176:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-97 maintext CODE >177:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-9A maintext CODE >178:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-9B maintext CODE >179:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-9F maintext CODE >180:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-9F maintext CODE >183:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-AB maintext CODE >185:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-AD maintext CODE >186:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+8F maintext CODE >172:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+95 maintext CODE >174:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+96 maintext CODE >175:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+99 maintext CODE >176:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+9A maintext CODE >177:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+9E maintext CODE >178:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+9E maintext CODE >181:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+A5 maintext CODE >183:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+AA maintext CODE >185:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+AC maintext CODE >186:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
 B0 maintext CODE >187:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-B1 maintext CODE >188:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-B1 maintext CODE >190:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-B3 maintext CODE >191:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-B4 maintext CODE >192:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-B5 maintext CODE >194:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
-18A clrtext CODE >590:C:\Users\abaker\AppData\Local\Temp\sn58.
-18A clrtext CODE >591:C:\Users\abaker\AppData\Local\Temp\sn58.
-18B clrtext CODE >592:C:\Users\abaker\AppData\Local\Temp\sn58.
-18B clrtext CODE >593:C:\Users\abaker\AppData\Local\Temp\sn58.
-18C clrtext CODE >594:C:\Users\abaker\AppData\Local\Temp\sn58.
-18D clrtext CODE >595:C:\Users\abaker\AppData\Local\Temp\sn58.
-18E clrtext CODE >596:C:\Users\abaker\AppData\Local\Temp\sn58.
-18F clrtext CODE >597:C:\Users\abaker\AppData\Local\Temp\sn58.
-190 clrtext CODE >598:C:\Users\abaker\AppData\Local\Temp\sn58.
-191 clrtext CODE >599:C:\Users\abaker\AppData\Local\Temp\sn58.
+B0 maintext CODE >188:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+B1 maintext CODE >189:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+B1 maintext CODE >191:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+B3 maintext CODE >192:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+B4 maintext CODE >193:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+B5 maintext CODE >195:C:\Users\abaker\Documents\carnival\lights\comms_module.X\main.c
+18A clrtext CODE >590:C:\Users\abaker\AppData\Local\Temp\sokg.
+18A clrtext CODE >591:C:\Users\abaker\AppData\Local\Temp\sokg.
+18B clrtext CODE >592:C:\Users\abaker\AppData\Local\Temp\sokg.
+18B clrtext CODE >593:C:\Users\abaker\AppData\Local\Temp\sokg.
+18C clrtext CODE >594:C:\Users\abaker\AppData\Local\Temp\sokg.
+18D clrtext CODE >595:C:\Users\abaker\AppData\Local\Temp\sokg.
+18E clrtext CODE >596:C:\Users\abaker\AppData\Local\Temp\sokg.
+18F clrtext CODE >597:C:\Users\abaker\AppData\Local\Temp\sokg.
+190 clrtext CODE >598:C:\Users\abaker\AppData\Local\Temp\sokg.
+191 clrtext CODE >599:C:\Users\abaker\AppData\Local\Temp\sokg.
 # %SYMTAB Section
 # An enumeration of all symbols in the program.
 # The beginning of the section is indicated by %SYMTAB.
@@ -266,22 +267,22 @@ _T1CONbits 10 0 ABS 0 - dist/DebugBuild/production\comms_module.X.production.o
 _BoxSize 26 0 BANK0 1 bssBANK0 dist/DebugBuild/production\comms_module.X.production.o
 __Hstrings 7FE 0 ABS 0 strings -
 _TMR0 1 0 ABS 0 - dist/DebugBuild/production\comms_module.X.production.o
-___sp 0 0 STACK 2 stack C:\Users\abaker\AppData\Local\Temp\sn58.o
+___sp 0 0 STACK 2 stack C:\Users\abaker\AppData\Local\Temp\sokg.o
 _main 26 0 CODE 0 maintext dist/DebugBuild/production\comms_module.X.production.o
 btemp 5E 0 ABS 0 - dist/DebugBuild/production\comms_module.X.production.o
-start 16 0 CODE 0 init C:\Users\abaker\AppData\Local\Temp\sn58.o
+start 16 0 CODE 0 init C:\Users\abaker\AppData\Local\Temp\sokg.o
 __CFG_BOREN$OFF 0 0 ABS 0 - dist/DebugBuild/production\comms_module.X.production.o
 __size_of_main 0 0 ABS 0 - dist/DebugBuild/production\comms_module.X.production.o
 _EdgeDetect 20 0 BANK0 1 bssBANK0 dist/DebugBuild/production\comms_module.X.production.o
 _OPTION_REGbits 81 0 ABS 0 - dist/DebugBuild/production\comms_module.X.production.o
 __Hpowerup 0 0 CODE 0 powerup -
 UARTSend@DataValue 34 0 BANK0 1 cstackBANK0 dist/DebugBuild/production\comms_module.X.production.o
-intlevel0 0 0 ENTRY 0 functab C:\Users\abaker\AppData\Local\Temp\sn58.o
-intlevel1 0 0 ENTRY 0 functab C:\Users\abaker\AppData\Local\Temp\sn58.o
-intlevel2 0 0 ENTRY 0 functab C:\Users\abaker\AppData\Local\Temp\sn58.o
-intlevel3 0 0 ENTRY 0 functab C:\Users\abaker\AppData\Local\Temp\sn58.o
-intlevel4 0 0 ENTRY 0 functab C:\Users\abaker\AppData\Local\Temp\sn58.o
-intlevel5 0 0 ENTRY 0 functab C:\Users\abaker\AppData\Local\Temp\sn58.o
+intlevel0 0 0 ENTRY 0 functab C:\Users\abaker\AppData\Local\Temp\sokg.o
+intlevel1 0 0 ENTRY 0 functab C:\Users\abaker\AppData\Local\Temp\sokg.o
+intlevel2 0 0 ENTRY 0 functab C:\Users\abaker\AppData\Local\Temp\sokg.o
+intlevel3 0 0 ENTRY 0 functab C:\Users\abaker\AppData\Local\Temp\sokg.o
+intlevel4 0 0 ENTRY 0 functab C:\Users\abaker\AppData\Local\Temp\sokg.o
+intlevel5 0 0 ENTRY 0 functab C:\Users\abaker\AppData\Local\Temp\sokg.o
 __end_of_StartTickTimer 254 0 CODE 0 text5 dist/DebugBuild/production\comms_module.X.production.o
 wtemp0 5E 0 ABS 0 - dist/DebugBuild/production\comms_module.X.production.o
 __Hfunctab 0 0 ENTRY 0 functab -
@@ -298,7 +299,7 @@ clear_ram0 314 0 CODE 0 clrtext dist/DebugBuild/production\comms_module.X.produc
 __pcstackBANK0 2C 0 BANK0 1 cstackBANK0 dist/DebugBuild/production\comms_module.X.production.o
 _RxData 2A 0 BANK0 1 bssBANK0 dist/DebugBuild/production\comms_module.X.production.o
 _Initialise 254 0 CODE 0 text2 dist/DebugBuild/production\comms_module.X.production.o
-___int_sp 0 0 STACK 2 stack C:\Users\abaker\AppData\Local\Temp\sn58.o
+___int_sp 0 0 STACK 2 stack C:\Users\abaker\AppData\Local\Temp\sokg.o
 __Hbank0 7FE 0 ABS 0 bank0 -
 __Hbank1 7FE 0 BANK1 1 bank1 -
 __Hcinit 26 0 CODE 0 cinit -
@@ -346,7 +347,7 @@ __end_of_Initialise 28E 0 CODE 0 text2 dist/DebugBuild/production\comms_module.X
 __Hosccal 7FE 0 CODE 0 osccal -
 __end_of_ISR 2C8 0 CODE 0 text4 dist/DebugBuild/production\comms_module.X.production.o
 __Lintentry 8 0 CODE 0 intentry -
-reset_vec 0 0 CODE 0 reset_vec C:\Users\abaker\AppData\Local\Temp\sn58.o
+reset_vec 0 0 CODE 0 reset_vec C:\Users\abaker\AppData\Local\Temp\sokg.o
 __size_of_StartTickTimer 0 0 ABS 0 - dist/DebugBuild/production\comms_module.X.production.o
 __LbssBANK0 7FE 0 ABS 0 bssBANK0 -
 _TickCount 28 0 BANK0 1 bssBANK0 dist/DebugBuild/production\comms_module.X.production.o
@@ -357,9 +358,9 @@ __Lcommon 7FE 0 ABS 0 common -
 __Lconfig 400E 0 CONFIG 0 config -
 __CFG_CP$OFF 0 0 ABS 0 - dist/DebugBuild/production\comms_module.X.production.o
 __CFG_WDTE$OFF 0 0 ABS 0 - dist/DebugBuild/production\comms_module.X.production.o
-___osccal_val 7FE 0 CODE 0 osccal C:\Users\abaker\AppData\Local\Temp\sn58.o
-stackhi 0 0 ABS 0 - C:\Users\abaker\AppData\Local\Temp\sn58.o
-stacklo 0 0 ABS 0 - C:\Users\abaker\AppData\Local\Temp\sn58.o
+___osccal_val 7FE 0 CODE 0 osccal C:\Users\abaker\AppData\Local\Temp\sokg.o
+stackhi 0 0 ABS 0 - C:\Users\abaker\AppData\Local\Temp\sokg.o
+stacklo 0 0 ABS 0 - C:\Users\abaker\AppData\Local\Temp\sokg.o
 _IntrNewBit 2B 0 BANK0 1 bssBANK0 dist/DebugBuild/production\comms_module.X.production.o
 __Lspace_0 0 0 ABS 0 - -
 __Lspace_1 0 0 ABS 0 - -

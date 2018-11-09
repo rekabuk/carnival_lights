@@ -78,8 +78,6 @@ void main(void) {
         
     // Enable interrupt on RDX bit low-to high
     BitDataInit( RX_MODE);    
-
-    DoneSend = 0;
     
     // Enable interrupt and away we go
     INTCONbits.GIE = 1;
@@ -180,10 +178,13 @@ void main(void) {
         }
         
         // In the last 10ms of a 100ms period we need to send data to the other PIC
-        if ((TickCount==8) && (DoneSend==0))
+        if (TickCount==8) 
         {
-            UARTSend( Lamps);
-            DoneSend = 1;
+            if (DoneSend==0)
+            {
+                UARTSend( Lamps);
+                DoneSend = 1;
+            }
         }
         else
         {

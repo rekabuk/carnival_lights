@@ -1098,8 +1098,6 @@ void main(void) {
 
     BitDataInit( 0);
 
-    DoneSend = 0;
-
 
     INTCONbits.GIE = 1;
 
@@ -1199,10 +1197,13 @@ void main(void) {
         }
 
 
-        if ((TickCount==8) && (DoneSend==0))
+        if (TickCount==8)
         {
-            UARTSend( Lamps);
-            DoneSend = 1;
+            if (DoneSend==0)
+            {
+                UARTSend( Lamps);
+                DoneSend = 1;
+            }
         }
         else
         {
